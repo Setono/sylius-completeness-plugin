@@ -1,0 +1,6 @@
+# In the test environment the front-end assets are not built (no `yarn build` in CI), so the
+# admin/shop layouts would otherwise 500 when the Webpack entrypoints file is missing. Relaxing
+# strict mode makes the asset helpers render nothing instead of throwing, which lets the functional
+# tests exercise the admin pages without a compiled asset manifest.
+webpack_encore:
+    strict_mode: false

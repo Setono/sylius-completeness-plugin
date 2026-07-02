@@ -35,3 +35,15 @@ parameters:
         -
             identifier: doctrine.associationType
             path: src/Model/*
+        # symfony/service-contracts only made ServiceProviderInterface generic in a later 6.4.x
+        # patch; on the lowest-deps matrix the <mixed> generic is (correctly) flagged. The generic
+        # is right on the versions we ship against, so the annotation stays and this is silenced.
+        -
+            message: '#generic type Symfony\\Contracts\\Service\\ServiceProviderInterface<mixed> but interface Symfony\\Contracts\\Service\\ServiceProviderInterface is not generic#'
+            path: src/Rollup/Rollup.php
+        # Older Twig versions type the TwigFunction $callable parameter as a strict `callable`,
+        # which rejects the lazy [runtime-class, method] array form. Newer Twig widens it. The
+        # array form is the documented lazy-runtime pattern, so silence it on the lowest matrix.
+        -
+            message: '#Parameter \#2 \$callable of class Twig\\TwigFunction constructor expects#'
+            path: src/Twig/CompletenessDisplayExtension.php
