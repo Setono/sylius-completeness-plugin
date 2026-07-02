@@ -13,6 +13,11 @@ final class HasMainTaxonChecker extends BinaryChecker
         return 'has_main_taxon';
     }
 
+    public static function getGroup(): string
+    {
+        return 'merchandising';
+    }
+
     protected function isSatisfied(ProductInterface $product, CompletenessCheckContext $context, array $configuration): bool
     {
         return null !== $product->getMainTaxon();

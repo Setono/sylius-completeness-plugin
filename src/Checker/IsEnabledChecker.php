@@ -13,6 +13,11 @@ final class IsEnabledChecker extends BinaryChecker
         return 'is_enabled';
     }
 
+    public static function getGroup(): ?string
+    {
+        return null;
+    }
+
     protected function isSatisfied(ProductInterface $product, CompletenessCheckContext $context, array $configuration): bool
     {
         return $product->isEnabled();

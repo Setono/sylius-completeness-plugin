@@ -20,6 +20,11 @@ final class HasAttributeChecker extends BinaryChecker
         return 'has_attribute';
     }
 
+    public static function getGroup(): string
+    {
+        return 'content';
+    }
+
     protected function isSatisfied(ProductInterface $product, CompletenessCheckContext $context, array $configuration): bool
     {
         $attributeCode = $configuration['attributeCode'] ?? null;

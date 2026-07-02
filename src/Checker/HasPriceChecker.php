@@ -17,6 +17,11 @@ final class HasPriceChecker extends BinaryChecker
         return 'has_price';
     }
 
+    public static function getGroup(): string
+    {
+        return 'merchandising';
+    }
+
     protected function isSatisfied(ProductInterface $product, CompletenessCheckContext $context, array $configuration): bool
     {
         return Pricing::hasPriceInChannel($product, $context->getChannelCode());

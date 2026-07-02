@@ -83,6 +83,12 @@ setono_sylius_completeness:
             has_price: Tiene precio en el canal
             has_attribute: Tiene un valor de atributo
             expression: Expresión personalizada
+        checker_group:
+            content: Contenido
+            media: Medios
+            merchandising: Merchandising
+            seo: SEO
+            misc: Varios
     form:
         checker_configuration:
             attribute: Atributo

@@ -83,6 +83,12 @@ setono_sylius_completeness:
             has_price: Має ціну в каналі
             has_attribute: Має значення атрибута
             expression: Власний вираз
+        checker_group:
+            content: Контент
+            media: Медіа
+            merchandising: Мерчандайзинг
+            seo: SEO
+            misc: Інше
     form:
         checker_configuration:
             attribute: Атрибут

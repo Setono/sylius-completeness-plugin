@@ -83,6 +83,12 @@ setono_sylius_completeness:
             has_price: Sille on hinta kanavassa
             has_attribute: Sillä on attribuutin arvo
             expression: Mukautettu lauseke
+        checker_group:
+            content: Sisältö
+            media: Media
+            merchandising: Merchandising
+            seo: SEO
+            misc: Muut
     form:
         checker_configuration:
             attribute: Attribuutti

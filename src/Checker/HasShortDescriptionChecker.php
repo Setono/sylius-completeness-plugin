@@ -18,6 +18,11 @@ final class HasShortDescriptionChecker extends BinaryChecker
         return 'has_short_description';
     }
 
+    public static function getGroup(): string
+    {
+        return 'content';
+    }
+
     protected function isSatisfied(ProductInterface $product, CompletenessCheckContext $context, array $configuration): bool
     {
         return !Text::isBlank($product->getShortDescription());

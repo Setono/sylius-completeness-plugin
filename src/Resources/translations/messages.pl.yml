@@ -83,6 +83,12 @@ setono_sylius_completeness:
             has_price: Ma cenę w kanale
             has_attribute: Ma wartość atrybutu
             expression: Niestandardowe wyrażenie
+        checker_group:
+            content: Treść
+            media: Media
+            merchandising: Merchandising
+            seo: SEO
+            misc: Różne
     form:
         checker_configuration:
             attribute: Atrybut

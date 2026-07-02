@@ -18,6 +18,11 @@ final class HasNameChecker extends BinaryChecker
         return 'has_name';
     }
 
+    public static function getGroup(): string
+    {
+        return 'content';
+    }
+
     protected function isSatisfied(ProductInterface $product, CompletenessCheckContext $context, array $configuration): bool
     {
         return !Text::isBlank($product->getName());

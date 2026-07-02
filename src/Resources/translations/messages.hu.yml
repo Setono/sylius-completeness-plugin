@@ -83,6 +83,12 @@ setono_sylius_completeness:
             has_price: Van ára a csatornában
             has_attribute: Van attribútumértéke
             expression: Egyéni kifejezés
+        checker_group:
+            content: Tartalom
+            media: Média
+            merchandising: Merchandising
+            seo: SEO
+            misc: Egyéb
     form:
         checker_configuration:
             attribute: Attribútum

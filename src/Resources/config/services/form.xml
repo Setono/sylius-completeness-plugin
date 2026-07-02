@@ -9,6 +9,7 @@
         <service id="setono_sylius_completeness.form.type.checker_choice"
                  class="Setono\SyliusCompletenessPlugin\Form\Type\CheckerChoiceType">
             <argument>%setono_sylius_completeness.checkers%</argument>
+            <argument>%setono_sylius_completeness.checker_groups%</argument>
             <tag name="form.type"/>
         </service>
 

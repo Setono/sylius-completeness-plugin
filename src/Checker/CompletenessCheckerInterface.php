@@ -14,6 +14,12 @@ interface CompletenessCheckerInterface
     public static function getType(): string;
 
     /**
+     * Returns the group this checker belongs to, used to organise the checker dropdown into optgroups,
+     * e.g. 'content', 'media', 'seo'. Return null to place the checker in the "Misc" group
+     */
+    public static function getGroup(): ?string;
+
+    /**
      * Returns a score between 0.0 (not met) and 1.0 (fully met). Binary checkers return exactly 0.0 or 1.0.
      * The calculator clamps out-of-range numbers to [0, 1]
      *

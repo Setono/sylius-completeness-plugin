@@ -13,6 +13,11 @@ final class HasImageChecker extends BinaryChecker
         return 'has_image';
     }
 
+    public static function getGroup(): string
+    {
+        return 'media';
+    }
+
     protected function isSatisfied(ProductInterface $product, CompletenessCheckContext $context, array $configuration): bool
     {
         return !$product->getImages()->isEmpty();

@@ -83,6 +83,12 @@ setono_sylius_completeness:
             has_price: Heeft een prijs in het kanaal
             has_attribute: Heeft een attribuutwaarde
             expression: Aangepaste expressie
+        checker_group:
+            content: Inhoud
+            media: Media
+            merchandising: Merchandising
+            seo: SEO
+            misc: Overig
     form:
         checker_configuration:
             attribute: Attribuut

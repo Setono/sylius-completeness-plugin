@@ -83,6 +83,12 @@ setono_sylius_completeness:
             has_price: Er priset i kanalen
             has_attribute: Har en attributtverdi
             expression: Egendefinert uttrykk
+        checker_group:
+            content: Innhold
+            media: Media
+            merchandising: Merchandising
+            seo: SEO
+            misc: Diverse
     form:
         checker_configuration:
             attribute: Attributt

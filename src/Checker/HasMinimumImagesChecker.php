@@ -17,6 +17,11 @@ final class HasMinimumImagesChecker implements CompletenessCheckerInterface
         return 'has_minimum_images';
     }
 
+    public static function getGroup(): string
+    {
+        return 'media';
+    }
+
     public function score(ProductInterface $product, CompletenessCheckContext $context, array $configuration): float
     {
         $count = $configuration['count'] ?? null;

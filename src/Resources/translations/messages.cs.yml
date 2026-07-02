@@ -83,6 +83,12 @@ setono_sylius_completeness:
             has_price: Má cenu v kanálu
             has_attribute: Má hodnotu atributu
             expression: Vlastní výraz
+        checker_group:
+            content: Obsah
+            media: Média
+            merchandising: Merchandising
+            seo: SEO
+            misc: Různé
     form:
         checker_configuration:
             attribute: Atribut

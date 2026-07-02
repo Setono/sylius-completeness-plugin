@@ -28,6 +28,11 @@ final class ExpressionChecker implements CompletenessCheckerInterface
         return self::TYPE;
     }
 
+    public static function getGroup(): ?string
+    {
+        return null;
+    }
+
     public function score(ProductInterface $product, CompletenessCheckContext $context, array $configuration): float
     {
         $expression = $configuration['expression'] ?? null;

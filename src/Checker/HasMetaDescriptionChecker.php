@@ -18,6 +18,11 @@ final class HasMetaDescriptionChecker extends BinaryChecker
         return 'has_meta_description';
     }
 
+    public static function getGroup(): string
+    {
+        return 'seo';
+    }
+
     protected function isSatisfied(ProductInterface $product, CompletenessCheckContext $context, array $configuration): bool
     {
         return !Text::isBlank($product->getMetaDescription());
