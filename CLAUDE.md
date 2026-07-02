@@ -32,6 +32,19 @@ Follow clean code principles and SOLID design patterns when working with this co
 - Run the test application (see [Test Application](#test-application)) and use the Playwright MCP `browser_navigate`, `browser_snapshot`, and `browser_take_screenshot` tools to inspect the affected pages
 - Verify both the visual result and the interactive behavior (e.g. submitting forms, triggering flash messages)
 
+## PHP Version
+
+This plugin targets **PHP 8.1** for local development. A committed `.php-version` file (`8.1`) pins the version, and the Symfony CLI honors it: in this directory `symfony php` and `symfony composer` automatically use PHP 8.1 — no matter which PHP is globally `brew link`ed.
+
+On the maintainer's machine, `php` and `composer` are aliased to `symfony php` / `symfony composer` (in `~/.zshrc`), so `composer update`, `composer analyse`, `php vendor/bin/phpunit`, etc. transparently run on 8.1 here. Caveats:
+- Aliases only apply to interactive commands whose first word is `php`/`composer`. Tools run directly via their shebang (e.g. `vendor/bin/phpunit` **without** a leading `php`) use the globally linked PHP instead — prefix them with `php` to route through 8.1.
+- `composer.json` is intentionally **not** pinned via `config.platform.php`, because CI must resolve/test against the full matrix of supported PHP versions.
+
+To run a command against a different PHP version locally (matching CI), bypass the aliases with `command` after switching the linked version:
+
+    command composer update
+    command php vendor/bin/phpunit
+
 ## Development Commands
 
 Based on the `composer.json` scripts section:
