@@ -73,6 +73,7 @@ final class CompletenessRuleType extends AbstractResourceType
                 'label' => 'setono_sylius_completeness.form.completeness_rule.channels',
                 'required' => false,
                 'multiple' => true,
+                'expanded' => true,
                 'help' => 'setono_sylius_completeness.form.completeness_rule.channels_help',
             ])
             ->add('localeCodes', LocaleCodeChoiceType::class, [

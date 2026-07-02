@@ -162,14 +162,20 @@ final class RuleCrudTest extends WebTestCase
         }
         $this->entityManager->flush();
 
-        $this->client->request('GET', '/admin/completeness-rules/new');
+        // the channels render as toggles (an expanded choice); post what the browser sends when both
+        // are checked, rather than driving the checkbox group through the Dom crawler
+        $crawler = $this->client->request('GET', '/admin/completeness-rules/new');
+        $token = $crawler->filter('input[name="setono_sylius_completeness_completeness_rule[_token]"]')->attr('value');
 
-        $this->client->submitForm('Create', [
-            'setono_sylius_completeness_completeness_rule[label]' => 'Multi channel rule',
-            'setono_sylius_completeness_completeness_rule[type]' => 'has_name',
-            'setono_sylius_completeness_completeness_rule[weightTier]' => 'medium',
-            'setono_sylius_completeness_completeness_rule[position]' => '0',
-            'setono_sylius_completeness_completeness_rule[channelCodes]' => [$firstCode, $secondCode],
+        $this->client->request('POST', '/admin/completeness-rules/new', [
+            'setono_sylius_completeness_completeness_rule' => [
+                'label' => 'Multi channel rule',
+                'type' => 'has_name',
+                'weightTier' => 'medium',
+                'position' => '0',
+                'channelCodes' => [$firstCode, $secondCode],
+                '_token' => $token,
+            ],
         ]);
 
         self::assertResponseRedirects();

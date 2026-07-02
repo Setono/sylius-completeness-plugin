@@ -20,11 +20,13 @@
         border: 1px solid rgba(34, 36, 38, .15);
         border-radius: .28571429rem;
         height: auto;
-        min-height: 8rem;
         font-family: monospace;
         font-size: .95em;
         background: #fff;
     }
+    /* the min-height must live on the scroll element, otherwise CodeMirror's hidden scrollbar track
+       shows through as a grey band where the outer element is taller than its content */
+    .CodeMirror-scroll { min-height: 8rem; }
     .CodeMirror-focused { border-color: #85b7d9; }
     .CodeMirror-hints {
         z-index: 1002;
@@ -184,9 +186,11 @@
 
             // member access: the text before the partial ends with a dot
             if (/\.\s*$/.test(head)) {
-                var members = TYPES[resolveType(head)];
+                // isolate just the trailing member chain (e.g. `product.` out of `word_count(product.`)
+                var chain = (head.match(/[A-Za-z_$][\w$]*(?:\s*\([^()]*\))?(?:\s*\.\s*[A-Za-z_$][\w$]*(?:\s*\([^()]*\))?)*\s*\.\s*$/) || [''])[0];
+                var members = chain !== '' ? TYPES[resolveType(chain)] : null;
                 if (!members) {
-                    // a dot after something with no known members (e.g. `product.getName().`, `foo.`):
+                    // a dot after something with no known members (e.g. `product.getName().`, `foo.`, `2.`):
                     // offer nothing rather than dumping the top-level list
                     return null;
                 }
@@ -229,8 +233,9 @@
                 editor.setOption('hintOptions', { completeSingle: false, hint: hint });
 
                 editor.on('inputRead', function (cm, change) {
-                    // trigger on identifier characters and on the member-access dot
-                    if (/[\w.]$/.test(change.text[0] || '')) {
+                    // only auto-open on a letter/underscore or the member-access dot; never on digits,
+                    // operators or punctuation, so completions do not pop up mid-number or after `)`
+                    if (/[A-Za-z_.]$/.test(change.text[0] || '')) {
                         cm.showHint({ completeSingle: false });
                     }
                 });

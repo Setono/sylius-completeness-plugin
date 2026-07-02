@@ -34,7 +34,13 @@
     </div>
     <div class="column">
         <h4 class="ui dividing header">{{ 'setono_sylius_completeness.ui.scope'|trans }}</h4>
-        {{ form_row(form.channelCodes) }}
+        {# rendered field-by-field: Sylius' expanded-choice widget already prints the help, so using
+           form_row here would duplicate it - render the label + widget (which includes the help) instead #}
+        <div class="field">
+            {{ form_label(form.channelCodes) }}
+            {{ form_widget(form.channelCodes) }}
+            {{ form_errors(form.channelCodes) }}
+        </div>
         {{ form_row(form.localeCodes) }}
         {{ form_row(form.taxonCodes) }}
 
