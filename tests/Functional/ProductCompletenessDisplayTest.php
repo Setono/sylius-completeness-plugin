@@ -136,6 +136,10 @@ final class ProductCompletenessDisplayTest extends WebTestCase
      */
     public function the_product_grid_renders_the_completeness_column(): void
     {
+        // a Sylius grid with no rows renders an empty-state message instead of the column
+        // headers, so the grid needs at least one product for the header to be present
+        $this->createProduct();
+
         $crawler = $this->client->request('GET', '/admin/products/');
 
         self::assertResponseIsSuccessful();
