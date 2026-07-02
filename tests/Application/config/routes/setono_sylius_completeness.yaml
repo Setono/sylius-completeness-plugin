@@ -1,0 +1,2 @@
+setono_sylius_completeness:
+    resource: "@SetonoSyliusCompletenessPlugin/Resources/config/routes.yaml"
