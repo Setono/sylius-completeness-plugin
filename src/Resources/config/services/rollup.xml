@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="setono_sylius_completeness.rollup_strategy.weighted_average"
+                 class="Setono\SyliusCompletenessPlugin\Rollup\WeightedAverageRollupStrategy">
+            <tag name="setono_sylius_completeness.rollup_strategy"/>
+        </service>
+
+        <service id="setono_sylius_completeness.rollup_strategy.minimum"
+                 class="Setono\SyliusCompletenessPlugin\Rollup\MinimumRollupStrategy">
+            <tag name="setono_sylius_completeness.rollup_strategy"/>
+        </service>
+
+        <service id="setono_sylius_completeness.rollup_strategy.default_channel"
+                 class="Setono\SyliusCompletenessPlugin\Rollup\DefaultChannelRollupStrategy">
+            <argument type="service" id="setono_sylius_completeness.rollup_strategy.weighted_average"/>
+            <argument>%setono_sylius_completeness.default_channel_code%</argument>
+            <tag name="setono_sylius_completeness.rollup_strategy"/>
+        </service>
+
+        <service id="setono_sylius_completeness.rollup" class="Setono\SyliusCompletenessPlugin\Rollup\Rollup">
+            <argument type="tagged_locator" tag="setono_sylius_completeness.rollup_strategy" default-index-method="getName"/>
+            <argument>%setono_sylius_completeness.rollup_strategy%</argument>
+        </service>
+        <service id="Setono\SyliusCompletenessPlugin\Rollup\RollupInterface"
+                 alias="setono_sylius_completeness.rollup"/>
+    </services>
+</container>

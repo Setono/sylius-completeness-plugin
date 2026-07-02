@@ -17,5 +17,21 @@
         </service>
         <service id="Setono\SyliusCompletenessPlugin\Rubric\RubricVersionManagerInterface"
                  alias="setono_sylius_completeness.rubric_version_manager"/>
+
+        <service id="setono_sylius_completeness.provider.context_settings"
+                 class="Setono\SyliusCompletenessPlugin\Provider\ContextSettingsProvider">
+            <argument type="service" id="setono_sylius_completeness.repository.context_setting"/>
+            <tag name="kernel.reset" method="reset"/>
+        </service>
+        <service id="Setono\SyliusCompletenessPlugin\Provider\ContextSettingsProviderInterface"
+                 alias="setono_sylius_completeness.provider.context_settings"/>
+
+        <service id="setono_sylius_completeness.resolver.threshold"
+                 class="Setono\SyliusCompletenessPlugin\Resolver\ThresholdResolver">
+            <argument type="service" id="setono_sylius_completeness.provider.context_settings"/>
+            <argument>%setono_sylius_completeness.default_ready_threshold%</argument>
+        </service>
+        <service id="Setono\SyliusCompletenessPlugin\Resolver\ThresholdResolverInterface"
+                 alias="setono_sylius_completeness.resolver.threshold"/>
     </services>
 </container>
