@@ -18,6 +18,7 @@ final class CompletenessDisplayExtension extends AbstractExtension
             new TwigFunction('ssc_threshold_color', [CompletenessDisplayRuntime::class, 'thresholdColor']),
             new TwigFunction('ssc_is_stale', [CompletenessDisplayRuntime::class, 'isStale']),
             new TwigFunction('ssc_panel', [CompletenessDisplayRuntime::class, 'panel']),
+            new TwigFunction('ssc_expression_functions', [CompletenessDisplayRuntime::class, 'expressionFunctions']),
         ];
     }
 }

@@ -1,0 +1,81 @@
+{# Progressive enhancement: turn every `textarea[data-ssc-expression]` into a CodeMirror editor with
+   syntax highlighting and autocompletion of the in-scope variables and the registered expression
+   functions. CodeMirror is loaded from a versioned, SRI-pinned CDN so the plugin needs no asset
+   build; if it fails to load the plain textareas keep working. #}
+{% set ssc_expression_hints = ['product', 'channel', 'locale', 'channelCode', 'localeCode']|merge(ssc_expression_functions()) %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css"
+      integrity="sha384-zaeBlB/vwYsDRSlFajnDd7OydJ0cWk+c2OWybl3eSUf6hW2EbhlCsQPqKr3gkznT" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css"
+      integrity="sha384-TU/qRI67N04B589luYdn1ZMRIGgJic3GB1WsvLJTRh92VO26vpxI4dCKiDtsR4fw" crossorigin="anonymous" referrerpolicy="no-referrer">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"
+        integrity="sha384-ZYmwuq4n2gOcNxMSiJ6jyTj+BbIrilr7p6dlq6q5nmSWKmsH9UU4K1qqjycMkfmR" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"
+        integrity="sha384-g0o+WW9mdIxA7LaaCKTkRm0M5TVT+Bb4s9eocxPsI2G0Xm0POG9iD6G6qP1IIsfS" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"
+        integrity="sha384-qCnKPgNYgVO8RO19jShRRAfU75+KVnN1cQy+8CPX/TTwJsUEJ/EpnwKx2UOyLx8c" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<style>
+    .CodeMirror {
+        border: 1px solid rgba(34, 36, 38, .15);
+        border-radius: .28571429rem;
+        height: auto;
+        min-height: 3rem;
+        font-family: monospace;
+        background: #fff;
+    }
+    .CodeMirror-focused { border-color: #85b7d9; }
+    .CodeMirror-hints { z-index: 1002; }
+</style>
+
+<script>
+    (function () {
+        var hints = {{ ssc_expression_hints|json_encode|raw }};
+
+        function hint(cm) {
+            var cursor = cm.getCursor();
+            var token = cm.getTokenAt(cursor);
+            var word = token.string.slice(0, cursor.ch - token.start).trim();
+            var list = hints.filter(function (candidate) {
+                return word === '' || candidate.toLowerCase().indexOf(word.toLowerCase()) === 0;
+            });
+
+            return {
+                list: list,
+                from: CodeMirror.Pos(cursor.line, token.start),
+                to: CodeMirror.Pos(cursor.line, cursor.ch)
+            };
+        }
+
+        function enhance() {
+            if (typeof window.CodeMirror === 'undefined') {
+                return;
+            }
+
+            document.querySelectorAll('textarea[data-ssc-expression]:not([data-ssc-editor-ready])').forEach(function (textarea) {
+                textarea.setAttribute('data-ssc-editor-ready', '1');
+
+                var editor = CodeMirror.fromTextArea(textarea, {
+                    mode: 'javascript',
+                    lineWrapping: true,
+                    viewportMargin: Infinity,
+                    extraKeys: { 'Ctrl-Space': 'autocomplete' }
+                });
+                editor.setSize(null, 'auto');
+                editor.setOption('hintOptions', { completeSingle: false, hint: hint });
+
+                editor.on('inputRead', function (cm, change) {
+                    if (/[\w]$/.test(change.text[0] || '')) {
+                        cm.showHint({ completeSingle: false });
+                    }
+                });
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', enhance);
+        } else {
+            enhance();
+        }
+    })();
+</script>

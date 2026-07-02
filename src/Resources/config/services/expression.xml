@@ -22,6 +22,13 @@
         <service id="Setono\SyliusCompletenessPlugin\Expression\ExpressionValidatorInterface"
                  alias="setono_sylius_completeness.expression_validator"/>
 
+        <service id="setono_sylius_completeness.expression_function_name_provider"
+                 class="Setono\SyliusCompletenessPlugin\Expression\ExpressionFunctionNameProvider">
+            <argument type="tagged_iterator" tag="setono_sylius_completeness.expression_function_provider"/>
+        </service>
+        <service id="Setono\SyliusCompletenessPlugin\Expression\ExpressionFunctionNameProviderInterface"
+                 alias="setono_sylius_completeness.expression_function_name_provider"/>
+
         <service id="setono_sylius_completeness.calculation_context"
                  class="Setono\SyliusCompletenessPlugin\Context\CalculationContext">
             <tag name="kernel.reset" method="reset"/>

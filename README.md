@@ -169,6 +169,12 @@ Conditions and expressions use the Symfony ExpressionLanguage. A **condition** d
 **expression** *is* the check for `expression`-type rules (a boolean means met/not met, a number between 0 and 1
 grants partial credit).
 
+The condition and expression fields (and the preview scratchpad) are enhanced with a
+[CodeMirror](https://codemirror.net/) editor that adds syntax highlighting and autocompletion of the
+in-scope variables and the registered functions (host-added functions included). CodeMirror is loaded
+from a versioned, SRI-pinned CDN, so the plugin needs no asset build; if it is unavailable the fields
+degrade gracefully to plain textareas.
+
 Variables in scope: `product`, `channel`, `locale`, `channelCode`, `localeCode`.
 
 Translatable fields are read through the product getters and always resolve to the scored locale:

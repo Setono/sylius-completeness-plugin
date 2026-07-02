@@ -9,6 +9,7 @@ use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Setono\SyliusCompletenessPlugin\Calculator\RuleWeightResolver;
 use Setono\SyliusCompletenessPlugin\Display\ThresholdColor;
+use Setono\SyliusCompletenessPlugin\Expression\ExpressionFunctionNameProviderInterface;
 use Setono\SyliusCompletenessPlugin\Model\CompletenessRule;
 use Setono\SyliusCompletenessPlugin\Repository\CompletenessRuleRepositoryInterface;
 use Setono\SyliusCompletenessPlugin\Rubric\RubricVersionManagerInterface;
@@ -43,11 +44,15 @@ final class CompletenessDisplayRuntimeTest extends TestCase
      */
     private function createRuntime(array $checkers = [], int $defaultThreshold = 80, int $amberBand = 20): CompletenessDisplayRuntime
     {
+        $functionNameProvider = $this->prophesize(ExpressionFunctionNameProviderInterface::class);
+        $functionNameProvider->getNames()->willReturn(['has_attribute', 'word_count']);
+
         return new CompletenessDisplayRuntime(
             $this->ruleRepository->reveal(),
             new RuleWeightResolver(['low' => 1.0, 'medium' => 3.0, 'high' => 6.0, 'critical' => 10.0]),
             $this->rubricVersionManager->reveal(),
             $this->panelFactory->reveal(),
+            $functionNameProvider->reveal(),
             $checkers,
             $defaultThreshold,
             $amberBand,

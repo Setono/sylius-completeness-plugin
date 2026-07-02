@@ -6,6 +6,7 @@ namespace Setono\SyliusCompletenessPlugin\Twig;
 
 use Setono\SyliusCompletenessPlugin\Calculator\RuleWeightResolverInterface;
 use Setono\SyliusCompletenessPlugin\Display\ThresholdColor;
+use Setono\SyliusCompletenessPlugin\Expression\ExpressionFunctionNameProviderInterface;
 use Setono\SyliusCompletenessPlugin\Model\CompletenessRuleInterface;
 use Setono\SyliusCompletenessPlugin\Model\ProductCompletenessAwareInterface;
 use Setono\SyliusCompletenessPlugin\Repository\CompletenessRuleRepositoryInterface;
@@ -30,10 +31,21 @@ final class CompletenessDisplayRuntime implements RuntimeExtensionInterface, Res
         private readonly RuleWeightResolverInterface $weightResolver,
         private readonly RubricVersionManagerInterface $rubricVersionManager,
         private readonly CompletenessPanelFactoryInterface $panelFactory,
+        private readonly ExpressionFunctionNameProviderInterface $functionNameProvider,
         private readonly array $checkers,
         private readonly int $defaultThreshold,
         private readonly int $amberBand,
     ) {
+    }
+
+    /**
+     * The registered expression function names, used to seed the expression editor autocompletion.
+     *
+     * @return list<string>
+     */
+    public function expressionFunctions(): array
+    {
+        return $this->functionNameProvider->getNames();
     }
 
     /**

@@ -58,13 +58,13 @@ final class CompletenessRuleType extends AbstractResourceType
                 'label' => 'setono_sylius_completeness.form.completeness_rule.condition',
                 'required' => false,
                 'help' => 'setono_sylius_completeness.form.completeness_rule.condition_help',
-                'attr' => ['rows' => 2],
+                'attr' => ['rows' => 2, 'data-ssc-expression' => '1'],
             ])
             ->add('expression', TextareaType::class, [
                 'label' => 'setono_sylius_completeness.form.completeness_rule.expression',
                 'required' => false,
                 'help' => 'setono_sylius_completeness.form.completeness_rule.expression_help',
-                'attr' => ['rows' => 2],
+                'attr' => ['rows' => 2, 'data-ssc-expression' => '1'],
             ])
             ->add('channelCodes', ChannelCodeChoiceType::class, [
                 'label' => 'setono_sylius_completeness.form.completeness_rule.channels',

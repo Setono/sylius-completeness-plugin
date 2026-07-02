@@ -35,7 +35,7 @@ final class PreviewType extends AbstractType
                 'label' => 'setono_sylius_completeness.ui.scratchpad',
                 'required' => false,
                 'help' => 'setono_sylius_completeness.form.preview.expression_help',
-                'attr' => ['rows' => 2],
+                'attr' => ['rows' => 2, 'data-ssc-expression' => '1'],
             ]);
     }
 
