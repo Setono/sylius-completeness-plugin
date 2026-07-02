@@ -1,0 +1,34 @@
+sylius_grid:
+    templates:
+        filter:
+            numeric_range: "@SetonoSyliusCompletenessPlugin/Admin/Grid/Filter/numericRange.html.twig"
+        bulk_action:
+            recalculate_completeness: "@SetonoSyliusCompletenessPlugin/Admin/Grid/BulkAction/recalculate.html.twig"
+
+    grids:
+        sylius_admin_product:
+            fields:
+                completeness:
+                    type: twig
+                    label: setono_sylius_completeness.ui.completeness
+                    path: .
+                    sortable: completenessRatio
+                    position: 60
+                    options:
+                        template: "@SetonoSyliusCompletenessPlugin/Admin/Product/Grid/Field/completeness.html.twig"
+            filters:
+                completeness:
+                    type: numeric_range
+                    label: setono_sylius_completeness.ui.completeness
+                    options:
+                        field: completenessRatio
+                completenessScored:
+                    type: exists
+                    label: setono_sylius_completeness.ui.scored
+                    options:
+                        field: completenessRatio
+            actions:
+                bulk:
+                    recalculate_completeness:
+                        type: recalculate_completeness
+                        label: setono_sylius_completeness.ui.recalculate_completeness

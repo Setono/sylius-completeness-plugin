@@ -1,0 +1,10 @@
+{% import '@SetonoSyliusCompletenessPlugin/Admin/_progressBar.html.twig' as completeness %}
+
+<div style="display: flex; align-items: center; gap: .4em;">
+    <div style="flex: 1;">
+        {{ completeness.bar(data.completenessRatio, ssc_threshold_color(data.completenessRatio)) }}
+    </div>
+    {% if ssc_is_stale(data) %}
+        <i class="sync grey icon" title="{{ 'setono_sylius_completeness.ui.recalculating'|trans }}"></i>
+    {% endif %}
+</div>

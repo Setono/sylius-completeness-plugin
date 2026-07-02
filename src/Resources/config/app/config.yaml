@@ -1,2 +1,20 @@
 imports:
     - { resource: "../grids.yaml" }
+
+sylius_ui:
+    events:
+        sylius.admin.simple_product.show.more_details:
+            blocks:
+                setono_sylius_completeness_panel:
+                    template: "@SetonoSyliusCompletenessPlugin/Admin/Product/Event/_showPanel.html.twig"
+                    priority: 5
+        sylius.admin.configurable_product.show:
+            blocks:
+                setono_sylius_completeness_panel:
+                    template: "@SetonoSyliusCompletenessPlugin/Admin/Product/Event/_showPanel.html.twig"
+                    priority: 5
+        sylius.admin.product.update.tab_details:
+            blocks:
+                setono_sylius_completeness_panel:
+                    template: "@SetonoSyliusCompletenessPlugin/Admin/Product/Event/_updatePanel.html.twig"
+                    priority: -10

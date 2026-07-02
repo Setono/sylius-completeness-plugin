@@ -12,7 +12,11 @@
                  class="Setono\SyliusCompletenessPlugin\Twig\CompletenessDisplayRuntime">
             <argument type="service" id="setono_sylius_completeness.repository.completeness_rule"/>
             <argument type="service" id="setono_sylius_completeness.rule_weight_resolver"/>
+            <argument type="service" id="setono_sylius_completeness.rubric_version_manager"/>
+            <argument type="service" id="setono_sylius_completeness.factory.completeness_panel"/>
             <argument>%setono_sylius_completeness.checkers%</argument>
+            <argument>%setono_sylius_completeness.default_ready_threshold%</argument>
+            <argument>%setono_sylius_completeness.amber_band%</argument>
             <tag name="twig.runtime"/>
             <tag name="kernel.reset" method="reset"/>
         </service>

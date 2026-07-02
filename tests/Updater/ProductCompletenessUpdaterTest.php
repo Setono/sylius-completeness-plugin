@@ -144,8 +144,8 @@ final class ProductCompletenessUpdaterTest extends TestCase
         ], $row->getGroupScores());
         // only rules scoring < 1 or errored are persisted, and errored rules carry their message
         self::assertSame([
-            ['code' => 'has_image', 'label' => 'Has image', 'group' => 'Media', 'checkerType' => 'has_image', 'score' => 0.0, 'errored' => false],
-            ['code' => 'broken', 'label' => 'Broken', 'group' => 'Media', 'checkerType' => 'has_attribute', 'score' => 0.0, 'errored' => true, 'error' => 'Something broke'],
+            ['code' => 'has_image', 'label' => 'Has image', 'group' => 'Media', 'checkerType' => 'has_image', 'weight' => 1.0, 'score' => 0.0, 'errored' => false],
+            ['code' => 'broken', 'label' => 'Broken', 'group' => 'Media', 'checkerType' => 'has_attribute', 'weight' => 3.0, 'score' => 0.0, 'errored' => true, 'error' => 'Something broke'],
         ], $row->getUnmetRules());
     }
 

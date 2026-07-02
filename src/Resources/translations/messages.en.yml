@@ -4,6 +4,7 @@ setono_sylius_completeness:
         all: All
         all_channels: All channels
         all_locales: All locales
+        all_rules_met: All rules met
         all_taxons: All taxons
         checker_type: Checker
         completeness: Completeness
@@ -18,6 +19,7 @@ setono_sylius_completeness:
         counts_toward_overall: Counts toward overall
         custom_weight: Custom weight
         default: Default
+        errored: Errored
         examples: Examples
         example_binary: A binary expression rule (met or not met)
         example_condition: Condition
@@ -29,16 +31,27 @@ setono_sylius_completeness:
         function_reference_intro: 'Conditions and expressions are written in the Symfony ExpressionLanguage. A condition decides IF a rule applies; an expression IS the check for expression type rules: booleans mean met/not met and numbers between 0 and 1 grant partial credit.'
         functions: Functions
         group: Group
+        last_calculated_at: Last calculated at
+        max: Max
+        min: Min
         native_getters_note: 'Translatable fields are read through the product getters and always resolve to the locale being scored - a missing translation reads as empty, never as the fallback locale:'
+        not_applicable: 'Not applicable: no rules apply to this context'
+        not_calculated_yet: This product's completeness has not been calculated yet.
         not_counted: Not counted
         operators: Operators
+        overall: Overall
         position: Position
+        recalculate_completeness: Recalculate completeness
+        recalculate_now: Recalculate now
+        recalculating: Recalculating…
         rollup_weight: Rollup weight
         rule: Rule
         rule_label: Label
         scope: Scope
+        scored: Scored
         share: Share
         threshold: Ready threshold
+        ungrouped: Ungrouped
         variables: Variables
         weight: Weight
         weight_tier:

@@ -1,0 +1,11 @@
+{% form_theme form '@SyliusUi/Form/theme.html.twig' %}
+
+<div class="sylius-filters__group">
+    <div class="field">
+        <label>{{ filter.label|trans }}</label>
+        <div class="two fields">
+            {{ form_row(form.greaterThan, {attr: {placeholder: 'setono_sylius_completeness.ui.min'|trans}, label: false}) }}
+            {{ form_row(form.lessThan, {attr: {placeholder: 'setono_sylius_completeness.ui.max'|trans}, label: false}) }}
+        </div>
+    </div>
+</div>

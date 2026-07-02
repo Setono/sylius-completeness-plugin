@@ -49,12 +49,12 @@ interface ProductCompletenessInterface extends ResourceInterface
     public function setGroupScores(array $groupScores): void;
 
     /**
-     * @return list<array{code: string, label: string, group: ?string, checkerType: string, score: float, errored: bool, error?: ?string}>
+     * @return list<array{code: string, label: string, group: ?string, checkerType: string, weight: float, score: float, errored: bool, error?: ?string}>
      */
     public function getUnmetRules(): array;
 
     /**
-     * @param list<array{code: string, label: string, group: ?string, checkerType: string, score: float, errored: bool, error?: ?string}> $unmetRules
+     * @param list<array{code: string, label: string, group: ?string, checkerType: string, weight: float, score: float, errored: bool, error?: ?string}> $unmetRules
      */
     public function setUnmetRules(array $unmetRules): void;
 

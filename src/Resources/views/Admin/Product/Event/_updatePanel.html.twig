@@ -1,0 +1,5 @@
+{% set product = form.vars.data|default(null) %}
+
+{% if product is not null and product.id is not null %}
+    {% include '@SetonoSyliusCompletenessPlugin/Admin/Product/_completenessPanel.html.twig' with {product: product} %}
+{% endif %}

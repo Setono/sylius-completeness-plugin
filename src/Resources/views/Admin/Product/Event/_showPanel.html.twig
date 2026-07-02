@@ -1,0 +1,3 @@
+{% if product is defined and product is not null %}
+    {% include '@SetonoSyliusCompletenessPlugin/Admin/Product/_completenessPanel.html.twig' with {product: product, allowRecalculate: true} %}
+{% endif %}

@@ -121,7 +121,7 @@ final class ProductCompletenessUpdater implements ProductCompletenessUpdaterInte
     }
 
     /**
-     * @return list<array{code: string, label: string, group: ?string, checkerType: string, score: float, errored: bool, error?: ?string}>
+     * @return list<array{code: string, label: string, group: ?string, checkerType: string, weight: float, score: float, errored: bool, error?: ?string}>
      */
     private static function serializeUnmetRules(ContextResult $contextResult): array
     {
@@ -132,6 +132,7 @@ final class ProductCompletenessUpdater implements ProductCompletenessUpdaterInte
                 'label' => $ruleResult->label,
                 'group' => $ruleResult->group,
                 'checkerType' => $ruleResult->checkerType,
+                'weight' => $ruleResult->weight,
                 'score' => $ruleResult->score,
                 'errored' => $ruleResult->errored,
             ];

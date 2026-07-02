@@ -1,0 +1,35 @@
+{% if groups is empty %}
+    <div class="ui green text"><i class="check icon"></i> {{ 'setono_sylius_completeness.ui.all_rules_met'|trans }}</div>
+{% else %}
+    {% for group in groups %}
+        {% if group.group is not null %}
+            <div class="ui tiny header" style="margin-bottom: .2em;">{{ group.group }}</div>
+        {% endif %}
+        <div class="ui relaxed divided list">
+            {% for rule in group.rules %}
+                <div class="item">
+                    {% if rule.errored %}
+                        <i class="red exclamation triangle icon"></i>
+                        <div class="content">
+                            {{ rule.label }}
+                            <div class="ui red text" style="font-size: .85em;">{{ rule.error|default('setono_sylius_completeness.ui.errored'|trans) }}</div>
+                        </div>
+                    {% else %}
+                        {% if rule.score <= 0 %}
+                            <i class="red times icon"></i>
+                        {% else %}
+                            <i class="yellow adjust icon"></i>
+                        {% endif %}
+                        <div class="content">
+                            {{ rule.label }}
+                            {% if rule.score > 0 %}
+                                <span class="ui grey text">{{ (rule.score * 100)|round }}%</span>
+                            {% endif %}
+                            <span class="ui mini basic label">{{ ssc_checker_label(rule.checkerType)|trans }}</span>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+{% endif %}

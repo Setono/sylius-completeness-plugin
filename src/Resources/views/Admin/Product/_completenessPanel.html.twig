@@ -1,0 +1,98 @@
+{% import '@SetonoSyliusCompletenessPlugin/Admin/_progressBar.html.twig' as completeness %}
+
+{% set panel = ssc_panel(product) %}
+{% set allowRecalculate = allowRecalculate|default(false) and product.id is not null %}
+
+{% if panel.hasData or allowRecalculate %}
+    <div class="ui segment" id="setono-sylius-completeness-panel">
+        <style>
+            #setono-sylius-completeness-panel details > summary { cursor: pointer; list-style: none; }
+            #setono-sylius-completeness-panel details > summary::-webkit-details-marker { display: none; }
+            #setono-sylius-completeness-panel details[open] > summary { margin-bottom: .5em; }
+            #setono-sylius-completeness-panel .ssc-cell-body { padding: .5em .25em 0; }
+        </style>
+
+        <div class="ui top attached header" style="border: none; padding-left: 0;">
+            <i class="tasks icon"></i>
+            <div class="content">
+                {{ 'setono_sylius_completeness.ui.completeness'|trans }}
+                {% if panel.stale %}
+                    <span class="ui small yellow label"><i class="sync icon"></i> {{ 'setono_sylius_completeness.ui.recalculating'|trans }}</span>
+                {% endif %}
+                <div class="sub header">
+                    {% if panel.globalRatio is not null %}
+                        {{ 'setono_sylius_completeness.ui.overall'|trans }}: <strong>{{ panel.globalRatio }}%</strong>
+                    {% else %}
+                        {{ 'setono_sylius_completeness.ui.overall'|trans }}: &mdash;
+                    {% endif %}
+                    {% if panel.lastCalculatedAt is not null %}
+                        &middot; {{ 'setono_sylius_completeness.ui.last_calculated_at'|trans }}: {{ panel.lastCalculatedAt|date('Y-m-d H:i') }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {# the recalculate form is only rendered where the panel is NOT nested inside another form
+           (i.e. the show page); on the edit page a nested form would be stripped by the browser,
+           and saving the product recalculates it anyway via the onFlush listener #}
+        {% if allowRecalculate %}
+            <form method="post" action="{{ path('setono_sylius_completeness_admin_product_recalculate', {id: product.id}) }}" style="margin: .5em 0;">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('recalculate_completeness') }}"/>
+                <button type="submit" class="ui tiny basic button"><i class="sync icon"></i> {{ 'setono_sylius_completeness.ui.recalculate_now'|trans }}</button>
+            </form>
+        {% endif %}
+
+        {% if not panel.hasData %}
+            <p class="ui grey text">{{ 'setono_sylius_completeness.ui.not_calculated_yet'|trans }}</p>
+        {% elseif panel.singleContext %}
+            {% set cell = panel.singleCell %}
+            <div style="display: flex; align-items: center; gap: .5em; margin-bottom: .5em;">
+                <div style="flex: 1; max-width: 200px;">{{ completeness.bar(cell.ratio, cell.color) }}</div>
+                {% if cell.excluded %}
+                    <span class="ui tiny grey label">{{ 'setono_sylius_completeness.ui.not_counted'|trans }}</span>
+                {% endif %}
+            </div>
+            <div class="ssc-cell-body">
+                {% include '@SetonoSyliusCompletenessPlugin/Admin/Product/_cellBody.html.twig' with {cell: cell} %}
+            </div>
+        {% else %}
+            <table class="ui celled compact table" style="margin-top: .5em;">
+                <thead>
+                    <tr>
+                        <th></th>
+                        {% for localeCode in panel.localeCodes %}
+                            <th>{{ localeCode }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for channelCode in panel.channelCodes %}
+                        <tr>
+                            <td><strong>{{ channelCode }}</strong></td>
+                            {% for localeCode in panel.localeCodes %}
+                                {% set cell = panel.getCell(channelCode, localeCode) %}
+                                <td>
+                                    {% if cell is null %}
+                                        <span class="ui grey text">&mdash;</span>
+                                    {% else %}
+                                        <details>
+                                            <summary>
+                                                {{ completeness.bar(cell.ratio, cell.color) }}
+                                                {% if cell.excluded %}
+                                                    <span class="ui mini grey label">{{ 'setono_sylius_completeness.ui.not_counted'|trans }}</span>
+                                                {% endif %}
+                                            </summary>
+                                            <div class="ssc-cell-body">
+                                                {% include '@SetonoSyliusCompletenessPlugin/Admin/Product/_cellBody.html.twig' with {cell: cell} %}
+                                            </div>
+                                        </details>
+                                    {% endif %}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endif %}

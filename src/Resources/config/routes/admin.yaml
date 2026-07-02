@@ -31,3 +31,17 @@ setono_sylius_completeness_admin_context_setting:
             index:
                 icon: sliders horizontal
     type: sylius.resource
+
+setono_sylius_completeness_admin_product_bulk_recalculate:
+    path: /products/completeness/bulk-recalculate
+    methods: [POST]
+    defaults:
+        _controller: setono_sylius_completeness.controller.admin.bulk_recalculate
+
+setono_sylius_completeness_admin_product_recalculate:
+    path: /products/{id}/completeness/recalculate
+    methods: [POST]
+    requirements:
+        id: \d+
+    defaults:
+        _controller: setono_sylius_completeness.controller.admin.recalculate_product

@@ -1,0 +1,8 @@
+{% set path = path('setono_sylius_completeness_admin_product_bulk_recalculate') %}
+
+<form action="{{ path }}" method="post" style="display: inline;">
+    <button class="ui teal labeled icon button" type="submit" data-bulk-action-requires-confirmation disabled>
+        <i class="icon sync"></i> {{ action.label|trans }}
+    </button>
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('recalculate_completeness') }}"/>
+</form>

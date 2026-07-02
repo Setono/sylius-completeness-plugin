@@ -5,8 +5,14 @@ declare(strict_types=1);
 namespace Setono\SyliusCompletenessPlugin\Twig;
 
 use Setono\SyliusCompletenessPlugin\Calculator\RuleWeightResolverInterface;
+use Setono\SyliusCompletenessPlugin\Display\ThresholdColor;
 use Setono\SyliusCompletenessPlugin\Model\CompletenessRuleInterface;
+use Setono\SyliusCompletenessPlugin\Model\ProductCompletenessAwareInterface;
 use Setono\SyliusCompletenessPlugin\Repository\CompletenessRuleRepositoryInterface;
+use Setono\SyliusCompletenessPlugin\Rubric\RubricVersionManagerInterface;
+use Setono\SyliusCompletenessPlugin\ViewModel\CompletenessPanel;
+use Setono\SyliusCompletenessPlugin\ViewModel\CompletenessPanelFactoryInterface;
+use Sylius\Component\Core\Model\ProductInterface;
 use Symfony\Contracts\Service\ResetInterface;
 use Twig\Extension\RuntimeExtensionInterface;
 
@@ -14,13 +20,19 @@ final class CompletenessDisplayRuntime implements RuntimeExtensionInterface, Res
 {
     private ?float $totalWeight = null;
 
+    private ?int $currentRubricVersion = null;
+
     /**
      * @param array<string, string> $checkers checker type => label
      */
     public function __construct(
         private readonly CompletenessRuleRepositoryInterface $ruleRepository,
         private readonly RuleWeightResolverInterface $weightResolver,
+        private readonly RubricVersionManagerInterface $rubricVersionManager,
+        private readonly CompletenessPanelFactoryInterface $panelFactory,
         private readonly array $checkers,
+        private readonly int $defaultThreshold,
+        private readonly int $amberBand,
     ) {
     }
 
@@ -48,9 +60,44 @@ final class CompletenessDisplayRuntime implements RuntimeExtensionInterface, Res
         return $this->checkers[$type] ?? $type;
     }
 
+    /**
+     * Returns the color a ratio should render in. A null threshold falls back to the global
+     * default (used by the grid column, which shows the single global rollup)
+     */
+    public function thresholdColor(?int $ratio, ?int $threshold = null): string
+    {
+        return ThresholdColor::resolve($ratio, $threshold ?? $this->defaultThreshold, $this->amberBand);
+    }
+
+    /**
+     * Whether the product's stored score is behind the current rubric version and is thus being
+     * recalculated in the background
+     */
+    public function isStale(ProductInterface $product): bool
+    {
+        if (!$product instanceof ProductCompletenessAwareInterface) {
+            return false;
+        }
+
+        $stampedVersion = $product->getCompletenessRubricVersion();
+        if (null === $stampedVersion) {
+            return false;
+        }
+
+        $this->currentRubricVersion ??= $this->rubricVersionManager->getCurrentVersion();
+
+        return $stampedVersion < $this->currentRubricVersion;
+    }
+
+    public function panel(ProductInterface $product): CompletenessPanel
+    {
+        return $this->panelFactory->create($product);
+    }
+
     public function reset(): void
     {
         $this->totalWeight = null;
+        $this->currentRubricVersion = null;
     }
 
     private function calculateTotalWeight(): float

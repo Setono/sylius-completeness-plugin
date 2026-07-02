@@ -25,7 +25,7 @@ class ProductCompleteness implements ProductCompletenessInterface
     /** @var list<array{group: ?string, ratio: ?int, weightedPassed: float, weightedTotal: float}> */
     protected array $groupScores = [];
 
-    /** @var list<array{code: string, label: string, group: ?string, checkerType: string, score: float, errored: bool, error?: ?string}> */
+    /** @var list<array{code: string, label: string, group: ?string, checkerType: string, weight: float, score: float, errored: bool, error?: ?string}> */
     protected array $unmetRules = [];
 
     protected ?\DateTimeImmutable $calculatedAt = null;

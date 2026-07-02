@@ -1,0 +1,12 @@
+{% if cell.groupScores is not empty %}
+    <div style="margin-bottom: .5em;">
+        {% for groupScore in cell.groupScores %}
+            <span class="ui basic label" style="margin-bottom: .2em;">
+                {{ groupScore.group|default('setono_sylius_completeness.ui.ungrouped'|trans) }}
+                <span class="detail">{{ groupScore.ratio is null ? '—' : groupScore.ratio ~ '%' }}</span>
+            </span>
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% include '@SetonoSyliusCompletenessPlugin/Admin/Product/_unmetRules.html.twig' with {groups: cell.unmetRuleGroups} %}
