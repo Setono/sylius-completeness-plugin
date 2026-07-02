@@ -80,7 +80,6 @@ setono_sylius_completeness:
             has_description: Van leírása
             has_short_description: Van rövid leírása
             has_meta_description: Van meta leírása
-            has_meta_keywords: Vannak meta kulcsszavai
             has_price: Van ára a csatornában
             has_attribute: Van attribútumértéke
             expression: Egyéni kifejezés

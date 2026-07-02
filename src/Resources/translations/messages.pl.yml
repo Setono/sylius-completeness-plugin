@@ -80,7 +80,6 @@ setono_sylius_completeness:
             has_description: Ma opis
             has_short_description: Ma krótki opis
             has_meta_description: Ma metaopis
-            has_meta_keywords: Ma metasłowa kluczowe
             has_price: Ma cenę w kanale
             has_attribute: Ma wartość atrybutu
             expression: Niestandardowe wyrażenie

@@ -80,7 +80,6 @@ setono_sylius_completeness:
             has_description: A une description
             has_short_description: A une description courte
             has_meta_description: A une méta-description
-            has_meta_keywords: A des méta-mots-clés
             has_price: Est tarifé dans le canal
             has_attribute: A une valeur d'attribut
             expression: Expression personnalisée

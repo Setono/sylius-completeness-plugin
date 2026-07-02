@@ -80,7 +80,6 @@ setono_sylius_completeness:
             has_description: Har en beskrivelse
             has_short_description: Har en kort beskrivelse
             has_meta_description: Har en metabeskrivelse
-            has_meta_keywords: Har metanøgleord
             has_price: Er prissat i kanalen
             has_attribute: Har en attributværdi
             expression: Brugerdefineret udtryk

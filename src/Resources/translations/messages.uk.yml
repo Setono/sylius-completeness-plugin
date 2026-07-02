@@ -80,7 +80,6 @@ setono_sylius_completeness:
             has_description: Має опис
             has_short_description: Має короткий опис
             has_meta_description: Має метаопис
-            has_meta_keywords: Має метаключові слова
             has_price: Має ціну в каналі
             has_attribute: Має значення атрибута
             expression: Власний вираз

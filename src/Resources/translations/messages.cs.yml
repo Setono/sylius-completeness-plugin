@@ -80,7 +80,6 @@ setono_sylius_completeness:
             has_description: Má popis
             has_short_description: Má krátký popis
             has_meta_description: Má meta popis
-            has_meta_keywords: Má meta klíčová slova
             has_price: Má cenu v kanálu
             has_attribute: Má hodnotu atributu
             expression: Vlastní výraz

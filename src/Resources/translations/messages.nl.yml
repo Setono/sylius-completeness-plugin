@@ -80,7 +80,6 @@ setono_sylius_completeness:
             has_description: Heeft een beschrijving
             has_short_description: Heeft een korte beschrijving
             has_meta_description: Heeft een metabeschrijving
-            has_meta_keywords: Heeft metatrefwoorden
             has_price: Heeft een prijs in het kanaal
             has_attribute: Heeft een attribuutwaarde
             expression: Aangepaste expressie

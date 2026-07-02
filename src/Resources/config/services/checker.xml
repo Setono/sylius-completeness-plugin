@@ -48,11 +48,6 @@
             <tag name="setono_sylius_completeness.checker" type="has_meta_description" label="setono_sylius_completeness.ui.checker.has_meta_description"/>
         </service>
 
-        <service id="setono_sylius_completeness.checker.has_meta_keywords"
-                 class="Setono\SyliusCompletenessPlugin\Checker\HasMetaKeywordsChecker">
-            <tag name="setono_sylius_completeness.checker" type="has_meta_keywords" label="setono_sylius_completeness.ui.checker.has_meta_keywords"/>
-        </service>
-
         <service id="setono_sylius_completeness.checker.has_price"
                  class="Setono\SyliusCompletenessPlugin\Checker\HasPriceChecker">
             <tag name="setono_sylius_completeness.checker" type="has_price" label="setono_sylius_completeness.ui.checker.has_price"/>

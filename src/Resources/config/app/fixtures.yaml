@@ -21,4 +21,3 @@ sylius_fixtures:
                             - { label: 'Has a main taxon', type: has_main_taxon, group: Merchandising, weight_tier: high, position: 70 }
                             - { label: 'Is priced in the channel', type: has_price, group: Merchandising, weight_tier: critical, position: 80 }
                             - { label: 'Has a meta description', type: has_meta_description, group: SEO, weight_tier: medium, position: 90 }
-                            - { label: 'Has meta keywords', type: has_meta_keywords, group: SEO, weight_tier: low, position: 100 }

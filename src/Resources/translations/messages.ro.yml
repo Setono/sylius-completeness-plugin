@@ -80,7 +80,6 @@ setono_sylius_completeness:
             has_description: Are o descriere
             has_short_description: Are o descriere scurtă
             has_meta_description: Are o meta-descriere
-            has_meta_keywords: Are meta-cuvinte cheie
             has_price: Are un preț în canal
             has_attribute: Are o valoare de atribut
             expression: Expresie personalizată

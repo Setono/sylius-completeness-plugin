@@ -80,7 +80,6 @@ setono_sylius_completeness:
             has_description: Sillä on kuvaus
             has_short_description: Sillä on lyhyt kuvaus
             has_meta_description: Sillä on metakuvaus
-            has_meta_keywords: Sillä on metahakusanat
             has_price: Sille on hinta kanavassa
             has_attribute: Sillä on attribuutin arvo
             expression: Mukautettu lauseke
