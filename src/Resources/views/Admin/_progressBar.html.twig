@@ -2,10 +2,12 @@
     {% if ratio is null %}
         <span class="ui grey text" title="{{ 'setono_sylius_completeness.ui.not_applicable'|trans }}">&mdash;</span>
     {% else %}
-        {% set hex = {'green': '#21ba45', 'amber': '#fbbd08', 'red': '#db2828'}[color]|default('#767676') %}
-        <div style="background: #eeeeee; border-radius: 3px; height: 1.4em; position: relative; overflow: hidden; min-width: 80px;">
-            <div style="background: {{ hex }}; width: {{ ratio }}%; height: 100%;"></div>
-            <span style="position: absolute; left: 0; right: 0; top: 0; text-align: center; line-height: 1.4em; font-size: .8em; color: #333333;">{{ ratio }}%</span>
+        {% set semantic_color = {'green': 'green', 'amber': 'yellow', 'red': 'red'}[color]|default('grey') %}
+        {# Semantic UI progress: the width is set inline so it renders without the progress JS module #}
+        <div class="ui small {{ semantic_color }} progress ssc-progress" data-percent="{{ ratio }}" style="margin: 0;">
+            <div class="bar" style="width: {{ ratio }}%;">
+                <div class="progress">{{ ratio }}%</div>
+            </div>
         </div>
     {% endif %}
 {% endmacro %}
