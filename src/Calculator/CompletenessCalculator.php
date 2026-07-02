@@ -17,7 +17,6 @@ use Setono\SyliusCompletenessPlugin\Provider\ContextSettingsProviderInterface;
 use Setono\SyliusCompletenessPlugin\Repository\CompletenessRuleRepositoryInterface;
 use Setono\SyliusCompletenessPlugin\Rollup\RollupInterface;
 use Setono\SyliusCompletenessPlugin\Rubric\RubricVersionManagerInterface;
-use Sylius\Component\Channel\Model\ChannelInterface as BaseChannelInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Registry\ServiceRegistryInterface;
@@ -78,7 +77,6 @@ final class CompletenessCalculator implements CompletenessCalculatorInterface
     {
         $contexts = [];
 
-        /** @var BaseChannelInterface $channel */
         foreach ($product->getChannels() as $channel) {
             if (!$channel instanceof ChannelInterface || null === $channel->getCode()) {
                 continue;

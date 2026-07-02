@@ -10,7 +10,6 @@ use Setono\SyliusCompletenessPlugin\Checker\CompletenessCheckContext;
 use Setono\SyliusCompletenessPlugin\Form\Type\PreviewType;
 use Setono\SyliusCompletenessPlugin\Preview\ScratchpadEvaluatorInterface;
 use Setono\SyliusCompletenessPlugin\Preview\ScratchpadResult;
-use Sylius\Component\Channel\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ChannelInterface as CoreChannelInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
@@ -27,7 +26,7 @@ use Twig\Environment;
 final class PreviewAction
 {
     /**
-     * @param RepositoryInterface<ChannelInterface> $channelRepository
+     * @param RepositoryInterface<CoreChannelInterface> $channelRepository
      * @param RepositoryInterface<LocaleInterface> $localeRepository
      */
     public function __construct(
