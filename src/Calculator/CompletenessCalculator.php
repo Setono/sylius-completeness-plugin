@@ -11,7 +11,6 @@ use Setono\SyliusCompletenessPlugin\Calculator\Result\ProductCompletenessResult;
 use Setono\SyliusCompletenessPlugin\Calculator\Result\RuleResult;
 use Setono\SyliusCompletenessPlugin\Checker\CompletenessCheckContext;
 use Setono\SyliusCompletenessPlugin\Checker\CompletenessCheckerInterface;
-use Setono\SyliusCompletenessPlugin\Checker\ExpressionChecker;
 use Setono\SyliusCompletenessPlugin\Model\CompletenessRuleInterface;
 use Setono\SyliusCompletenessPlugin\Provider\ContextSettingsProviderInterface;
 use Setono\SyliusCompletenessPlugin\Repository\CompletenessRuleRepositoryInterface;
@@ -185,12 +184,7 @@ final class CompletenessCalculator implements CompletenessCalculatorInterface
                 throw new \RuntimeException(sprintf('The checker for type "%s" does not implement %s', $type, CompletenessCheckerInterface::class));
             }
 
-            $configuration = $rule->getConfiguration();
-            if (ExpressionChecker::TYPE === $type) {
-                $configuration['expression'] = $rule->getExpression();
-            }
-
-            $score = $checker->score($product, $context, $configuration);
+            $score = $checker->score($product, $context, $rule->getConfiguration());
 
             return new RuleResult($code, $label, $group, $type, $weight, max(0.0, min(1.0, $score)), false, null);
         } catch (\Throwable $e) {

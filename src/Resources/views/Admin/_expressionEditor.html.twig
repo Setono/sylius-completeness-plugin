@@ -242,6 +242,10 @@
             });
         }
 
+        // exposed so the rule form can re-enhance the custom-expression editor after it is swapped in
+        // by the checker configuration change
+        window.sscEnhanceExpressionEditors = enhance;
+
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', enhance);
         } else {

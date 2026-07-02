@@ -7,7 +7,6 @@
             <option name="fields">code</option>
             <option name="message">setono_sylius_completeness.completeness_rule.code.unique</option>
         </constraint>
-        <constraint name="Setono\SyliusCompletenessPlugin\Validator\Constraints\ExpressionRequiredWhenExpressionType"/>
 
         <property name="code">
             <constraint name="NotBlank">
@@ -35,9 +34,6 @@
             </constraint>
         </property>
         <property name="condition">
-            <constraint name="Setono\SyliusCompletenessPlugin\Validator\Constraints\ValidExpression"/>
-        </property>
-        <property name="expression">
             <constraint name="Setono\SyliusCompletenessPlugin\Validator\Constraints\ValidExpression"/>
         </property>
     </class>

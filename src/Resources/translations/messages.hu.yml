@@ -19,6 +19,7 @@ setono_sylius_completeness:
         counts_toward_overall: Beleszámít az összesbe
         custom_weight: Egyéni súly
         default: Alapértelmezett
+        details: Részletek
         errored: Hibás
         examples: Példák
         example_binary: Bináris kifejezésszabály (teljesül vagy sem)

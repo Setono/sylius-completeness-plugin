@@ -82,10 +82,10 @@ final class CompletenessRuleExampleFactoryTest extends TestCase
         $rule = $this->factory->create([
             'label' => 'Long description',
             'type' => 'expression',
-            'expression' => 'word_count(product.getDescription()) >= 100',
+            'configuration' => ['expression' => 'word_count(product.getDescription()) >= 100'],
         ]);
 
         self::assertSame('expression', $rule->getType());
-        self::assertSame('word_count(product.getDescription()) >= 100', $rule->getExpression());
+        self::assertSame(['expression' => 'word_count(product.getDescription()) >= 100'], $rule->getConfiguration());
     }
 }

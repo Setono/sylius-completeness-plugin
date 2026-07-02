@@ -19,6 +19,7 @@ setono_sylius_completeness:
         counts_toward_overall: Räknas med i totalen
         custom_weight: Anpassad vikt
         default: Standard
+        details: Detaljer
         errored: Fel
         examples: Exempel
         example_binary: En binär uttrycksregel (uppfylld eller inte)

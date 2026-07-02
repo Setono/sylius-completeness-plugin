@@ -19,6 +19,7 @@ setono_sylius_completeness:
         counts_toward_overall: Započítává se do celku
         custom_weight: Vlastní váha
         default: Výchozí
+        details: Podrobnosti
         errored: Chyba
         examples: Příklady
         example_binary: Binární pravidlo výrazu (splněno, nebo ne)

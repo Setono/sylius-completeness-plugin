@@ -10,10 +10,10 @@ use Setono\SyliusCompletenessPlugin\Expression\ExpressionResult;
 use Sylius\Component\Core\Model\ProductInterface;
 
 /**
- * Evaluates the rule's ExpressionLanguage expression. The calculator copies the rule's expression
- * column into $configuration['expression'] before invoking this checker, so the checker interface
- * stays uniform. A boolean result maps to 1.0/0.0, a numeric result is used as the fraction directly
- * (the calculator clamps it to [0, 1]) and any other result type errors the rule
+ * Evaluates the rule's ExpressionLanguage expression, taken from its "expression" configuration value
+ * (the "Custom expression" checker's configuration). A boolean result maps to 1.0/0.0, a numeric result
+ * is used as the fraction directly (the calculator clamps it to [0, 1]) and any other result type errors
+ * the rule
  */
 final class ExpressionChecker implements CompletenessCheckerInterface
 {

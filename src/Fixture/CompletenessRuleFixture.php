@@ -25,7 +25,6 @@ final class CompletenessRuleFixture extends AbstractResourceFixture
                 ->scalarNode('weight_tier')->end()
                 ->variableNode('configuration')->end()
                 ->scalarNode('condition')->end()
-                ->scalarNode('expression')->end()
                 ->arrayNode('channel_codes')->scalarPrototype()->end()->end()
                 ->arrayNode('locale_codes')->scalarPrototype()->end()->end()
                 ->arrayNode('taxon_codes')->scalarPrototype()->end()->end()

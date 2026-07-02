@@ -144,9 +144,9 @@ bin/console setono:completeness:recalculate --all             # score the whole 
 ## Concepts
 
 - **Rule** — a persisted, admin-managed record binding a checker `type` (+ `configuration`) to a **weight
-  tier** (`low`/`medium`/`high`/`critical`), an optional **scope** (channel/locale/taxon), an optional
-  ExpressionLanguage **condition** gate and — only for the `expression` checker — an ExpressionLanguage
-  **expression** body. The set of enabled rules is the scoring rubric.
+  tier** (`low`/`medium`/`high`/`critical`), an optional **scope** (channels/locales/taxons) and an optional
+  ExpressionLanguage **condition** gate. The `expression` checker's `configuration` holds the
+  ExpressionLanguage **expression** that is the check itself. The set of enabled rules is the scoring rubric.
 - **Weight vs score** — a rule's *weight* is "how much it matters" (from the tier); a checker's *score* is
   "how met it is" (0.0–1.0). Binary checkers return 1.0/0.0; graded checkers grant partial credit (e.g.
   `has_minimum_images` with 3 of 5 ⇒ 0.6).

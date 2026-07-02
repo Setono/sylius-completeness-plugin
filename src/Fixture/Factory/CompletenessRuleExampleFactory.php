@@ -37,7 +37,6 @@ final class CompletenessRuleExampleFactory extends AbstractExampleFactory
          *     weight_tier: string,
          *     configuration: array<string, mixed>,
          *     condition: ?string,
-         *     expression: ?string,
          *     channel_codes: list<string>,
          *     locale_codes: list<string>,
          *     taxon_codes: list<string>,
@@ -56,7 +55,6 @@ final class CompletenessRuleExampleFactory extends AbstractExampleFactory
         $rule->setWeightTier($options['weight_tier']);
         $rule->setConfiguration($options['configuration']);
         $rule->setCondition($options['condition']);
-        $rule->setExpression($options['expression']);
         $rule->setChannelCodes($options['channel_codes']);
         $rule->setLocaleCodes($options['locale_codes']);
         $rule->setTaxonCodes($options['taxon_codes']);
@@ -84,8 +82,6 @@ final class CompletenessRuleExampleFactory extends AbstractExampleFactory
             ->setAllowedTypes('configuration', 'array')
             ->setDefault('condition', null)
             ->setAllowedTypes('condition', ['null', 'string'])
-            ->setDefault('expression', null)
-            ->setAllowedTypes('expression', ['null', 'string'])
             ->setDefault('channel_codes', [])
             ->setAllowedTypes('channel_codes', 'string[]')
             ->setDefault('locale_codes', [])

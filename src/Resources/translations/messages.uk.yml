@@ -19,6 +19,7 @@ setono_sylius_completeness:
         counts_toward_overall: Зараховується до загального
         custom_weight: Власна вага
         default: За замовчуванням
+        details: Деталі
         errored: Помилка
         examples: Приклади
         example_binary: Бінарне правило виразу (виконано чи ні)

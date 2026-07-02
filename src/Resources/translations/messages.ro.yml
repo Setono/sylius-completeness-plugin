@@ -19,6 +19,7 @@ setono_sylius_completeness:
         counts_toward_overall: Contează la total
         custom_weight: Pondere personalizată
         default: Implicit
+        details: Detalii
         errored: Eroare
         examples: Exemple
         example_binary: O regulă de expresie binară (îndeplinită sau nu)

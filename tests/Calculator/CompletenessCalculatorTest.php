@@ -170,6 +170,10 @@ final class CompletenessCalculatorTest extends TestCase
         array $localeCodes = [],
         array $taxonCodes = [],
     ): CompletenessRule {
+        if (null !== $expression) {
+            $configuration['expression'] = $expression;
+        }
+
         $rule = new CompletenessRule();
         $rule->setCode($code);
         $rule->setLabel(ucfirst(str_replace('_', ' ', $code)));
@@ -178,7 +182,6 @@ final class CompletenessCalculatorTest extends TestCase
         $rule->setConfiguration($configuration);
         $rule->setGroup($group);
         $rule->setCondition($condition);
-        $rule->setExpression($expression);
         $rule->setChannelCodes($channelCodes);
         $rule->setLocaleCodes($localeCodes);
         $rule->setTaxonCodes($taxonCodes);

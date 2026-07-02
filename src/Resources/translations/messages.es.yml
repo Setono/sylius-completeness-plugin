@@ -19,6 +19,7 @@ setono_sylius_completeness:
         counts_toward_overall: Cuenta para el total
         custom_weight: Peso personalizado
         default: Predeterminado
+        details: Detalles
         errored: Con error
         examples: Ejemplos
         example_binary: Una regla de expresión binaria (cumplida o no)

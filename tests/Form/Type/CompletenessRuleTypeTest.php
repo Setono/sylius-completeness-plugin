@@ -5,15 +5,19 @@ declare(strict_types=1);
 namespace Setono\SyliusCompletenessPlugin\Tests\Form\Type;
 
 use Prophecy\PhpUnit\ProphecyTrait;
+use Setono\SyliusCompletenessPlugin\Expression\ExpressionValidatorInterface;
 use Setono\SyliusCompletenessPlugin\Form\Type\ChannelCodeChoiceType;
 use Setono\SyliusCompletenessPlugin\Form\Type\CheckerChoiceType;
 use Setono\SyliusCompletenessPlugin\Form\Type\CheckerConfiguration\DefaultConfigurationType;
+use Setono\SyliusCompletenessPlugin\Form\Type\CheckerConfiguration\ExpressionConfigurationType;
 use Setono\SyliusCompletenessPlugin\Form\Type\CheckerConfiguration\HasMinimumImagesConfigurationType;
 use Setono\SyliusCompletenessPlugin\Form\Type\CompletenessRuleType;
 use Setono\SyliusCompletenessPlugin\Form\Type\LocaleCodeChoiceType;
 use Setono\SyliusCompletenessPlugin\Form\Type\TaxonCodesAutocompleteChoiceType;
 use Setono\SyliusCompletenessPlugin\Form\Type\WeightTierChoiceType;
 use Setono\SyliusCompletenessPlugin\Model\CompletenessRule;
+use Setono\SyliusCompletenessPlugin\Validator\Constraints\ValidExpression;
+use Setono\SyliusCompletenessPlugin\Validator\Constraints\ValidExpressionValidator;
 use Sylius\Bundle\CoreBundle\Form\DataTransformer\TaxonsToCodesTransformer;
 use Sylius\Bundle\ResourceBundle\Form\Registry\FormTypeRegistry;
 use Sylius\Bundle\ResourceBundle\Form\Type\ResourceAutocompleteChoiceType;
@@ -24,6 +28,9 @@ use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\ConstraintValidatorFactory;
+use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Validation;
 
 final class CompletenessRuleTypeTest extends TypeTestCase
@@ -38,7 +45,7 @@ final class CompletenessRuleTypeTest extends TypeTestCase
         $formTypeRegistry = new FormTypeRegistry();
         $formTypeRegistry->add('has_name', 'default', DefaultConfigurationType::class);
         $formTypeRegistry->add('has_minimum_images', 'default', HasMinimumImagesConfigurationType::class);
-        $formTypeRegistry->add('expression', 'default', DefaultConfigurationType::class);
+        $formTypeRegistry->add('expression', 'default', ExpressionConfigurationType::class);
 
         $emptyRepository = $this->prophesize(RepositoryInterface::class);
         $emptyRepository->findAll()->willReturn([]);
@@ -56,6 +63,23 @@ final class CompletenessRuleTypeTest extends TypeTestCase
             'expression' => 'Expression',
         ];
 
+        // the custom-expression configuration carries a ValidExpression constraint whose validator has
+        // a dependency; provide it (with a no-op expression validator) so form validation can run
+        $expressionValidator = $this->prophesize(ExpressionValidatorInterface::class);
+        $validExpressionValidator = new ValidExpressionValidator($expressionValidator->reveal());
+        $validatorFactory = new class($validExpressionValidator) extends ConstraintValidatorFactory {
+            public function __construct(private readonly ValidExpressionValidator $validExpressionValidator)
+            {
+                parent::__construct();
+            }
+
+            public function getInstance(Constraint $constraint): ConstraintValidatorInterface
+            {
+                return $constraint instanceof ValidExpression ? $this->validExpressionValidator : parent::getInstance($constraint);
+            }
+        };
+        $validator = Validation::createValidatorBuilder()->setConstraintValidatorFactory($validatorFactory)->getValidator();
+
         return [
             new PreloadedExtension([
                 new CompletenessRuleType(CompletenessRule::class, [], $formTypeRegistry, true, $checkers),
@@ -63,11 +87,12 @@ final class CompletenessRuleTypeTest extends TypeTestCase
                 new WeightTierChoiceType(['low' => 1.0, 'medium' => 3.0, 'high' => 6.0, 'critical' => 10.0]),
                 new ChannelCodeChoiceType($emptyRepository->reveal()),
                 new LocaleCodeChoiceType($emptyRepository->reveal()),
+                new ExpressionConfigurationType(),
                 new TaxonCodesAutocompleteChoiceType(new TaxonsToCodesTransformer($taxonRepository->reveal())),
                 new TaxonAutocompleteChoiceType(),
                 new ResourceAutocompleteChoiceType($resourceRepositoryRegistry->reveal()),
             ], []),
-            new ValidatorExtension(Validation::createValidator()),
+            new ValidatorExtension($validator),
         ];
     }
 
@@ -85,7 +110,6 @@ final class CompletenessRuleTypeTest extends TypeTestCase
             'type' => 'has_name',
             'weightTier' => 'medium',
             'condition' => '',
-            'expression' => '',
             'channelCodes' => [],
             'localeCodes' => [],
             'taxonCodes' => '',
@@ -165,35 +189,21 @@ final class CompletenessRuleTypeTest extends TypeTestCase
     /**
      * @test
      */
-    public function it_nulls_the_expression_for_curated_checker_types(): void
-    {
-        $form = $this->factory->create(CompletenessRuleType::class);
-
-        $form->submit($this->submitData([
-            'type' => 'has_name',
-            'expression' => 'word_count(product.getDescription()) >= 200',
-        ]));
-
-        /** @var CompletenessRule $rule */
-        $rule = $form->getData();
-        self::assertNull($rule->getExpression());
-    }
-
-    /**
-     * @test
-     */
-    public function it_keeps_the_expression_for_the_expression_type(): void
+    public function it_stores_the_custom_expression_in_the_configuration(): void
     {
         $form = $this->factory->create(CompletenessRuleType::class);
 
         $form->submit($this->submitData([
             'type' => 'expression',
-            'expression' => 'word_count(product.getDescription()) >= 200',
+            'configuration' => ['expression' => 'word_count(product.getDescription()) >= 200'],
         ]));
+
+        self::assertTrue($form->isSynchronized());
 
         /** @var CompletenessRule $rule */
         $rule = $form->getData();
-        self::assertSame('word_count(product.getDescription()) >= 200', $rule->getExpression());
+        self::assertSame('expression', $rule->getType());
+        self::assertSame(['expression' => 'word_count(product.getDescription()) >= 200'], $rule->getConfiguration());
     }
 
     /**

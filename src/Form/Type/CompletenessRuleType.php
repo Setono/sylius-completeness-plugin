@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Setono\SyliusCompletenessPlugin\Form\Type;
 
-use Setono\SyliusCompletenessPlugin\Checker\ExpressionChecker;
 use Setono\SyliusCompletenessPlugin\Model\CompletenessRuleInterface;
 use Sylius\Bundle\ResourceBundle\Form\Registry\FormTypeRegistryInterface;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
@@ -61,12 +60,6 @@ final class CompletenessRuleType extends AbstractResourceType
                 'label' => 'setono_sylius_completeness.form.completeness_rule.condition',
                 'required' => false,
                 'help' => 'setono_sylius_completeness.form.completeness_rule.condition_help',
-                'attr' => ['rows' => 2, 'data-ssc-expression' => '1'],
-            ])
-            ->add('expression', TextareaType::class, [
-                'label' => 'setono_sylius_completeness.form.completeness_rule.expression',
-                'required' => false,
-                'help' => 'setono_sylius_completeness.form.completeness_rule.expression_help',
                 'attr' => ['rows' => 2, 'data-ssc-expression' => '1'],
             ])
             ->add('channelCodes', ChannelCodeChoiceType::class, [
@@ -134,11 +127,6 @@ final class CompletenessRuleType extends AbstractResourceType
             $type = $data['type'] ?? null;
             if (is_string($type) && '' !== $type) {
                 $this->addConfigurationField($event->getForm(), $type);
-
-                // the expression column only applies to the expression checker
-                if (ExpressionChecker::TYPE !== $type) {
-                    $data['expression'] = null;
-                }
             }
 
             // auto generate the code from the label when left blank

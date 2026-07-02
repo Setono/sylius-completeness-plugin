@@ -97,10 +97,6 @@ interface CompletenessRuleInterface extends ResourceInterface
 
     public function setCondition(?string $condition): void;
 
-    public function getExpression(): ?string;
-
-    public function setExpression(?string $expression): void;
-
     public function getPosition(): int;
 
     public function setPosition(int $position): void;

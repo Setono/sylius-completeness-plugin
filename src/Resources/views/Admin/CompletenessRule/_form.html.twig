@@ -1,11 +1,10 @@
 <div class="ui two column stackable grid">
     <div class="column">
         <h4 class="ui dividing header">{{ 'setono_sylius_completeness.ui.rule'|trans }}</h4>
-        {{ form_row(form.label) }}
-        {{ form_row(form.group) }}
         {{ form_row(form.type) }}
-        {# a hidden, escaped prototype per checker type; handlePrototypes swaps the right one into the
-           container client-side when the checker changes (no page reload) #}
+        {# a hidden, escaped configuration prototype per checker type; handlePrototypes swaps the right
+           one into the container client-side when the checker changes (no page reload). The custom
+           expression editor is the "expression" checker's configuration, so it appears the same way #}
         {% for type, configurationPrototype in form.vars.prototypes %}
             <div id="{{ form.type.vars.id }}_{{ type }}" data-container="#ssc-checker-configuration"
                  data-prototype="{{ form_widget(configurationPrototype)|e('html_attr') }}"></div>
@@ -15,6 +14,10 @@
                 {{ form_widget(form.configuration) }}
             {% endif %}
         </div>
+
+        <h4 class="ui dividing header" style="margin-top: 1.5em;">{{ 'setono_sylius_completeness.ui.details'|trans }}</h4>
+        {{ form_row(form.label) }}
+        {{ form_row(form.group) }}
         {{ form_row(form.weightTier) }}
         {{ form_row(form.position) }}
         {{ form_row(form.enabled) }}
@@ -43,10 +46,7 @@
         </div>
         {{ form_row(form.localeCodes) }}
         {{ form_row(form.taxonCodes) }}
-
-        <h4 class="ui dividing header">{{ 'setono_sylius_completeness.ui.expressions'|trans }}</h4>
         {{ form_row(form.condition) }}
-        {{ form_row(form.expression) }}
 
         <div class="ui styled fluid accordion" style="margin-top: 1em;">
             <div class="title">
@@ -75,6 +75,13 @@
             var select = $('#{{ form.type.vars.id }}');
             if (select.length > 0) {
                 select.handlePrototypes({ containerSelector: '#ssc-checker-configuration' });
+
+                // after the configuration is swapped, enhance the custom-expression editor if it appeared
+                select.on('change', function () {
+                    if (typeof window.sscEnhanceExpressionEditors === 'function') {
+                        window.sscEnhanceExpressionEditors();
+                    }
+                });
             }
 
             return true;

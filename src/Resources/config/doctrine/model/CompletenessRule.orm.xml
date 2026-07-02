@@ -23,7 +23,6 @@
         <field name="localeCodes" column="locale_codes" type="json"/>
         <field name="taxonCodes" column="taxon_codes" type="json"/>
         <field name="condition" column="gate_condition" type="text" nullable="true"/>
-        <field name="expression" type="text" nullable="true"/>
         <field name="position" type="integer"/>
     </entity>
 </doctrine-mapping>

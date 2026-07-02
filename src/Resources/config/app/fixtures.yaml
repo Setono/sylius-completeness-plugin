@@ -14,7 +14,7 @@ sylius_fixtures:
                         custom:
                             - { label: 'Has a name', type: has_name, group: Content, weight_tier: critical, position: 10 }
                             - { label: 'Has a description', type: has_description, group: Content, weight_tier: high, position: 20 }
-                            - { label: 'Description has at least 100 words', type: expression, expression: 'min(word_count(product.getDescription()) / 100, 1)', group: Content, weight_tier: medium, position: 30 }
+                            - { label: 'Description has at least 100 words', type: expression, configuration: { expression: 'min(word_count(product.getDescription()) / 100, 1)' }, group: Content, weight_tier: medium, position: 30 }
                             - { label: 'Has a short description', type: has_short_description, group: Content, weight_tier: medium, position: 40 }
                             - { label: 'Has an image', type: has_image, group: Media, weight_tier: critical, position: 50 }
                             - { label: 'Has at least 3 images', type: has_minimum_images, configuration: { count: 3 }, group: Media, weight_tier: medium, position: 60 }

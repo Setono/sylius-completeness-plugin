@@ -19,6 +19,7 @@ setono_sylius_completeness:
         counts_toward_overall: Telt mee in het totaal
         custom_weight: Aangepast gewicht
         default: Standaard
+        details: Details
         errored: Fout
         examples: Voorbeelden
         example_binary: Een binaire expressieregel (voldaan of niet)

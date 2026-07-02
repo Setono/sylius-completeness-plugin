@@ -36,8 +36,6 @@ class CompletenessRule implements CompletenessRuleInterface
 
     protected ?string $condition = null;
 
-    protected ?string $expression = null;
-
     protected int $position = 0;
 
     public function getId(): ?int
@@ -163,16 +161,6 @@ class CompletenessRule implements CompletenessRuleInterface
     public function setCondition(?string $condition): void
     {
         $this->condition = $condition;
-    }
-
-    public function getExpression(): ?string
-    {
-        return $this->expression;
-    }
-
-    public function setExpression(?string $expression): void
-    {
-        $this->expression = $expression;
     }
 
     public function getPosition(): int

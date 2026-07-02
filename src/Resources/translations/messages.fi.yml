@@ -19,6 +19,7 @@ setono_sylius_completeness:
         counts_toward_overall: Lasketaan kokonaisuuteen
         custom_weight: Mukautettu paino
         default: Oletus
+        details: Tiedot
         errored: Virhe
         examples: Esimerkkejä
         example_binary: Binäärinen lausekesääntö (täyttyy tai ei)
