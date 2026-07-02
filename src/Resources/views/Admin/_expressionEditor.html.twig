@@ -126,32 +126,39 @@
             var cursor = cm.getCursor();
             var before = cm.getLine(cursor.line).slice(0, cursor.ch);
 
-            // member access: `<variable>.<partial>` -> suggest that variable's getters
-            var member = before.match(/([A-Za-z_$][\w$]*)\.([A-Za-z_$][\w$]*)?$/);
-            if (member && MEMBERS[member[1]]) {
-                var partial = member[2] || '';
-                var candidates = MEMBERS[member[1]].filter(function (item) {
+            // the identifier currently being typed (may be empty), and the text preceding it
+            var partial = (before.match(/[A-Za-z_$][\w$]*$/) || [''])[0];
+            var head = before.slice(0, before.length - partial.length);
+
+            var completion = { from: CodeMirror.Pos(cursor.line, cursor.ch - partial.length), to: CodeMirror.Pos(cursor.line, cursor.ch) };
+
+            // member access `<variable>.<partial>` -> suggest that variable's getters
+            var member = head.match(/([A-Za-z_$][\w$]*)\.\s*$/);
+            if (member) {
+                if (!MEMBERS[member[1]]) {
+                    // a dot after something we have no members for (e.g. `product.getName().`): offer nothing
+                    return null;
+                }
+
+                completion.list = MEMBERS[member[1]].filter(function (item) {
                     return partial === '' || item.toLowerCase().indexOf(partial.toLowerCase()) === 0;
                 });
 
-                return {
-                    list: candidates,
-                    from: CodeMirror.Pos(cursor.line, cursor.ch - partial.length),
-                    to: CodeMirror.Pos(cursor.line, cursor.ch)
-                };
+                return completion;
+            }
+
+            // a dot preceding the cursor that is not a known member access -> offer nothing rather than
+            // dumping the whole top-level list
+            if (/\.\s*$/.test(head)) {
+                return null;
             }
 
             // top level: variables + functions (with signature and description)
-            var word = (before.match(/[A-Za-z_$][\w$]*$/) || [''])[0];
-            var list = TOP_LEVEL.filter(function (entry) {
-                return word === '' || entry.text.toLowerCase().indexOf(word.toLowerCase()) === 0;
+            completion.list = TOP_LEVEL.filter(function (entry) {
+                return partial === '' || entry.text.toLowerCase().indexOf(partial.toLowerCase()) === 0;
             });
 
-            return {
-                list: list,
-                from: CodeMirror.Pos(cursor.line, cursor.ch - word.length),
-                to: CodeMirror.Pos(cursor.line, cursor.ch)
-            };
+            return completion;
         }
 
         function enhance() {
