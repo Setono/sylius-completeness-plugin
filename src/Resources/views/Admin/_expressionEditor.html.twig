@@ -50,17 +50,67 @@
         var FUNCTIONS = {{ ssc_expression_functions()|json_encode|raw }};
         var DOCS = {{ ssc_expression_function_docs()|json_encode|raw }};
 
-        // curated getters for the object variables, so `product.` (etc.) autocompletes
-        var MEMBERS = {
-            product: [
-                'getName()', 'getDescription()', 'getShortDescription()', 'getMetaKeywords()',
-                'getMetaDescription()', 'getSlug()', 'getCode()', 'getTranslation()', 'getMainTaxon()',
-                'getChannels()', 'getVariants()', 'getEnabledVariants()', 'getImages()', 'getAttributes()',
-                'isEnabled()', 'isSimple()', 'isConfigurable()'
-            ],
-            channel: ['getCode()', 'getName()', 'getLocales()', 'getBaseCurrency()'],
-            locale: ['getCode()', 'getName()']
+        // a small type model of the object variables and the getters worth autocompleting, so member
+        // access follows getter chains (e.g. `channel.getBaseCurrency().getCode()`). Each getter maps
+        // to the type it returns; scalar returns (string/int/bool) have no further members
+        var VARIABLE_TYPES = { product: 'Product', channel: 'Channel', locale: 'Locale' };
+        var TYPES = {
+            Product: {
+                'getName()': 'string', 'getDescription()': 'string', 'getShortDescription()': 'string',
+                'getMetaKeywords()': 'string', 'getMetaDescription()': 'string', 'getSlug()': 'string',
+                'getCode()': 'string', 'getTranslation()': 'ProductTranslation', 'getMainTaxon()': 'Taxon',
+                'getChannels()': 'Collection', 'getVariants()': 'Collection', 'getEnabledVariants()': 'Collection',
+                'getImages()': 'Collection', 'getAttributes()': 'Collection', 'getProductTaxons()': 'Collection',
+                'isEnabled()': 'bool', 'isSimple()': 'bool', 'isConfigurable()': 'bool'
+            },
+            Channel: {
+                'getCode()': 'string', 'getName()': 'string', 'getHostname()': 'string',
+                'getBaseCurrency()': 'Currency', 'getDefaultLocale()': 'Locale', 'getLocales()': 'Collection'
+            },
+            Locale: { 'getCode()': 'string', 'getName()': 'string' },
+            Currency: { 'getCode()': 'string', 'getName()': 'string' },
+            Taxon: {
+                'getCode()': 'string', 'getName()': 'string', 'getSlug()': 'string',
+                'getDescription()': 'string', 'getParent()': 'Taxon', 'isRoot()': 'bool'
+            },
+            Collection: {
+                'count()': 'int', 'isEmpty()': 'bool', 'first()': 'mixed', 'last()': 'mixed',
+                'toArray()': 'mixed', 'getValues()': 'mixed'
+            },
+            ProductTranslation: {
+                'getName()': 'string', 'getSlug()': 'string', 'getDescription()': 'string',
+                'getShortDescription()': 'string', 'getMetaKeywords()': 'string', 'getMetaDescription()': 'string'
+            }
         };
+
+        // resolves the type of the member-access chain that ends `head` (which ends with a dot),
+        // walking `<variable>(.<getter>(...))*`; returns null when the chain cannot be resolved
+        function resolveType(head) {
+            var rest = head.replace(/\.\s*$/, '');
+            var variable = rest.match(/^\s*([A-Za-z_$][\w$]*)/);
+            if (!variable) {
+                return null;
+            }
+
+            var type = VARIABLE_TYPES[variable[1]];
+            if (!type) {
+                return null;
+            }
+
+            rest = rest.slice(variable[0].length);
+            var segment = /^\s*\.\s*([A-Za-z_$][\w$]*)\s*\([^()]*\)/;
+            while (rest.length > 0) {
+                var match = rest.match(segment);
+                if (!match || !TYPES[type] || !TYPES[type][match[1] + '()']) {
+                    return null;
+                }
+
+                type = TYPES[type][match[1] + '()'];
+                rest = rest.slice(match[0].length);
+            }
+
+            return type;
+        }
 
         function makeEntry(name, signature, description) {
             return {
@@ -132,25 +182,24 @@
 
             var completion = { from: CodeMirror.Pos(cursor.line, cursor.ch - partial.length), to: CodeMirror.Pos(cursor.line, cursor.ch) };
 
-            // member access `<variable>.<partial>` -> suggest that variable's getters
-            var member = head.match(/([A-Za-z_$][\w$]*)\.\s*$/);
-            if (member) {
-                if (!MEMBERS[member[1]]) {
-                    // a dot after something we have no members for (e.g. `product.getName().`): offer nothing
+            // member access: the text before the partial ends with a dot
+            if (/\.\s*$/.test(head)) {
+                var members = TYPES[resolveType(head)];
+                if (!members) {
+                    // a dot after something with no known members (e.g. `product.getName().`, `foo.`):
+                    // offer nothing rather than dumping the top-level list
                     return null;
                 }
 
-                completion.list = MEMBERS[member[1]].filter(function (item) {
-                    return partial === '' || item.toLowerCase().indexOf(partial.toLowerCase()) === 0;
-                });
+                completion.list = Object.keys(members)
+                    .filter(function (name) {
+                        return partial === '' || name.toLowerCase().indexOf(partial.toLowerCase()) === 0;
+                    })
+                    .map(function (name) {
+                        return makeEntry(name, name + ': ' + members[name], '');
+                    });
 
                 return completion;
-            }
-
-            // a dot preceding the cursor that is not a known member access -> offer nothing rather than
-            // dumping the whole top-level list
-            if (/\.\s*$/.test(head)) {
-                return null;
             }
 
             // top level: variables + functions (with signature and description)
