@@ -88,8 +88,8 @@ setono_sylius_completeness:
             attribute: Atributo
             minimum_image_count: Número mínimo de imagens
         completeness_rule:
-            channel: Canal
-            channel_help: Aplicar esta regra apenas no canal selecionado.
+            channels: Canal
+            channels_help: Aplicar esta regra apenas no canal selecionado.
             code: Código
             code_help: Um identificador único. Deixe em branco para o gerar a partir do rótulo.
             condition: Condição
@@ -101,12 +101,12 @@ setono_sylius_completeness:
             group: Grupo
             group_help: Um rótulo opcional para agrupar a repartição, p. ex. Conteúdo, Media ou SEO.
             label: Rótulo
-            locale: Idioma
-            locale_help: Aplicar esta regra apenas para o idioma selecionado.
+            locales: Idioma
+            locales_help: Aplicar esta regra apenas para o idioma selecionado.
             position: Posição
             position_help: Afeta apenas a ordem das regras nesta lista - nunca a pontuação.
-            taxon: Taxon
-            taxon_help: Aplicar esta regra apenas aos produtos com o taxon selecionado.
+            taxons: Taxon
+            taxons_help: Aplicar esta regra apenas aos produtos com o taxon selecionado.
             type: Verificação
             weight_tier: Peso
             weight_tier_help: Quanto esta regra importa para a pontuação.

@@ -88,8 +88,8 @@ setono_sylius_completeness:
             attribute: Attribuutti
             minimum_image_count: Kuvien vähimmäismäärä
         completeness_rule:
-            channel: Kanava
-            channel_help: Käytä tätä sääntöä vain valitussa kanavassa.
+            channels: Kanava
+            channels_help: Käytä tätä sääntöä vain valitussa kanavassa.
             code: Koodi
             code_help: Yksilöllinen tunniste. Jätä tyhjäksi luodaksesi sen nimikkeestä.
             condition: Ehto
@@ -101,12 +101,12 @@ setono_sylius_completeness:
             group: Ryhmä
             group_help: Valinnainen nimike erittelyn ryhmittelyyn, esim. Sisältö, Media tai SEO.
             label: Nimike
-            locale: Kieli
-            locale_help: Käytä tätä sääntöä vain valitulle kielelle.
+            locales: Kieli
+            locales_help: Käytä tätä sääntöä vain valitulle kielelle.
             position: Sijainti
             position_help: Vaikuttaa vain sääntöjen järjestykseen tässä luettelossa - ei koskaan pistemäärään.
-            taxon: Taksoni
-            taxon_help: Käytä tätä sääntöä vain tuotteisiin, joilla on valittu taksoni.
+            taxons: Taksoni
+            taxons_help: Käytä tätä sääntöä vain tuotteisiin, joilla on valittu taksoni.
             type: Tarkistus
             weight_tier: Paino
             weight_tier_help: Kuinka paljon tämä sääntö vaikuttaa pistemäärään.

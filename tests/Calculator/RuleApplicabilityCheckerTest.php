@@ -66,10 +66,11 @@ final class RuleApplicabilityCheckerTest extends TestCase
     public function it_matches_channel_and_locale_scopes(): void
     {
         $rule = $this->createRule();
-        $rule->setChannelCode('WEB');
-        $rule->setLocaleCode('en');
+        $rule->setChannelCodes(['WEB', 'MOBILE']);
+        $rule->setLocaleCodes(['en']);
 
         self::assertTrue($this->checker->check($rule, new Product(), $this->createContext('WEB', 'en'))->applies);
+        self::assertTrue($this->checker->check($rule, new Product(), $this->createContext('MOBILE', 'en'))->applies);
         self::assertFalse($this->checker->check($rule, new Product(), $this->createContext('POS', 'en'))->applies);
         self::assertFalse($this->checker->check($rule, new Product(), $this->createContext('WEB', 'da'))->applies);
     }
@@ -80,7 +81,7 @@ final class RuleApplicabilityCheckerTest extends TestCase
     public function it_matches_the_taxon_scope_against_main_and_product_taxons(): void
     {
         $rule = $this->createRule();
-        $rule->setTaxonCode('shirts');
+        $rule->setTaxonCodes(['shirts']);
 
         $productWithout = new Product();
         self::assertFalse($this->checker->check($rule, $productWithout, $this->createContext())->applies);

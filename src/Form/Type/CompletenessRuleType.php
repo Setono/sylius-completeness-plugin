@@ -66,23 +66,22 @@ final class CompletenessRuleType extends AbstractResourceType
                 'help' => 'setono_sylius_completeness.form.completeness_rule.expression_help',
                 'attr' => ['rows' => 2],
             ])
-            ->add('channelCode', ChannelCodeChoiceType::class, [
-                'label' => 'setono_sylius_completeness.form.completeness_rule.channel',
+            ->add('channelCodes', ChannelCodeChoiceType::class, [
+                'label' => 'setono_sylius_completeness.form.completeness_rule.channels',
                 'required' => false,
-                'placeholder' => 'setono_sylius_completeness.ui.all_channels',
-                'help' => 'setono_sylius_completeness.form.completeness_rule.channel_help',
+                'multiple' => true,
+                'help' => 'setono_sylius_completeness.form.completeness_rule.channels_help',
             ])
-            ->add('localeCode', LocaleCodeChoiceType::class, [
-                'label' => 'setono_sylius_completeness.form.completeness_rule.locale',
+            ->add('localeCodes', LocaleCodeChoiceType::class, [
+                'label' => 'setono_sylius_completeness.form.completeness_rule.locales',
                 'required' => false,
-                'placeholder' => 'setono_sylius_completeness.ui.all_locales',
-                'help' => 'setono_sylius_completeness.form.completeness_rule.locale_help',
+                'multiple' => true,
+                'help' => 'setono_sylius_completeness.form.completeness_rule.locales_help',
             ])
-            ->add('taxonCode', TaxonCodeChoiceType::class, [
-                'label' => 'setono_sylius_completeness.form.completeness_rule.taxon',
+            ->add('taxonCodes', TaxonCodesAutocompleteChoiceType::class, [
+                'label' => 'setono_sylius_completeness.form.completeness_rule.taxons',
                 'required' => false,
-                'placeholder' => 'setono_sylius_completeness.ui.all_taxons',
-                'help' => 'setono_sylius_completeness.form.completeness_rule.taxon_help',
+                'help' => 'setono_sylius_completeness.form.completeness_rule.taxons_help',
             ])
             ->add('position', IntegerType::class, [
                 'label' => 'setono_sylius_completeness.form.completeness_rule.position',

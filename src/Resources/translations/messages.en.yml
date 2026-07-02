@@ -88,8 +88,8 @@ setono_sylius_completeness:
             attribute: Attribute
             minimum_image_count: Minimum number of images
         completeness_rule:
-            channel: Channel
-            channel_help: Only apply this rule in the selected channel.
+            channels: Channels
+            channels_help: Only apply this rule in the selected channels. Leave empty to apply it in every channel.
             code: Code
             code_help: A unique identifier. Leave blank to generate it from the label.
             condition: Condition
@@ -101,12 +101,12 @@ setono_sylius_completeness:
             group: Group
             group_help: An optional label used to chunk the breakdown, e.g. Content, Media or SEO.
             label: Label
-            locale: Locale
-            locale_help: Only apply this rule for the selected locale.
+            locales: Locales
+            locales_help: Only apply this rule for the selected locales. Leave empty to apply it for every locale.
             position: Position
             position_help: Only affects the ordering of rules in this list - never the score.
-            taxon: Taxon
-            taxon_help: Only apply this rule to products with the selected taxon.
+            taxons: Taxons
+            taxons_help: Only apply this rule to products in the selected taxons. Leave empty to apply it regardless of taxon.
             type: Checker
             weight_tier: Weight
             weight_tier_help: How much this rule matters for the score.

@@ -88,8 +88,8 @@ setono_sylius_completeness:
             attribute: Atrybut
             minimum_image_count: Minimalna liczba obrazów
         completeness_rule:
-            channel: Kanał
-            channel_help: Zastosuj tę regułę tylko w wybranym kanale.
+            channels: Kanał
+            channels_help: Zastosuj tę regułę tylko w wybranym kanale.
             code: Kod
             code_help: Unikalny identyfikator. Pozostaw puste, aby wygenerować go z etykiety.
             condition: Warunek
@@ -101,12 +101,12 @@ setono_sylius_completeness:
             group: Grupa
             group_help: Opcjonalna etykieta do grupowania podziału, np. Treść, Media lub SEO.
             label: Etykieta
-            locale: Język
-            locale_help: Zastosuj tę regułę tylko dla wybranego języka.
+            locales: Język
+            locales_help: Zastosuj tę regułę tylko dla wybranego języka.
             position: Pozycja
             position_help: Wpływa tylko na kolejność reguł na tej liście - nigdy na wynik.
-            taxon: Takson
-            taxon_help: Zastosuj tę regułę tylko do produktów z wybranym taksonem.
+            taxons: Takson
+            taxons_help: Zastosuj tę regułę tylko do produktów z wybranym taksonem.
             type: Weryfikacja
             weight_tier: Waga
             weight_tier_help: Jak bardzo ta reguła wpływa na wynik.

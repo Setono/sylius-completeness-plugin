@@ -88,8 +88,8 @@ setono_sylius_completeness:
             attribute: Atribut
             minimum_image_count: Numărul minim de imagini
         completeness_rule:
-            channel: Canal
-            channel_help: Aplică această regulă doar în canalul selectat.
+            channels: Canal
+            channels_help: Aplică această regulă doar în canalul selectat.
             code: Cod
             code_help: Un identificator unic. Lasă gol pentru a-l genera din etichetă.
             condition: Condiție
@@ -101,12 +101,12 @@ setono_sylius_completeness:
             group: Grup
             group_help: O etichetă opțională pentru a grupa detalierea, de ex. Conținut, Media sau SEO.
             label: Etichetă
-            locale: Limbă
-            locale_help: Aplică această regulă doar pentru limba selectată.
+            locales: Limbă
+            locales_help: Aplică această regulă doar pentru limba selectată.
             position: Poziție
             position_help: Afectează doar ordinea regulilor din această listă - niciodată scorul.
-            taxon: Taxon
-            taxon_help: Aplică această regulă doar produselor cu taxonul selectat.
+            taxons: Taxon
+            taxons_help: Aplică această regulă doar produselor cu taxonul selectat.
             type: Verificare
             weight_tier: Pondere
             weight_tier_help: Cât de mult contează această regulă pentru scor.

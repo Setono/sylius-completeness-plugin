@@ -88,8 +88,8 @@ setono_sylius_completeness:
             attribute: Attribútum
             minimum_image_count: Képek minimális száma
         completeness_rule:
-            channel: Csatorna
-            channel_help: A szabály csak a kiválasztott csatornában érvényesüljön.
+            channels: Csatorna
+            channels_help: A szabály csak a kiválasztott csatornában érvényesüljön.
             code: Kód
             code_help: Egyedi azonosító. Hagyja üresen, hogy a címkéből generálódjon.
             condition: Feltétel
@@ -101,12 +101,12 @@ setono_sylius_completeness:
             group: Csoport
             group_help: Opcionális címke a bontás csoportosításához, pl. Tartalom, Média vagy SEO.
             label: Címke
-            locale: Nyelv
-            locale_help: A szabály csak a kiválasztott nyelvre érvényesüljön.
+            locales: Nyelv
+            locales_help: A szabály csak a kiválasztott nyelvre érvényesüljön.
             position: Pozíció
             position_help: Csak a szabályok sorrendjét befolyásolja ebben a listában - a pontszámot soha.
-            taxon: Taxon
-            taxon_help: A szabály csak a kiválasztott taxonnal rendelkező termékekre érvényesüljön.
+            taxons: Taxon
+            taxons_help: A szabály csak a kiválasztott taxonnal rendelkező termékekre érvényesüljön.
             type: Ellenőrzés
             weight_tier: Súly
             weight_tier_help: Mennyire számít ez a szabály a pontszám szempontjából.

@@ -38,9 +38,9 @@ final class CompletenessRuleExampleFactory extends AbstractExampleFactory
          *     configuration: array<string, mixed>,
          *     condition: ?string,
          *     expression: ?string,
-         *     channel_code: ?string,
-         *     locale_code: ?string,
-         *     taxon_code: ?string,
+         *     channel_codes: list<string>,
+         *     locale_codes: list<string>,
+         *     taxon_codes: list<string>,
          *     custom_weight: ?float,
          *     enabled: bool,
          *     position: int,
@@ -57,9 +57,9 @@ final class CompletenessRuleExampleFactory extends AbstractExampleFactory
         $rule->setConfiguration($options['configuration']);
         $rule->setCondition($options['condition']);
         $rule->setExpression($options['expression']);
-        $rule->setChannelCode($options['channel_code']);
-        $rule->setLocaleCode($options['locale_code']);
-        $rule->setTaxonCode($options['taxon_code']);
+        $rule->setChannelCodes($options['channel_codes']);
+        $rule->setLocaleCodes($options['locale_codes']);
+        $rule->setTaxonCodes($options['taxon_codes']);
         $rule->setCustomWeight($options['custom_weight']);
         $rule->setEnabled($options['enabled']);
         $rule->setPosition($options['position']);
@@ -86,12 +86,12 @@ final class CompletenessRuleExampleFactory extends AbstractExampleFactory
             ->setAllowedTypes('condition', ['null', 'string'])
             ->setDefault('expression', null)
             ->setAllowedTypes('expression', ['null', 'string'])
-            ->setDefault('channel_code', null)
-            ->setAllowedTypes('channel_code', ['null', 'string'])
-            ->setDefault('locale_code', null)
-            ->setAllowedTypes('locale_code', ['null', 'string'])
-            ->setDefault('taxon_code', null)
-            ->setAllowedTypes('taxon_code', ['null', 'string'])
+            ->setDefault('channel_codes', [])
+            ->setAllowedTypes('channel_codes', 'string[]')
+            ->setDefault('locale_codes', [])
+            ->setAllowedTypes('locale_codes', 'string[]')
+            ->setDefault('taxon_codes', [])
+            ->setAllowedTypes('taxon_codes', 'string[]')
             ->setDefault('custom_weight', null)
             ->setAllowedTypes('custom_weight', ['null', 'float'])
             ->setDefault('enabled', true)

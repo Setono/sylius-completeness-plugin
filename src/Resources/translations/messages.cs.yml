@@ -88,8 +88,8 @@ setono_sylius_completeness:
             attribute: Atribut
             minimum_image_count: Minimální počet obrázků
         completeness_rule:
-            channel: Kanál
-            channel_help: Použít toto pravidlo pouze ve vybraném kanálu.
+            channels: Kanál
+            channels_help: Použít toto pravidlo pouze ve vybraném kanálu.
             code: Kód
             code_help: Jedinečný identifikátor. Ponechte prázdné pro vygenerování z popisku.
             condition: Podmínka
@@ -101,12 +101,12 @@ setono_sylius_completeness:
             group: Skupina
             group_help: Volitelný popisek pro seskupení rozpisu, např. Obsah, Média nebo SEO.
             label: Popisek
-            locale: Jazyk
-            locale_help: Použít toto pravidlo pouze pro vybraný jazyk.
+            locales: Jazyk
+            locales_help: Použít toto pravidlo pouze pro vybraný jazyk.
             position: Pozice
             position_help: Ovlivňuje pouze pořadí pravidel v tomto seznamu - nikdy skóre.
-            taxon: Taxon
-            taxon_help: Použít toto pravidlo pouze na produkty s vybraným taxonem.
+            taxons: Taxon
+            taxons_help: Použít toto pravidlo pouze na produkty s vybraným taxonem.
             type: Kontrola
             weight_tier: Váha
             weight_tier_help: Jak moc toto pravidlo ovlivňuje skóre.

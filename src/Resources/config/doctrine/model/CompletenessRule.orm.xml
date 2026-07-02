@@ -19,9 +19,9 @@
         <field name="weightTier" column="weight_tier" type="string" length="32"/>
         <field name="customWeight" column="custom_weight" type="float" nullable="true"/>
         <field name="enabled" type="boolean"/>
-        <field name="channelCode" column="channel_code" type="string" nullable="true"/>
-        <field name="localeCode" column="locale_code" type="string" length="12" nullable="true"/>
-        <field name="taxonCode" column="taxon_code" type="string" nullable="true"/>
+        <field name="channelCodes" column="channel_codes" type="json"/>
+        <field name="localeCodes" column="locale_codes" type="json"/>
+        <field name="taxonCodes" column="taxon_codes" type="json"/>
         <field name="condition" column="gate_condition" type="text" nullable="true"/>
         <field name="expression" type="text" nullable="true"/>
         <field name="position" type="integer"/>

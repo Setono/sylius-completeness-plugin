@@ -88,8 +88,8 @@ setono_sylius_completeness:
             attribute: Attribut
             minimum_image_count: Minimum antal billeder
         completeness_rule:
-            channel: Kanal
-            channel_help: Anvend kun denne regel i den valgte kanal.
+            channels: Kanal
+            channels_help: Anvend kun denne regel i den valgte kanal.
             code: Kode
             code_help: En unik identifikator. Lad stå tom for at generere den ud fra etiketten.
             condition: Betingelse
@@ -101,12 +101,12 @@ setono_sylius_completeness:
             group: Gruppe
             group_help: En valgfri etiket til at gruppere opdelingen, fx Indhold, Medier eller SEO.
             label: Etiket
-            locale: Sprog
-            locale_help: Anvend kun denne regel for det valgte sprog.
+            locales: Sprog
+            locales_help: Anvend kun denne regel for det valgte sprog.
             position: Position
             position_help: Påvirker kun rækkefølgen af regler på denne liste - aldrig scoren.
-            taxon: Taksonomi
-            taxon_help: Anvend kun denne regel på produkter med den valgte taksonomi.
+            taxons: Taksonomi
+            taxons_help: Anvend kun denne regel på produkter med den valgte taksonomi.
             type: Kontrol
             weight_tier: Vægt
             weight_tier_help: Hvor meget denne regel betyder for scoren.

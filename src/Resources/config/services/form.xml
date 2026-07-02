@@ -30,9 +30,9 @@
             <tag name="form.type"/>
         </service>
 
-        <service id="setono_sylius_completeness.form.type.taxon_code_choice"
-                 class="Setono\SyliusCompletenessPlugin\Form\Type\TaxonCodeChoiceType">
-            <argument type="service" id="sylius.repository.taxon"/>
+        <service id="setono_sylius_completeness.form.type.taxon_codes_autocomplete_choice"
+                 class="Setono\SyliusCompletenessPlugin\Form\Type\TaxonCodesAutocompleteChoiceType">
+            <argument type="service" id="sylius.form.type.data_transformer.taxons_to_codes"/>
             <tag name="form.type"/>
         </service>
 

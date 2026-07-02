@@ -130,6 +130,59 @@ final class RuleCrudTest extends WebTestCase
     /**
      * @test
      */
+    public function a_rule_can_be_scoped_to_multiple_channels(): void
+    {
+        $currency = $this->entityManager->getRepository(Currency::class)->findOneBy(['code' => 'USD']);
+        if (null === $currency) {
+            $currency = new Currency();
+            $currency->setCode('USD');
+            $this->entityManager->persist($currency);
+            $this->entitiesToRemove[] = $currency;
+        }
+
+        $locale = $this->entityManager->getRepository(Locale::class)->findOneBy(['code' => 'en_US']);
+        if (null === $locale) {
+            $locale = new Locale();
+            $locale->setCode('en_US');
+            $this->entityManager->persist($locale);
+            $this->entitiesToRemove[] = $locale;
+        }
+
+        $firstCode = uniqid('COMPLETENESS_A_', true);
+        $secondCode = uniqid('COMPLETENESS_B_', true);
+        foreach ([$firstCode, $secondCode] as $code) {
+            $channel = new Channel();
+            $channel->setCode($code);
+            $channel->setName('Scope test channel ' . $code);
+            $channel->setTaxCalculationStrategy('order_items_based');
+            $channel->setBaseCurrency($currency);
+            $channel->setDefaultLocale($locale);
+            $this->entityManager->persist($channel);
+            $this->entitiesToRemove[] = $channel;
+        }
+        $this->entityManager->flush();
+
+        $this->client->request('GET', '/admin/completeness-rules/new');
+
+        $this->client->submitForm('Create', [
+            'setono_sylius_completeness_completeness_rule[label]' => 'Multi channel rule',
+            'setono_sylius_completeness_completeness_rule[type]' => 'has_name',
+            'setono_sylius_completeness_completeness_rule[weightTier]' => 'medium',
+            'setono_sylius_completeness_completeness_rule[position]' => '0',
+            'setono_sylius_completeness_completeness_rule[channelCodes]' => [$firstCode, $secondCode],
+        ]);
+
+        self::assertResponseRedirects();
+
+        $rule = $this->entityManager->getRepository(CompletenessRule::class)->findOneBy(['code' => 'multi_channel_rule']);
+        self::assertInstanceOf(CompletenessRule::class, $rule);
+        self::assertEqualsCanonicalizing([$firstCode, $secondCode], $rule->getChannelCodes());
+        $this->entitiesToRemove[] = $rule;
+    }
+
+    /**
+     * @test
+     */
     public function a_rule_with_an_invalid_condition_is_rejected(): void
     {
         $this->client->request('GET', '/admin/completeness-rules/new');

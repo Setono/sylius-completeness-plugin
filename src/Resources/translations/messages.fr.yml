@@ -88,8 +88,8 @@ setono_sylius_completeness:
             attribute: Attribut
             minimum_image_count: Nombre minimum d'images
         completeness_rule:
-            channel: Canal
-            channel_help: N'appliquer cette règle que dans le canal sélectionné.
+            channels: Canal
+            channels_help: N'appliquer cette règle que dans le canal sélectionné.
             code: Code
             code_help: Un identifiant unique. Laissez vide pour le générer à partir du libellé.
             condition: Condition
@@ -101,12 +101,12 @@ setono_sylius_completeness:
             group: Groupe
             group_help: Un libellé facultatif pour regrouper la ventilation, par ex. Contenu, Médias ou SEO.
             label: Libellé
-            locale: Langue
-            locale_help: N'appliquer cette règle que pour la langue sélectionnée.
+            locales: Langue
+            locales_help: N'appliquer cette règle que pour la langue sélectionnée.
             position: Position
             position_help: N'affecte que l'ordre des règles dans cette liste - jamais le score.
-            taxon: Taxon
-            taxon_help: N'appliquer cette règle qu'aux produits ayant le taxon sélectionné.
+            taxons: Taxon
+            taxons_help: N'appliquer cette règle qu'aux produits ayant le taxon sélectionné.
             type: Contrôle
             weight_tier: Poids
             weight_tier_help: L'importance de cette règle pour le score.

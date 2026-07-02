@@ -11,11 +11,16 @@ use Setono\SyliusCompletenessPlugin\Form\Type\CheckerConfiguration\DefaultConfig
 use Setono\SyliusCompletenessPlugin\Form\Type\CheckerConfiguration\HasMinimumImagesConfigurationType;
 use Setono\SyliusCompletenessPlugin\Form\Type\CompletenessRuleType;
 use Setono\SyliusCompletenessPlugin\Form\Type\LocaleCodeChoiceType;
-use Setono\SyliusCompletenessPlugin\Form\Type\TaxonCodeChoiceType;
+use Setono\SyliusCompletenessPlugin\Form\Type\TaxonCodesAutocompleteChoiceType;
 use Setono\SyliusCompletenessPlugin\Form\Type\WeightTierChoiceType;
 use Setono\SyliusCompletenessPlugin\Model\CompletenessRule;
+use Sylius\Bundle\CoreBundle\Form\DataTransformer\TaxonsToCodesTransformer;
 use Sylius\Bundle\ResourceBundle\Form\Registry\FormTypeRegistry;
+use Sylius\Bundle\ResourceBundle\Form\Type\ResourceAutocompleteChoiceType;
+use Sylius\Bundle\TaxonomyBundle\Form\Type\TaxonAutocompleteChoiceType;
+use Sylius\Component\Registry\ServiceRegistryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
@@ -38,6 +43,13 @@ final class CompletenessRuleTypeTest extends TypeTestCase
         $emptyRepository = $this->prophesize(RepositoryInterface::class);
         $emptyRepository->findAll()->willReturn([]);
 
+        // the taxon field is a Sylius resource autocomplete: register its whole parent chain
+        // (TaxonCodesAutocomplete -> TaxonAutocomplete -> ResourceAutocomplete -> HiddenType) so
+        // the bare TypeTestCase can build it. The registry only needs to yield a repository
+        $taxonRepository = $this->prophesize(TaxonRepositoryInterface::class);
+        $resourceRepositoryRegistry = $this->prophesize(ServiceRegistryInterface::class);
+        $resourceRepositoryRegistry->get('sylius.taxon')->willReturn($emptyRepository->reveal());
+
         return [
             new PreloadedExtension([
                 new CompletenessRuleType(CompletenessRule::class, [], $formTypeRegistry, true),
@@ -49,7 +61,9 @@ final class CompletenessRuleTypeTest extends TypeTestCase
                 new WeightTierChoiceType(['low' => 1.0, 'medium' => 3.0, 'high' => 6.0, 'critical' => 10.0]),
                 new ChannelCodeChoiceType($emptyRepository->reveal()),
                 new LocaleCodeChoiceType($emptyRepository->reveal()),
-                new TaxonCodeChoiceType($emptyRepository->reveal()),
+                new TaxonCodesAutocompleteChoiceType(new TaxonsToCodesTransformer($taxonRepository->reveal())),
+                new TaxonAutocompleteChoiceType(),
+                new ResourceAutocompleteChoiceType($resourceRepositoryRegistry->reveal()),
             ], []),
             new ValidatorExtension(Validation::createValidator()),
         ];
@@ -70,9 +84,9 @@ final class CompletenessRuleTypeTest extends TypeTestCase
             'weightTier' => 'medium',
             'condition' => '',
             'expression' => '',
-            'channelCode' => '',
-            'localeCode' => '',
-            'taxonCode' => '',
+            'channelCodes' => [],
+            'localeCodes' => [],
+            'taxonCodes' => '',
             'position' => '0',
             'enabled' => '1',
         ], $overrides);
@@ -194,7 +208,8 @@ final class CompletenessRuleTypeTest extends TypeTestCase
         /** @var CompletenessRule $rule */
         $rule = $form->getData();
         self::assertSame('localeCode == "da"', $rule->getCondition());
-        self::assertNull($rule->getChannelCode());
+        self::assertSame([], $rule->getChannelCodes());
+        self::assertSame([], $rule->getTaxonCodes());
         self::assertTrue($rule->isEnabled());
         self::assertSame(0, $rule->getPosition());
     }

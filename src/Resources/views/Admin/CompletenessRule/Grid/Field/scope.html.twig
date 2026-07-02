@@ -1,12 +1,12 @@
 {% set parts = [] %}
-{% if data.channelCode is not null %}
-    {% set parts = parts|merge([data.channelCode]) %}
+{% if data.channelCodes is not empty %}
+    {% set parts = parts|merge([data.channelCodes|join(', ')]) %}
 {% endif %}
-{% if data.localeCode is not null %}
-    {% set parts = parts|merge([data.localeCode]) %}
+{% if data.localeCodes is not empty %}
+    {% set parts = parts|merge([data.localeCodes|join(', ')]) %}
 {% endif %}
-{% if data.taxonCode is not null %}
-    {% set parts = parts|merge(['taxon:' ~ data.taxonCode]) %}
+{% if data.taxonCodes is not empty %}
+    {% set parts = parts|merge(['taxon:' ~ data.taxonCodes|join(', ')]) %}
 {% endif %}
 
 {% if parts is empty %}

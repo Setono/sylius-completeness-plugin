@@ -56,17 +56,42 @@ interface CompletenessRuleInterface extends ResourceInterface
 
     public function setEnabled(bool $enabled): void;
 
-    public function getChannelCode(): ?string;
+    /**
+     * An empty list means "all channels". Otherwise the rule applies only in the listed channels.
+     *
+     * @return list<string>
+     */
+    public function getChannelCodes(): array;
 
-    public function setChannelCode(?string $channelCode): void;
+    /**
+     * @param list<string> $channelCodes
+     */
+    public function setChannelCodes(array $channelCodes): void;
 
-    public function getLocaleCode(): ?string;
+    /**
+     * An empty list means "all locales". Otherwise the rule applies only for the listed locales.
+     *
+     * @return list<string>
+     */
+    public function getLocaleCodes(): array;
 
-    public function setLocaleCode(?string $localeCode): void;
+    /**
+     * @param list<string> $localeCodes
+     */
+    public function setLocaleCodes(array $localeCodes): void;
 
-    public function getTaxonCode(): ?string;
+    /**
+     * An empty list means "all taxons". Otherwise the rule applies only to products in at least one
+     * of the listed taxons.
+     *
+     * @return list<string>
+     */
+    public function getTaxonCodes(): array;
 
-    public function setTaxonCode(?string $taxonCode): void;
+    /**
+     * @param list<string> $taxonCodes
+     */
+    public function setTaxonCodes(array $taxonCodes): void;
 
     public function getCondition(): ?string;
 

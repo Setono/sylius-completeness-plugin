@@ -22,18 +22,18 @@ final class RuleApplicabilityChecker implements RuleApplicabilityCheckerInterfac
             return Applicability::skipped();
         }
 
-        $channelCode = $rule->getChannelCode();
-        if (null !== $channelCode && $channelCode !== $context->getChannelCode()) {
+        $channelCodes = $rule->getChannelCodes();
+        if ([] !== $channelCodes && !in_array($context->getChannelCode(), $channelCodes, true)) {
             return Applicability::skipped();
         }
 
-        $localeCode = $rule->getLocaleCode();
-        if (null !== $localeCode && $localeCode !== $context->getLocaleCode()) {
+        $localeCodes = $rule->getLocaleCodes();
+        if ([] !== $localeCodes && !in_array($context->getLocaleCode(), $localeCodes, true)) {
             return Applicability::skipped();
         }
 
-        $taxonCode = $rule->getTaxonCode();
-        if (null !== $taxonCode && !in_array($taxonCode, Taxons::codes($product), true)) {
+        $taxonCodes = $rule->getTaxonCodes();
+        if ([] !== $taxonCodes && [] === array_intersect($taxonCodes, Taxons::codes($product))) {
             return Applicability::skipped();
         }
 

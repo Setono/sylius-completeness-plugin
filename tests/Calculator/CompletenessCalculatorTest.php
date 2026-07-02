@@ -154,6 +154,9 @@ final class CompletenessCalculatorTest extends TestCase
 
     /**
      * @param array<string, mixed> $configuration
+     * @param list<string> $channelCodes
+     * @param list<string> $localeCodes
+     * @param list<string> $taxonCodes
      */
     private function createRule(
         string $code,
@@ -163,9 +166,9 @@ final class CompletenessCalculatorTest extends TestCase
         ?string $group = null,
         ?string $condition = null,
         ?string $expression = null,
-        ?string $channelCode = null,
-        ?string $localeCode = null,
-        ?string $taxonCode = null,
+        array $channelCodes = [],
+        array $localeCodes = [],
+        array $taxonCodes = [],
     ): CompletenessRule {
         $rule = new CompletenessRule();
         $rule->setCode($code);
@@ -176,9 +179,9 @@ final class CompletenessCalculatorTest extends TestCase
         $rule->setGroup($group);
         $rule->setCondition($condition);
         $rule->setExpression($expression);
-        $rule->setChannelCode($channelCode);
-        $rule->setLocaleCode($localeCode);
-        $rule->setTaxonCode($taxonCode);
+        $rule->setChannelCodes($channelCodes);
+        $rule->setLocaleCodes($localeCodes);
+        $rule->setTaxonCodes($taxonCodes);
 
         return $rule;
     }
@@ -354,8 +357,8 @@ final class CompletenessCalculatorTest extends TestCase
         $product->setName('Shirt');
 
         $this->ruleRepository->findEnabled()->willReturn([
-            $this->createRule('da_only', 'has_name', 'critical', localeCode: 'da'),
-            $this->createRule('pos_only', 'has_name', 'critical', channelCode: 'POS'),
+            $this->createRule('da_only', 'has_name', 'critical', localeCodes: ['da']),
+            $this->createRule('pos_only', 'has_name', 'critical', channelCodes: ['POS']),
             $this->createRule('everywhere', 'has_name', 'low'),
         ]);
 
@@ -383,8 +386,8 @@ final class CompletenessCalculatorTest extends TestCase
         $product->addProductTaxon($productTaxon);
 
         $this->ruleRepository->findEnabled()->willReturn([
-            $this->createRule('shirts_rule', 'has_name', 'medium', taxonCode: 'shirts'),
-            $this->createRule('beers_rule', 'has_name', 'medium', taxonCode: 'beers'),
+            $this->createRule('shirts_rule', 'has_name', 'medium', taxonCodes: ['shirts']),
+            $this->createRule('beers_rule', 'has_name', 'medium', taxonCodes: ['beers']),
         ]);
 
         $result = $this->createCalculator()->calculate($product);

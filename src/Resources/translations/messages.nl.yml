@@ -88,8 +88,8 @@ setono_sylius_completeness:
             attribute: Attribuut
             minimum_image_count: Minimum aantal afbeeldingen
         completeness_rule:
-            channel: Kanaal
-            channel_help: Pas deze regel alleen toe in het geselecteerde kanaal.
+            channels: Kanaal
+            channels_help: Pas deze regel alleen toe in het geselecteerde kanaal.
             code: Code
             code_help: Een unieke identificatie. Laat leeg om deze uit het label te genereren.
             condition: Voorwaarde
@@ -101,12 +101,12 @@ setono_sylius_completeness:
             group: Groep
             group_help: Een optioneel label om de uitsplitsing te groeperen, bijv. Inhoud, Media of SEO.
             label: Label
-            locale: Taal
-            locale_help: Pas deze regel alleen toe voor de geselecteerde taal.
+            locales: Taal
+            locales_help: Pas deze regel alleen toe voor de geselecteerde taal.
             position: Positie
             position_help: Beïnvloedt alleen de volgorde van de regels in deze lijst - nooit de score.
-            taxon: Taxon
-            taxon_help: Pas deze regel alleen toe op producten met het geselecteerde taxon.
+            taxons: Taxon
+            taxons_help: Pas deze regel alleen toe op producten met het geselecteerde taxon.
             type: Controle
             weight_tier: Gewicht
             weight_tier_help: Hoeveel deze regel meeweegt voor de score.

@@ -88,8 +88,8 @@ setono_sylius_completeness:
             attribute: Attribut
             minimum_image_count: Mindestanzahl an Bildern
         completeness_rule:
-            channel: Kanal
-            channel_help: Diese Regel nur im ausgewählten Kanal anwenden.
+            channels: Kanal
+            channels_help: Diese Regel nur im ausgewählten Kanal anwenden.
             code: Code
             code_help: Ein eindeutiger Bezeichner. Leer lassen, um ihn aus der Bezeichnung zu erzeugen.
             condition: Bedingung
@@ -101,12 +101,12 @@ setono_sylius_completeness:
             group: Gruppe
             group_help: Eine optionale Bezeichnung zur Gliederung der Aufschlüsselung, z. B. Inhalt, Medien oder SEO.
             label: Bezeichnung
-            locale: Sprache
-            locale_help: Diese Regel nur für die ausgewählte Sprache anwenden.
+            locales: Sprache
+            locales_help: Diese Regel nur für die ausgewählte Sprache anwenden.
             position: Position
             position_help: Beeinflusst nur die Reihenfolge der Regeln in dieser Liste - niemals die Wertung.
-            taxon: Taxon
-            taxon_help: Diese Regel nur auf Produkte mit dem ausgewählten Taxon anwenden.
+            taxons: Taxon
+            taxons_help: Diese Regel nur auf Produkte mit dem ausgewählten Taxon anwenden.
             type: Prüfung
             weight_tier: Gewichtung
             weight_tier_help: Wie wichtig diese Regel für die Wertung ist.

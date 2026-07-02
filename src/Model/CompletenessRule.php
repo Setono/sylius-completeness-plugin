@@ -25,11 +25,14 @@ class CompletenessRule implements CompletenessRuleInterface
 
     protected bool $enabled = true;
 
-    protected ?string $channelCode = null;
+    /** @var list<string> */
+    protected array $channelCodes = [];
 
-    protected ?string $localeCode = null;
+    /** @var list<string> */
+    protected array $localeCodes = [];
 
-    protected ?string $taxonCode = null;
+    /** @var list<string> */
+    protected array $taxonCodes = [];
 
     protected ?string $condition = null;
 
@@ -122,34 +125,34 @@ class CompletenessRule implements CompletenessRuleInterface
         $this->enabled = $enabled;
     }
 
-    public function getChannelCode(): ?string
+    public function getChannelCodes(): array
     {
-        return $this->channelCode;
+        return $this->channelCodes;
     }
 
-    public function setChannelCode(?string $channelCode): void
+    public function setChannelCodes(array $channelCodes): void
     {
-        $this->channelCode = $channelCode;
+        $this->channelCodes = array_values($channelCodes);
     }
 
-    public function getLocaleCode(): ?string
+    public function getLocaleCodes(): array
     {
-        return $this->localeCode;
+        return $this->localeCodes;
     }
 
-    public function setLocaleCode(?string $localeCode): void
+    public function setLocaleCodes(array $localeCodes): void
     {
-        $this->localeCode = $localeCode;
+        $this->localeCodes = array_values($localeCodes);
     }
 
-    public function getTaxonCode(): ?string
+    public function getTaxonCodes(): array
     {
-        return $this->taxonCode;
+        return $this->taxonCodes;
     }
 
-    public function setTaxonCode(?string $taxonCode): void
+    public function setTaxonCodes(array $taxonCodes): void
     {
-        $this->taxonCode = $taxonCode;
+        $this->taxonCodes = array_values($taxonCodes);
     }
 
     public function getCondition(): ?string
