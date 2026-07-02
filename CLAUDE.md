@@ -17,7 +17,8 @@ Follow clean code principles and SOLID design patterns when working with this co
 - Write code that is easy to test and extend
 
 ### Testing Requirements
-- Write unit tests for all new functionality (if it makes sense)
+- **Everything MUST be tested** — every piece of new functionality must be covered by either a unit test or a functional test (booting `tests/Application`). Prefer unit tests for isolated logic; use functional tests for what unit tests can't cover: container wiring, Doctrine mappings/listeners, grids, routes and controllers
+- **Additionally verify with Playwright whenever possible** — if the functionality has any admin/shop UI surface, verify it end-to-end with the Playwright MCP against the running test application (see [UI Verification](#ui-verification)) on top of the automated tests
 - Follow the BDD-style naming convention for test methods (e.g., `it_should_do_something_when_condition_is_met`)
 - **MUST use Prophecy for mocking** - Use the `ProphecyTrait` and `$this->prophesize()` for all mocks, NOT PHPUnit's `$this->createMock()`
 - **Form testing** - Use Symfony's best practices for form testing as documented at https://symfony.com/doc/current/form/unit_testing.html

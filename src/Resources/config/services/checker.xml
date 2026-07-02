@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="setono_sylius_completeness.registry.checker" class="Sylius\Component\Registry\ServiceRegistry">
+            <argument>Setono\SyliusCompletenessPlugin\Checker\CompletenessCheckerInterface</argument>
+            <argument>completeness checker</argument>
+        </service>
+
+        <service id="setono_sylius_completeness.checker.is_enabled"
+                 class="Setono\SyliusCompletenessPlugin\Checker\IsEnabledChecker">
+            <tag name="setono_sylius_completeness.checker" type="is_enabled" label="setono_sylius_completeness.ui.checker.is_enabled"/>
+        </service>
+
+        <service id="setono_sylius_completeness.checker.has_main_taxon"
+                 class="Setono\SyliusCompletenessPlugin\Checker\HasMainTaxonChecker">
+            <tag name="setono_sylius_completeness.checker" type="has_main_taxon" label="setono_sylius_completeness.ui.checker.has_main_taxon"/>
+        </service>
+
+        <service id="setono_sylius_completeness.checker.has_image"
+                 class="Setono\SyliusCompletenessPlugin\Checker\HasImageChecker">
+            <tag name="setono_sylius_completeness.checker" type="has_image" label="setono_sylius_completeness.ui.checker.has_image"/>
+        </service>
+
+        <service id="setono_sylius_completeness.checker.has_minimum_images"
+                 class="Setono\SyliusCompletenessPlugin\Checker\HasMinimumImagesChecker">
+            <tag name="setono_sylius_completeness.checker" type="has_minimum_images" label="setono_sylius_completeness.ui.checker.has_minimum_images"/>
+        </service>
+
+        <service id="setono_sylius_completeness.checker.has_name"
+                 class="Setono\SyliusCompletenessPlugin\Checker\HasNameChecker">
+            <tag name="setono_sylius_completeness.checker" type="has_name" label="setono_sylius_completeness.ui.checker.has_name"/>
+        </service>
+
+        <service id="setono_sylius_completeness.checker.has_description"
+                 class="Setono\SyliusCompletenessPlugin\Checker\HasDescriptionChecker">
+            <tag name="setono_sylius_completeness.checker" type="has_description" label="setono_sylius_completeness.ui.checker.has_description"/>
+        </service>
+
+        <service id="setono_sylius_completeness.checker.has_short_description"
+                 class="Setono\SyliusCompletenessPlugin\Checker\HasShortDescriptionChecker">
+            <tag name="setono_sylius_completeness.checker" type="has_short_description" label="setono_sylius_completeness.ui.checker.has_short_description"/>
+        </service>
+
+        <service id="setono_sylius_completeness.checker.has_meta_description"
+                 class="Setono\SyliusCompletenessPlugin\Checker\HasMetaDescriptionChecker">
+            <tag name="setono_sylius_completeness.checker" type="has_meta_description" label="setono_sylius_completeness.ui.checker.has_meta_description"/>
+        </service>
+
+        <service id="setono_sylius_completeness.checker.has_meta_keywords"
+                 class="Setono\SyliusCompletenessPlugin\Checker\HasMetaKeywordsChecker">
+            <tag name="setono_sylius_completeness.checker" type="has_meta_keywords" label="setono_sylius_completeness.ui.checker.has_meta_keywords"/>
+        </service>
+
+        <service id="setono_sylius_completeness.checker.has_price"
+                 class="Setono\SyliusCompletenessPlugin\Checker\HasPriceChecker">
+            <tag name="setono_sylius_completeness.checker" type="has_price" label="setono_sylius_completeness.ui.checker.has_price"/>
+        </service>
+
+        <service id="setono_sylius_completeness.checker.has_attribute"
+                 class="Setono\SyliusCompletenessPlugin\Checker\HasAttributeChecker">
+            <tag name="setono_sylius_completeness.checker" type="has_attribute" label="setono_sylius_completeness.ui.checker.has_attribute"/>
+        </service>
+
+        <service id="setono_sylius_completeness.checker.expression"
+                 class="Setono\SyliusCompletenessPlugin\Checker\ExpressionChecker">
+            <argument type="service" id="setono_sylius_completeness.expression_evaluator"/>
+            <tag name="setono_sylius_completeness.checker" type="expression" label="setono_sylius_completeness.ui.checker.expression"/>
+        </service>
+    </services>
+</container>

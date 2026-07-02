@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="setono_sylius_completeness.expression_language" class="Symfony\Component\ExpressionLanguage\ExpressionLanguage">
+            <factory class="Setono\SyliusCompletenessPlugin\Expression\ExpressionLanguageFactory" method="create"/>
+            <argument type="tagged_iterator" tag="setono_sylius_completeness.expression_function_provider"/>
+        </service>
+
+        <service id="setono_sylius_completeness.expression_evaluator"
+                 class="Setono\SyliusCompletenessPlugin\Expression\ExpressionEvaluator">
+            <argument type="service" id="setono_sylius_completeness.expression_language"/>
+        </service>
+        <service id="Setono\SyliusCompletenessPlugin\Expression\ExpressionEvaluatorInterface"
+                 alias="setono_sylius_completeness.expression_evaluator"/>
+
+        <service id="setono_sylius_completeness.expression_validator"
+                 class="Setono\SyliusCompletenessPlugin\Expression\ExpressionValidator">
+            <argument type="service" id="setono_sylius_completeness.expression_language"/>
+        </service>
+        <service id="Setono\SyliusCompletenessPlugin\Expression\ExpressionValidatorInterface"
+                 alias="setono_sylius_completeness.expression_validator"/>
+
+        <service id="setono_sylius_completeness.calculation_context"
+                 class="Setono\SyliusCompletenessPlugin\Context\CalculationContext">
+            <tag name="kernel.reset" method="reset"/>
+        </service>
+        <service id="Setono\SyliusCompletenessPlugin\Context\CalculationContextInterface"
+                 alias="setono_sylius_completeness.calculation_context"/>
+
+        <service id="setono_sylius_completeness.expression_function_provider.text"
+                 class="Setono\SyliusCompletenessPlugin\Expression\FunctionProvider\TextFunctionsProvider">
+            <tag name="setono_sylius_completeness.expression_function_provider"/>
+        </service>
+
+        <service id="setono_sylius_completeness.expression_function_provider.translation"
+                 class="Setono\SyliusCompletenessPlugin\Expression\FunctionProvider\TranslationFunctionsProvider">
+            <argument type="service" id="setono_sylius_completeness.calculation_context"/>
+            <tag name="setono_sylius_completeness.expression_function_provider"/>
+        </service>
+
+        <service id="setono_sylius_completeness.expression_function_provider.attribute"
+                 class="Setono\SyliusCompletenessPlugin\Expression\FunctionProvider\AttributeFunctionsProvider">
+            <argument type="service" id="setono_sylius_completeness.calculation_context"/>
+            <tag name="setono_sylius_completeness.expression_function_provider"/>
+        </service>
+
+        <service id="setono_sylius_completeness.expression_function_provider.image"
+                 class="Setono\SyliusCompletenessPlugin\Expression\FunctionProvider\ImageFunctionsProvider">
+            <tag name="setono_sylius_completeness.expression_function_provider"/>
+        </service>
+
+        <service id="setono_sylius_completeness.expression_function_provider.taxon"
+                 class="Setono\SyliusCompletenessPlugin\Expression\FunctionProvider\TaxonFunctionsProvider">
+            <tag name="setono_sylius_completeness.expression_function_provider"/>
+        </service>
+
+        <service id="setono_sylius_completeness.expression_function_provider.variant"
+                 class="Setono\SyliusCompletenessPlugin\Expression\FunctionProvider\VariantFunctionsProvider">
+            <tag name="setono_sylius_completeness.expression_function_provider"/>
+        </service>
+
+        <service id="setono_sylius_completeness.expression_function_provider.channel"
+                 class="Setono\SyliusCompletenessPlugin\Expression\FunctionProvider\ChannelFunctionsProvider">
+            <argument type="service" id="setono_sylius_completeness.calculation_context"/>
+            <tag name="setono_sylius_completeness.expression_function_provider"/>
+        </service>
+
+        <service id="setono_sylius_completeness.expression_function_provider.collection"
+                 class="Setono\SyliusCompletenessPlugin\Expression\FunctionProvider\CollectionFunctionsProvider">
+            <tag name="setono_sylius_completeness.expression_function_provider"/>
+        </service>
+    </services>
+</container>

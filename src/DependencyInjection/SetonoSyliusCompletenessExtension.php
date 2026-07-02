@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Setono\SyliusCompletenessPlugin\DependencyInjection;
 
+use Setono\SyliusCompletenessPlugin\Checker\CompletenessCheckerInterface;
 use Sylius\Bundle\ResourceBundle\DependencyInjection\Extension\AbstractResourceExtension;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -41,6 +42,9 @@ final class SetonoSyliusCompletenessExtension extends AbstractResourceExtension 
         $container->setParameter('setono_sylius_completeness.bulk_threshold', $config['bulk_threshold']);
 
         $loader->load('services.xml');
+
+        $container->registerForAutoconfiguration(CompletenessCheckerInterface::class)
+            ->addTag('setono_sylius_completeness.checker');
 
         $this->registerResources('setono_sylius_completeness', $config['driver'], $config['resources'], $container);
     }
