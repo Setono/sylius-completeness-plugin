@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="setono_sylius_completeness.fixture.example_factory.completeness_rule"
+                 class="Setono\SyliusCompletenessPlugin\Fixture\Factory\CompletenessRuleExampleFactory">
+            <argument type="service" id="setono_sylius_completeness.factory.completeness_rule"/>
+        </service>
+
+        <service id="setono_sylius_completeness.fixture.completeness_rule"
+                 class="Setono\SyliusCompletenessPlugin\Fixture\CompletenessRuleFixture">
+            <argument type="service" id="setono_sylius_completeness.manager.completeness_rule"/>
+            <argument type="service" id="setono_sylius_completeness.fixture.example_factory.completeness_rule"/>
+            <tag name="sylius_fixtures.fixture"/>
+        </service>
+    </services>
+</container>

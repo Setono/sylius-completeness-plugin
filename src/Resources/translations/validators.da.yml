@@ -1,0 +1,18 @@
+setono_sylius_completeness:
+    completeness_rule:
+        code:
+            not_blank: Angiv venligst en kode.
+            unique: Der findes allerede en regel med denne kode.
+        custom_weight:
+            greater_than: Den brugerdefinerede vægt skal være større end 0.
+        expression:
+            invalid: 'Udtrykket er ugyldigt: {{ error }}'
+            not_allowed: Udtryksfeltet bruges kun af kontrollen "Brugerdefineret udtryk". Vælg den kontrol, eller ryd dette felt.
+            required: Angiv venligst det udtryk, der skal evalueres.
+        label:
+            not_blank: Angiv venligst en etiket.
+        type:
+            not_blank: Vælg venligst en kontrol.
+            not_registered: Kontroltypen "{{ type }}" er ikke registreret.
+    context_setting:
+        unique: Der findes allerede en indstilling for denne kombination af kanal og sprog.

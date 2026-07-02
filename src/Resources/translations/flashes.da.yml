@@ -1,0 +1,3 @@
+setono_sylius_completeness:
+    product_recalculated: Produktets fuldstændighed er blevet genberegnet.
+    recalculation_scheduled: Genberegning af fuldstændighed er blevet planlagt for de valgte produkter.

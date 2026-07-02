@@ -1,0 +1,123 @@
+setono_sylius_completeness:
+    ui:
+        advanced: Avanceret
+        all: Alle
+        all_channels: Alle kanaler
+        all_locales: Alle sprog
+        all_rules_met: Alle regler opfyldt
+        all_taxons: Alle taksonomier
+        checker_type: Kontrol
+        completeness: Fuldstændighed
+        completeness_rule: Fuldstændighedsregel
+        completeness_rules: Fuldstændighedsregler
+        context_setting: Fuldstændighedskontekst
+        context_settings: Fuldstændighedskontekster
+        edit_completeness_rule: Rediger fuldstændighedsregel
+        edit_context_setting: Rediger fuldstændighedskontekst
+        new_completeness_rule: Ny fuldstændighedsregel
+        new_context_setting: Ny fuldstændighedskontekst
+        counts_toward_overall: Tæller med i totalen
+        custom_weight: Brugerdefineret vægt
+        default: Standard
+        errored: Fejlede
+        examples: Eksempler
+        example_binary: En binær udtryksregel (opfyldt eller ej)
+        example_condition: Betingelse
+        example_expression: Udtryk
+        example_graded: En gradueret udtryksregel (delvis kredit)
+        example_required_when: 'En "påkrævet når"-regel der bruger begge felter: reglen gælder kun for (og tæller kun for) øl-produkter'
+        expressions: Betingelser og udtryk
+        function_reference: Udtryksreference
+        function_reference_intro: 'Betingelser og udtryk skrives i Symfony ExpressionLanguage. En betingelse afgør OM en regel gælder; et udtryk ER selve kontrollen for udtryksregler: booleans betyder opfyldt/ikke opfyldt, og tal mellem 0 og 1 giver delvis kredit.'
+        functions: Funktioner
+        group: Gruppe
+        last_calculated_at: Sidst beregnet
+        max: Maks
+        min: Min
+        na: Ikke relevant
+        no_applicable_rules: Ingen regler gælder for denne kontekst.
+        not_a_score: Resultatet er hverken en boolean eller et tal og kan derfor ikke være en score.
+        context_ratio: Kontekst-score
+        preview: Test mod et produkt
+        preview_intro: Kør den aktuelle rubrik mod et produkt i en bestemt kanal og et bestemt sprog, og afprøv ad-hoc-udtryk.
+        raw_value: Rå værdi
+        result: Resultat
+        run_preview: Kør
+        scratchpad: Kladdeudtryk
+        score: Score
+        native_getters_note: 'Oversættelige felter læses via produktets gettere og opløses altid til det sprog, der scores - en manglende oversættelse læses som tom, aldrig som standardsproget:'
+        not_applicable: 'Ikke relevant: ingen regler gælder for denne kontekst'
+        not_calculated_yet: Dette produkts fuldstændighed er endnu ikke beregnet.
+        not_counted: Tæller ikke med
+        operators: Operatorer
+        overall: Samlet
+        position: Position
+        recalculate_completeness: Genberegn fuldstændighed
+        recalculate_now: Genberegn nu
+        recalculating: Genberegner…
+        rollup_weight: Sammenlægningsvægt
+        rule: Regel
+        rule_label: Etiket
+        scope: Omfang
+        scored: Scoret
+        share: Andel
+        threshold: Klar-tærskel
+        ungrouped: Ugrupperet
+        variables: Variabler
+        weight: Vægt
+        weight_tier:
+            low: Lav
+            medium: Mellem
+            high: Høj
+            critical: Kritisk
+        checker:
+            is_enabled: Produktet er aktiveret
+            has_main_taxon: Har en hovedtaksonomi
+            has_image: Har mindst ét billede
+            has_minimum_images: Har et minimum antal billeder (gradueret)
+            has_name: Har et navn
+            has_description: Har en beskrivelse
+            has_short_description: Har en kort beskrivelse
+            has_meta_description: Har en metabeskrivelse
+            has_meta_keywords: Har metanøgleord
+            has_price: Er prissat i kanalen
+            has_attribute: Har en attributværdi
+            expression: Brugerdefineret udtryk
+    form:
+        checker_configuration:
+            attribute: Attribut
+            minimum_image_count: Minimum antal billeder
+        completeness_rule:
+            channel: Kanal
+            channel_help: Anvend kun denne regel i den valgte kanal.
+            code: Kode
+            code_help: En unik identifikator. Lad stå tom for at generere den ud fra etiketten.
+            condition: Betingelse
+            condition_help: 'En valgfri betingelse der afgør, om reglen gælder, fx attribute_value(product, "type") == "beer". Lad stå tom for at anvende reglen overalt.'
+            custom_weight: Brugerdefineret vægt
+            custom_weight_help: Overskriver vægtniveauet med en præcis vægt.
+            expression: Udtryk
+            expression_help: 'Selve kontrollen - bruges kun af kontrollen "Brugerdefineret udtryk", fx word_count(product.getDescription()) >= 200.'
+            group: Gruppe
+            group_help: En valgfri etiket til at gruppere opdelingen, fx Indhold, Medier eller SEO.
+            label: Etiket
+            locale: Sprog
+            locale_help: Anvend kun denne regel for det valgte sprog.
+            position: Position
+            position_help: Påvirker kun rækkefølgen af regler på denne liste - aldrig scoren.
+            taxon: Taksonomi
+            taxon_help: Anvend kun denne regel på produkter med den valgte taksonomi.
+            type: Kontrol
+            weight_tier: Vægt
+            weight_tier_help: Hvor meget denne regel betyder for scoren.
+        preview:
+            expression_help: 'Skriv eventuelt en engangsbetingelse/-udtryk, der evalueres mod det valgte produkt, kanal og sprog - uden at gemme noget.'
+        context_setting:
+            channel: Kanal
+            counts_toward_overall: Tæller med i den samlede score
+            counts_toward_overall_help: Når dette ikke er markeret, beregnes og vises konteksten stadig, men den udelades fra produktets samlede score.
+            locale: Sprog
+            rollup_weight: Vægt i den samlede score
+            rollup_weight_help: En avanceret vægtning af denne kontekst i den samlede score. 0 udelader konteksten.
+            threshold: Klar-tærskel
+            threshold_help: Scoren (0-100), hvorfra denne kontekst tæller som "klar". Lad stå tom for at bruge den globale standard.

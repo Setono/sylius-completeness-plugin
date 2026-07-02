@@ -1,53 +1,261 @@
-# Setono SyliusCompletenessPlugin
+# Setono Sylius Completeness Plugin
 
 [![Latest Version][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE)
 [![Build Status][ico-github-actions]][link-github-actions]
 [![Code Coverage][ico-code-coverage]][link-code-coverage]
-[![Mutation testing][ico-infection]][link-infection]
 
-[Setono](https://setono.com) have made a bunch of [plugins for Sylius](https://github.com/Setono?q=plugin&sort=stargazers), and we have some guidelines
-which we try to follow when developing plugins. These guidelines are used in this repository, and it gives you a very
-solid base when developing plugins.
+Compute a **weighted, per-channel/per-locale enrichment completeness percentage** for your Sylius products,
+persist it, roll it up to a single global score on the product and surface it across the admin: a grid column
+(threshold color-coded, stale-aware) with a numeric range filter, a channel × locale breakdown panel on the
+product show and edit pages, a rule CRUD and a "test against a product" preview with a live expression scratchpad.
 
-Enjoy! 
+Scoring rules are **database-backed and admin-managed**, with three tiers of flexibility:
 
-## Quickstart
+1. **Curated checkers** — discoverable built-ins (`has_image`, `has_price`, `has_minimum_images`, …).
+2. **Developer checkers** — implement an interface, tag the service, done.
+3. **ExpressionLanguage rules** — authored entirely in the UI, with a rich helper library.
 
-1. Run
-    ```shell
-    composer create-project --prefer-source --no-install --remove-vcs setono/sylius-completeness-plugin:1.14.x-dev ProjectName
-    ``` 
-    or just click the `Use this template` button at the right corner of this repository.
-2. Run
-   ```shell
-   cd ProjectName && composer install
-   ```
-3. From the plugin skeleton root directory, run the following commands:
+## Installation
 
-    ```bash
-    php init
-    (cd tests/Application && yarn install)
-    (cd tests/Application && yarn build)
-    (cd tests/Application && bin/console assets:install)
-    
-    (cd tests/Application && bin/console doctrine:database:create)
-    (cd tests/Application && bin/console doctrine:schema:create)
-   
-    (cd tests/Application && bin/console sylius:fixtures:load -n)
-    ```
-   
-4. Start your local PHP server: `symfony serve` (see https://symfony.com/doc/current/setup/symfony_server.html for docs)
+### 1. Require the plugin
 
-To be able to set up a plugin's database, remember to configure you database credentials in `tests/Application/.env` and `tests/Application/.env.test`.
+```bash
+composer require setono/sylius-completeness-plugin
+```
+
+### 2. Register the bundle
+
+```php
+# config/bundles.php
+
+return [
+    // ...
+    Setono\SyliusCompletenessPlugin\SetonoSyliusCompletenessPlugin::class => ['all' => true],
+];
+```
+
+### 3. Import the configuration and routing
+
+```yaml
+# config/packages/setono_sylius_completeness.yaml
+imports:
+    - { resource: "@SetonoSyliusCompletenessPlugin/Resources/config/app/config.yaml" }
+
+setono_sylius_completeness: ~
+```
+
+```yaml
+# config/routes/setono_sylius_completeness.yaml
+setono_sylius_completeness_admin:
+    resource: "@SetonoSyliusCompletenessPlugin/Resources/config/routes/admin.yaml"
+    prefix: /admin
+```
+
+### 4. Make your `Product` completeness-aware
+
+Apply the shipped interface and trait to your product entity:
+
+```php
+# src/Entity/Product/Product.php
+namespace App\Entity\Product;
+
+use Doctrine\ORM\Mapping as ORM;
+use Setono\SyliusCompletenessPlugin\Model\ProductCompletenessAwareInterface;
+use Setono\SyliusCompletenessPlugin\Model\ProductCompletenessAwareTrait;
+use Sylius\Component\Core\Model\Product as BaseProduct;
+
+#[ORM\Entity]
+#[ORM\Table(name: 'sylius_product')]
+class Product extends BaseProduct implements ProductCompletenessAwareInterface
+{
+    use ProductCompletenessAwareTrait;
+}
+```
+
+The plugin ships **XML** Doctrine mappings, so add the matching mapping fragment for the fields the trait
+introduces (or use PHP attributes as above and only map the association + scalar columns). Example XML fragment:
+
+```xml
+<!-- config/doctrine/Product.orm.xml -->
+<entity name="App\Entity\Product\Product" table="sylius_product">
+    <indexes>
+        <index columns="completeness_ratio"/>
+    </indexes>
+
+    <field name="completenessRatio" column="completeness_ratio" type="smallint" nullable="true"/>
+    <field name="completenessRubricVersion" column="completeness_rubric_version" type="integer" nullable="true"/>
+
+    <one-to-many field="completenesses" target-entity="Setono\SyliusCompletenessPlugin\Model\ProductCompleteness" mapped-by="product" orphan-removal="true">
+        <cascade>
+            <cascade-persist/>
+            <cascade-remove/>
+        </cascade>
+    </one-to-many>
+</entity>
+```
+
+Point your host application to the completeness `Product` model:
+
+```yaml
+# config/packages/_sylius.yaml
+sylius_product:
+    resources:
+        product:
+            classes:
+                model: App\Entity\Product\Product
+```
+
+### 5. Update the database
+
+Generate and run a migration (the plugin does not ship migrations because the target `sylius_product`
+table is host-owned):
+
+```bash
+bin/console doctrine:migrations:diff
+bin/console doctrine:migrations:migrate
+```
+
+This creates the `setono_sylius_completeness__*` tables and adds `completeness_ratio` (indexed) +
+`completeness_rubric_version` to `sylius_product`.
+
+### 6. Route the messages asynchronously (recommended)
+
+Completeness is recalculated through a Messenger command bus. Route the messages to an async transport so
+admin edits and imports don't recalculate in-request:
+
+```yaml
+# config/packages/messenger.yaml
+framework:
+    messenger:
+        routing:
+            'Setono\SyliusCompletenessPlugin\Message\CommandInterface': async
+```
+
+If the messages are **not** routed, recalculation happens synchronously (documented caveat).
+
+### 7. Optional: starter ruleset + initial calculation
+
+```bash
+bin/console sylius:fixtures:load setono_sylius_completeness   # a sensible starter rubric
+bin/console setono:completeness:recalculate --all             # score the whole catalog
+```
+
+## Concepts
+
+- **Rule** — a persisted, admin-managed record binding a checker `type` (+ `configuration`) to a **weight
+  tier** (`low`/`medium`/`high`/`critical`), an optional **scope** (channel/locale/taxon), an optional
+  ExpressionLanguage **condition** gate and — only for the `expression` checker — an ExpressionLanguage
+  **expression** body. The set of enabled rules is the scoring rubric.
+- **Weight vs score** — a rule's *weight* is "how much it matters" (from the tier); a checker's *score* is
+  "how met it is" (0.0–1.0). Binary checkers return 1.0/0.0; graded checkers grant partial credit (e.g.
+  `has_minimum_images` with 3 of 5 ⇒ 0.6).
+- **Context** — a `(channel, locale)` pair. Each context is scored independently; translatable fields resolve
+  to exactly that locale (a missing translation reads as empty, never the default-locale text).
+- **N/A** — a context with no applicable rules is **not scored** (rendered as "—"), distinct from a measured 0%.
+  N/A contexts are excluded from the global rollup.
+- **Context settings** — an optional per-`(channel, locale)` record holding a "ready" **threshold** (for
+  color-coding) and a **rollup weight** (0 = excluded from the global score). A missing row means defaults, so
+  an empty table reproduces flat-average, single-threshold behavior.
+- **Rollup** — the per-context ratios collapse into the single `completenessRatio` via a configurable strategy
+  (`weighted_average` default, `minimum`, `default_channel`), after dropping N/A and excluded contexts.
+- **Staleness** — a monotonic rubric version is bumped on every rule/context-setting change and stamped on
+  products at calc time. Because a change enqueues a background recalculation, the grid and panel show a
+  "recalculating…" marker for products whose stamped version is behind.
+
+## Expression authoring
+
+Conditions and expressions use the Symfony ExpressionLanguage. A **condition** decides *if* a rule applies; an
+**expression** *is* the check for `expression`-type rules (a boolean means met/not met, a number between 0 and 1
+grants partial credit).
+
+Variables in scope: `product`, `channel`, `locale`, `channelCode`, `localeCode`.
+
+Translatable fields are read through the product getters and always resolve to the scored locale:
+
+```
+word_count(product.getDescription()) >= 200
+```
+
+Use native operators — arithmetic `+ - * / %`, comparison `== != < > <= >=`, logical `and or not`, membership
+`in` / `not in`, **regex `matches`**, concat `~`, ternary `?:` — plus the helper library (`word_count`,
+`char_count`, `has_attribute`, `attribute_value`, `image_count`, `in_taxon`, `has_price`, `price`, `min`,
+`max`, `between`, …). The full catalog is rendered inline in the rule form and on the preview screen.
+
+**"Required-when" rules** use both slots — e.g. *"if `type` is beer, `beer_type` must be set"*:
+
+- condition: `attribute_value(product, 'type') == 'beer'`
+- expression: `has_attribute(product, 'beer_type')`
+
+The rule then vanishes for non-beer products (counting toward neither numerator nor denominator).
+
+Caveats:
+
+- **Regex ReDoS**: author-supplied `matches` patterns run unsandboxed; a catastrophic pattern can hang a
+  calculation. Keep rule administration to trusted users.
+- **Select-attribute values are codes**: `attribute_value(product, code)` returns the stored option **code**,
+  not the display label.
+- The case-insensitive contains helper is named **`icontains`** (`contains` is a reserved EL operator).
+
+## Extension points
+
+Everything is a tagged service. All of these are supported and documented:
+
+| Tag / interface | Purpose |
+|---|---|
+| `setono_sylius_completeness.checker` (`CompletenessCheckerInterface`) | Add a checker. If two share a `type`, the **last registered wins** — that's how you override a built-in. |
+| `setono_sylius_completeness.checker_configuration_form_type` | Register a checker's configuration form. |
+| `setono_sylius_completeness.expression_function_provider` | Add expression helper functions (a Symfony `ExpressionFunctionProviderInterface`). |
+| `setono_sylius_completeness.affected_products_resolver` (`AffectedProductsResolverInterface`) | Make changes to your own entities trigger recalculation — no core change. |
+| `setono_sylius_completeness.rollup_strategy` (`RollupStrategyInterface`) | Add a rollup strategy. |
+
+The public API is `Setono\SyliusCompletenessPlugin\Calculator\CompletenessCalculatorInterface` (a pure dry-run
+that returns the full breakdown) and `Setono\SyliusCompletenessPlugin\Updater\ProductCompletenessUpdaterInterface`
+(calculate + persist). After each persisted calculation a `ProductCompletenessCalculated` event is dispatched
+(with a `bulk` flag). Notice that context-setting changes trigger a rollup-only refresh, which recomputes the
+global ratio from existing rows and does **not** dispatch that event.
+
+## Configuration reference
+
+```yaml
+setono_sylius_completeness:
+    rollup_strategy: weighted_average   # weighted_average | minimum | default_channel | <custom>
+    default_channel_code: ~             # channel used by the default_channel strategy
+    default_ready_threshold: 80         # green/"ready" line when a context has no override
+    amber_band: 20                      # width of the amber zone below the threshold (0 disables amber)
+    weight_tiers:
+        low: 1
+        medium: 3
+        high: 6
+        critical: 10
+    enable_custom_weight: false         # exposes the advanced per-rule float override
+    recalculate_on_doctrine_flush: true
+    bulk_threshold: 300                 # buffer size above which a flush defers to a single bulk recalc
+```
+
+There is intentionally **no** `watched_entities` key: the set of watched classes is derived from the registered
+`AffectedProductsResolverInterface` services. To watch an additional entity, register a resolver.
+
+## Console
+
+```bash
+# Recalculate the whole catalog (recommended as a periodic cron safety net)
+bin/console setono:completeness:recalculate --all
+
+# Recalculate specific products
+bin/console setono:completeness:recalculate --product=SKU-1 --product=SKU-2
+```
+
+## Translations
+
+`en` is the source of truth. Additional locales fall back to English via the Symfony translator until a
+translated catalog is provided — contributions welcome.
 
 [ico-version]: https://poser.pugx.org/setono/sylius-completeness-plugin/v/stable
 [ico-license]: https://poser.pugx.org/setono/sylius-completeness-plugin/license
 [ico-github-actions]: https://github.com/Setono/SyliusCompletenessPlugin/workflows/build/badge.svg
-[ico-code-coverage]: https://codecov.io/gh/Setono/SyliusCompletenessPlugin/branch/1.12.x/graph/badge.svg
-[ico-infection]: https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2FSetono%2FSyliusPluginSkeleton%2F1.12.x
+[ico-code-coverage]: https://codecov.io/gh/Setono/SyliusCompletenessPlugin/branch/master/graph/badge.svg
 
 [link-packagist]: https://packagist.org/packages/setono/sylius-completeness-plugin
 [link-github-actions]: https://github.com/Setono/SyliusCompletenessPlugin/actions
 [link-code-coverage]: https://codecov.io/gh/Setono/SyliusCompletenessPlugin
-[link-infection]: https://dashboard.stryker-mutator.io/reports/github.com/Setono/SyliusCompletenessPlugin/1.12.x
