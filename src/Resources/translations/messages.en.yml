@@ -34,6 +34,17 @@ setono_sylius_completeness:
         last_calculated_at: Last calculated at
         max: Max
         min: Min
+        na: N/A
+        no_applicable_rules: No rules apply to this context.
+        not_a_score: The result is not a boolean or number, so it cannot be a score.
+        context_ratio: Context ratio
+        preview: Test against a product
+        preview_intro: Run the live rubric against a product in a specific channel and locale, and try out ad-hoc expressions.
+        raw_value: Raw value
+        result: Result
+        run_preview: Run
+        scratchpad: Scratchpad expression
+        score: Score
         native_getters_note: 'Translatable fields are read through the product getters and always resolve to the locale being scored - a missing translation reads as empty, never as the fallback locale:'
         not_applicable: 'Not applicable: no rules apply to this context'
         not_calculated_yet: This product's completeness has not been calculated yet.
@@ -99,6 +110,8 @@ setono_sylius_completeness:
             type: Checker
             weight_tier: Weight
             weight_tier_help: How much this rule matters for the score.
+        preview:
+            expression_help: 'Optionally type a one-off condition/expression to evaluate against the chosen product, channel and locale - without saving anything.'
         context_setting:
             channel: Channel
             counts_toward_overall: Counts toward the overall score

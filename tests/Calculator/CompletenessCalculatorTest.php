@@ -12,6 +12,7 @@ use Setono\SyliusCompletenessPlugin\Calculator\ContextInitializer;
 use Setono\SyliusCompletenessPlugin\Calculator\Result\GroupScore;
 use Setono\SyliusCompletenessPlugin\Calculator\RuleApplicabilityChecker;
 use Setono\SyliusCompletenessPlugin\Calculator\RuleWeightResolver;
+use Setono\SyliusCompletenessPlugin\Checker\CompletenessCheckContext;
 use Setono\SyliusCompletenessPlugin\Checker\CompletenessCheckerInterface;
 use Setono\SyliusCompletenessPlugin\Checker\ExpressionChecker;
 use Setono\SyliusCompletenessPlugin\Checker\HasAttributeChecker;
@@ -541,5 +542,33 @@ final class CompletenessCalculatorTest extends TestCase
 
         self::assertCount(0, $result->contextResults);
         self::assertNull($result->globalRatio);
+    }
+
+    /**
+     * @test
+     */
+    public function it_evaluates_an_arbitrary_context_the_product_is_not_assigned_to(): void
+    {
+        // the product is only in WEB/en, with an English name
+        $product = $this->createProduct(['WEB' => ['en']]);
+        $product->setName('Shirt');
+
+        $this->ruleRepository->findEnabled()->willReturn([
+            $this->createRule('has_name', 'has_name', 'medium'),
+        ]);
+
+        $channel = new Channel();
+        $channel->setCode('POS');
+        $locale = new Locale();
+        $locale->setCode('da');
+
+        // preview against POS/da, which the product is NOT assigned to
+        $result = $this->createCalculator()->calculateContext($product, new CompletenessCheckContext($channel, $locale));
+
+        self::assertSame('POS', $result->channelCode);
+        self::assertSame('da', $result->localeCode);
+        // the name only exists in en, so the da context sees an empty name and scores 0
+        self::assertSame(0, $result->ratio);
+        self::assertCount(1, $result->ruleResults);
     }
 }

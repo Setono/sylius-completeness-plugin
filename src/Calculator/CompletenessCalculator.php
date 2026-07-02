@@ -45,7 +45,7 @@ final class CompletenessCalculator implements CompletenessCalculatorInterface
 
         try {
             foreach ($this->resolveContexts($product) as $context) {
-                $contextResults[] = $this->calculateContext($product, $context, $rules);
+                $contextResults[] = $this->doCalculateContext($product, $context, $rules);
             }
         } finally {
             $this->contextInitializer->terminate();
@@ -57,6 +57,15 @@ final class CompletenessCalculator implements CompletenessCalculatorInterface
             rubricVersion: $this->rubricVersionManager->getCurrentVersion(),
             calculatedAt: $this->clock->now(),
         );
+    }
+
+    public function calculateContext(ProductInterface $product, CompletenessCheckContext $context): ContextResult
+    {
+        try {
+            return $this->doCalculateContext($product, $context, $this->ruleRepository->findEnabled());
+        } finally {
+            $this->contextInitializer->terminate();
+        }
     }
 
     /**
@@ -90,7 +99,7 @@ final class CompletenessCalculator implements CompletenessCalculatorInterface
     /**
      * @param list<CompletenessRuleInterface> $rules
      */
-    private function calculateContext(ProductInterface $product, CompletenessCheckContext $context, array $rules): ContextResult
+    private function doCalculateContext(ProductInterface $product, CompletenessCheckContext $context, array $rules): ContextResult
     {
         $this->contextInitializer->initialize($product, $context);
 

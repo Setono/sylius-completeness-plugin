@@ -26,5 +26,12 @@ final class AdminMenuListener
             ])
             ->setLabel('setono_sylius_completeness.ui.context_settings')
             ->setLabelAttribute('icon', 'sliders horizontal');
+
+        $parent
+            ->addChild('setono_sylius_completeness_preview', [
+                'route' => 'setono_sylius_completeness_admin_preview',
+            ])
+            ->setLabel('setono_sylius_completeness.ui.preview')
+            ->setLabelAttribute('icon', 'flask');
     }
 }

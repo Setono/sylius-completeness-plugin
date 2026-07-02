@@ -13,6 +13,7 @@ final class CompletenessDisplayExtension extends AbstractExtension
     {
         return [
             new TwigFunction('ssc_rule_share', [CompletenessDisplayRuntime::class, 'ruleShare']),
+            new TwigFunction('ssc_weight_share', [CompletenessDisplayRuntime::class, 'weightShare']),
             new TwigFunction('ssc_checker_label', [CompletenessDisplayRuntime::class, 'checkerLabel']),
             new TwigFunction('ssc_threshold_color', [CompletenessDisplayRuntime::class, 'thresholdColor']),
             new TwigFunction('ssc_is_stale', [CompletenessDisplayRuntime::class, 'isStale']),

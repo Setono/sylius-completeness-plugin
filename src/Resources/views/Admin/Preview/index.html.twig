@@ -1,0 +1,134 @@
+{% extends '@SyliusAdmin/layout.html.twig' %}
+
+{% block title %}{{ 'setono_sylius_completeness.ui.preview'|trans }} {{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="ui segment">
+        <h1 class="ui header">
+            {{ 'setono_sylius_completeness.ui.preview'|trans }}
+            <div class="sub header">{{ 'setono_sylius_completeness.ui.preview_intro'|trans }}</div>
+        </h1>
+
+        {{ form_start(form, {attr: {class: 'ui form', novalidate: 'novalidate'}}) }}
+            <div class="ui equal width stackable grid">
+                <div class="column">{{ form_row(form.product) }}</div>
+                <div class="column">{{ form_row(form.channelCode) }}</div>
+                <div class="column">{{ form_row(form.localeCode) }}</div>
+            </div>
+            {{ form_row(form.expression) }}
+            <button type="submit" class="ui primary button"><i class="play icon"></i> {{ 'setono_sylius_completeness.ui.run_preview'|trans }}</button>
+        {{ form_end(form) }}
+    </div>
+
+    {% if scratchpadResult is not null %}
+        <div class="ui segment">
+            <h3 class="ui header">{{ 'setono_sylius_completeness.ui.scratchpad'|trans }}</h3>
+            {% if scratchpadResult.errored %}
+                <div class="ui negative message">
+                    <div class="header">{{ 'setono_sylius_completeness.ui.errored'|trans }}</div>
+                    <p>{{ scratchpadResult.error }}</p>
+                </div>
+            {% else %}
+                <table class="ui definition table">
+                    <tbody>
+                        <tr>
+                            <td>{{ 'setono_sylius_completeness.ui.raw_value'|trans }}</td>
+                            <td><code>{{ scratchpadResult.rawValue is same as(true) ? 'true' : (scratchpadResult.rawValue is same as(false) ? 'false' : scratchpadResult.rawValue) }}</code></td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'setono_sylius_completeness.ui.score'|trans }}</td>
+                            <td>
+                                {% if scratchpadResult.score is null %}
+                                    <span class="ui red text">{{ 'setono_sylius_completeness.ui.not_a_score'|trans }}</span>
+                                {% else %}
+                                    {{ scratchpadResult.score }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if contextResult is not null %}
+        <div class="ui segment">
+            <h3 class="ui header">
+                {{ 'setono_sylius_completeness.ui.result'|trans }}
+                <div class="sub header">{{ contextResult.channelCode }} &middot; {{ contextResult.localeCode }}</div>
+            </h3>
+
+            <div class="ui large label" style="margin-bottom: 1em;">
+                {{ 'setono_sylius_completeness.ui.context_ratio'|trans }}:
+                {% if contextResult.ratio is null %}
+                    <span class="detail">{{ 'setono_sylius_completeness.ui.na'|trans }}</span>
+                {% else %}
+                    <span class="detail">{{ contextResult.ratio }}%</span>
+                {% endif %}
+            </div>
+
+            {% if contextResult.groupScores is not empty %}
+                <div style="margin-bottom: 1em;">
+                    {% for groupScore in contextResult.groupScores %}
+                        <span class="ui basic label">
+                            {{ groupScore.group|default('setono_sylius_completeness.ui.ungrouped'|trans) }}
+                            <span class="detail">{{ groupScore.ratio is null ? '—' : groupScore.ratio ~ '%' }}</span>
+                        </span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if contextResult.ruleResults is empty %}
+                <p class="ui grey text">{{ 'setono_sylius_completeness.ui.no_applicable_rules'|trans }}</p>
+            {% else %}
+                <table class="ui celled compact table">
+                    <thead>
+                        <tr>
+                            <th>{{ 'setono_sylius_completeness.ui.rule_label'|trans }}</th>
+                            <th>{{ 'setono_sylius_completeness.ui.group'|trans }}</th>
+                            <th>{{ 'setono_sylius_completeness.ui.checker_type'|trans }}</th>
+                            <th class="right aligned">{{ 'setono_sylius_completeness.ui.weight'|trans }}</th>
+                            <th class="right aligned">{{ 'setono_sylius_completeness.ui.share'|trans }}</th>
+                            <th class="center aligned">{{ 'setono_sylius_completeness.ui.score'|trans }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for rule in contextResult.ruleResults %}
+                            <tr>
+                                <td>{{ rule.label }}</td>
+                                <td>{{ rule.group|default('—') }}</td>
+                                <td>{{ ssc_checker_label(rule.checkerType)|trans }}</td>
+                                <td class="right aligned">{{ rule.weight }}</td>
+                                <td class="right aligned">{{ (ssc_weight_share(rule.weight) * 100)|round }}%</td>
+                                <td class="center aligned">
+                                    {% if rule.errored %}
+                                        <i class="red exclamation triangle icon" title="{{ rule.error }}"></i>
+                                        <div class="ui red text" style="font-size: .85em;">{{ rule.error }}</div>
+                                    {% elseif rule.score >= 1 %}
+                                        <i class="green check icon"></i>
+                                    {% elseif rule.score <= 0 %}
+                                        <i class="red times icon"></i>
+                                    {% else %}
+                                        {{ rule.score }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <div class="ui segment">
+        <div class="ui styled fluid accordion">
+            <div class="title">
+                <i class="dropdown icon"></i>
+                {{ 'setono_sylius_completeness.ui.function_reference'|trans }}
+            </div>
+            <div class="content">
+                {% include '@SetonoSyliusCompletenessPlugin/Admin/_functionReference.html.twig' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

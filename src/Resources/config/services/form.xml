@@ -70,5 +70,10 @@
                  class="Setono\SyliusCompletenessPlugin\Form\Type\CheckerConfiguration\DefaultConfigurationType">
             <tag name="form.type"/>
         </service>
+
+        <service id="setono_sylius_completeness.form.type.preview"
+                 class="Setono\SyliusCompletenessPlugin\Form\Type\PreviewType">
+            <tag name="form.type"/>
+        </service>
     </services>
 </container>

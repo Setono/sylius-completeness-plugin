@@ -55,6 +55,17 @@ final class CompletenessDisplayRuntime implements RuntimeExtensionInterface, Res
         return $this->resolveWeightSafely($rule) / $totalWeight;
     }
 
+    /**
+     * Returns a resolved weight's share (0.0-1.0) of the total resolved weight of all enabled rules.
+     * Used by the preview, which works with resolved weights rather than rule entities
+     */
+    public function weightShare(float $weight): float
+    {
+        $totalWeight = $this->totalWeight ??= $this->calculateTotalWeight();
+
+        return $totalWeight <= 0.0 ? 0.0 : $weight / $totalWeight;
+    }
+
     public function checkerLabel(string $type): string
     {
         return $this->checkers[$type] ?? $type;

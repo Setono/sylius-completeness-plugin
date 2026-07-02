@@ -29,6 +29,14 @@
         <service id="Setono\SyliusCompletenessPlugin\Context\CalculationContextInterface"
                  alias="setono_sylius_completeness.calculation_context"/>
 
+        <service id="setono_sylius_completeness.preview.scratchpad_evaluator"
+                 class="Setono\SyliusCompletenessPlugin\Preview\ScratchpadEvaluator">
+            <argument type="service" id="setono_sylius_completeness.context_initializer"/>
+            <argument type="service" id="setono_sylius_completeness.expression_evaluator"/>
+        </service>
+        <service id="Setono\SyliusCompletenessPlugin\Preview\ScratchpadEvaluatorInterface"
+                 alias="setono_sylius_completeness.preview.scratchpad_evaluator"/>
+
         <service id="setono_sylius_completeness.expression_function_provider.text"
                  class="Setono\SyliusCompletenessPlugin\Expression\FunctionProvider\TextFunctionsProvider">
             <tag name="setono_sylius_completeness.expression_function_provider"/>
