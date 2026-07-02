@@ -42,6 +42,7 @@
             <argument type="collection"/>
             <argument type="service" id="setono_sylius_completeness.form_registry.checker_configuration"/>
             <argument>%setono_sylius_completeness.enable_custom_weight%</argument>
+            <argument>%setono_sylius_completeness.checkers%</argument>
             <tag name="form.type"/>
         </service>
 

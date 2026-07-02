@@ -4,9 +4,17 @@
         {{ form_row(form.label) }}
         {{ form_row(form.group) }}
         {{ form_row(form.type) }}
-        {% if form.configuration is defined %}
-            {{ form_row(form.configuration) }}
-        {% endif %}
+        {# a hidden, escaped prototype per checker type; handlePrototypes swaps the right one into the
+           container client-side when the checker changes (no page reload) #}
+        {% for type, configurationPrototype in form.vars.prototypes %}
+            <div id="{{ form.type.vars.id }}_{{ type }}" data-container="#ssc-checker-configuration"
+                 data-prototype="{{ form_widget(configurationPrototype)|e('html_attr') }}"></div>
+        {% endfor %}
+        <div id="ssc-checker-configuration">
+            {% if form.configuration is defined %}
+                {{ form_widget(form.configuration) }}
+            {% endif %}
+        </div>
         {{ form_row(form.weightTier) }}
         {{ form_row(form.position) }}
         {{ form_row(form.enabled) }}
@@ -47,3 +55,32 @@
 </div>
 
 {% include '@SetonoSyliusCompletenessPlugin/Admin/_expressionEditor.html.twig' %}
+
+<script>
+    (function () {
+        // bind Sylius' client-side prototype swap to the checker select, so its configuration fields
+        // update when the checker changes. The admin JS provides jQuery + the handlePrototypes plugin
+        function bind() {
+            var $ = window.jQuery;
+            if (!$ || !$.fn.handlePrototypes) {
+                return false;
+            }
+
+            var select = $('#{{ form.type.vars.id }}');
+            if (select.length > 0) {
+                select.handlePrototypes({ containerSelector: '#ssc-checker-configuration' });
+            }
+
+            return true;
+        }
+
+        if (!bind()) {
+            var attempts = 0;
+            var timer = setInterval(function () {
+                if (bind() || ++attempts > 50) {
+                    clearInterval(timer);
+                }
+            }, 100);
+        }
+    })();
+</script>

@@ -183,6 +183,36 @@ final class RuleCrudTest extends WebTestCase
     /**
      * @test
      */
+    public function a_rule_persists_its_checker_configuration(): void
+    {
+        // the configuration field is swapped in client-side when the checker changes; without JS we
+        // post what the browser would send once the "minimum number of images" field is present
+        $crawler = $this->client->request('GET', '/admin/completeness-rules/new');
+        $token = $crawler->filter('input[name="setono_sylius_completeness_completeness_rule[_token]"]')->attr('value');
+
+        $this->client->request('POST', '/admin/completeness-rules/new', [
+            'setono_sylius_completeness_completeness_rule' => [
+                'label' => 'Has enough images',
+                'type' => 'has_minimum_images',
+                'weightTier' => 'medium',
+                'position' => '0',
+                'configuration' => ['count' => '3'],
+                '_token' => $token,
+            ],
+        ]);
+
+        self::assertResponseRedirects();
+
+        $rule = $this->entityManager->getRepository(CompletenessRule::class)->findOneBy(['code' => 'has_enough_images']);
+        self::assertInstanceOf(CompletenessRule::class, $rule);
+        self::assertSame('has_minimum_images', $rule->getType());
+        self::assertSame(['count' => 3], $rule->getConfiguration());
+        $this->entitiesToRemove[] = $rule;
+    }
+
+    /**
+     * @test
+     */
     public function a_rule_with_an_invalid_condition_is_rejected(): void
     {
         $this->client->request('GET', '/admin/completeness-rules/new');

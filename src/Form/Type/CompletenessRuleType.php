@@ -17,18 +17,21 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 
 final class CompletenessRuleType extends AbstractResourceType
 {
     /**
      * @param string[] $validationGroups
+     * @param array<string, string> $checkers checker type => label
      */
     public function __construct(
         string $dataClass,
         array $validationGroups,
         private readonly FormTypeRegistryInterface $formTypeRegistry,
         private readonly bool $enableCustomWeight,
+        private readonly array $checkers,
     ) {
         parent::__construct($dataClass, $validationGroups);
     }
@@ -146,6 +149,40 @@ final class CompletenessRuleType extends AbstractResourceType
 
             $event->setData($data);
         });
+
+        // a configuration sub-form prototype per checker type, so the admin JS (handlePrototypes)
+        // can swap the right configuration fields in client-side when the checker changes
+        $prototypes = [];
+        foreach (array_keys($this->checkers) as $type) {
+            if (!$this->formTypeRegistry->has($type, 'default')) {
+                continue;
+            }
+
+            $prototypes[$type] = $builder->create('configuration', $this->formTypeRegistry->get($type, 'default'), [
+                'label' => false,
+            ])->getForm();
+        }
+
+        $builder->setAttribute('prototypes', $prototypes);
+    }
+
+    public function buildView(FormView $view, FormInterface $form, array $options): void
+    {
+        $config = $form->getConfig();
+        $prototypes = $config->hasAttribute('prototypes') ? $config->getAttribute('prototypes') : [];
+
+        $views = [];
+        if (is_array($prototypes)) {
+            foreach ($prototypes as $type => $prototype) {
+                if ($prototype instanceof FormInterface) {
+                    $views[(string) $type] = $prototype->createView($view);
+                }
+            }
+        }
+
+        // Symfony's FormView::$vars is an untyped public array, so phpstan cannot see the offset write
+        /** @phpstan-ignore offsetAccess.nonOffsetAccessible */
+        $view->vars['prototypes'] = $views;
     }
 
     /**

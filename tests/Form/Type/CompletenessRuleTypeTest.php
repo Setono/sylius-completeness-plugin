@@ -50,14 +50,16 @@ final class CompletenessRuleTypeTest extends TypeTestCase
         $resourceRepositoryRegistry = $this->prophesize(ServiceRegistryInterface::class);
         $resourceRepositoryRegistry->get('sylius.taxon')->willReturn($emptyRepository->reveal());
 
+        $checkers = [
+            'has_name' => 'Has name',
+            'has_minimum_images' => 'Has minimum images',
+            'expression' => 'Expression',
+        ];
+
         return [
             new PreloadedExtension([
-                new CompletenessRuleType(CompletenessRule::class, [], $formTypeRegistry, true),
-                new CheckerChoiceType([
-                    'has_name' => 'Has name',
-                    'has_minimum_images' => 'Has minimum images',
-                    'expression' => 'Expression',
-                ]),
+                new CompletenessRuleType(CompletenessRule::class, [], $formTypeRegistry, true, $checkers),
+                new CheckerChoiceType($checkers),
                 new WeightTierChoiceType(['low' => 1.0, 'medium' => 3.0, 'high' => 6.0, 'critical' => 10.0]),
                 new ChannelCodeChoiceType($emptyRepository->reveal()),
                 new LocaleCodeChoiceType($emptyRepository->reveal()),
