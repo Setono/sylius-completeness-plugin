@@ -1,1 +1,4 @@
+imports:
+    - { resource: "@SetonoSyliusCompletenessPlugin/Resources/config/app/config.yaml" }
+
 setono_sylius_completeness: ~

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="setono_sylius_completeness.form_registry.checker_configuration"
+                 class="Sylius\Bundle\ResourceBundle\Form\Registry\FormTypeRegistry"/>
+
+        <service id="setono_sylius_completeness.form.type.checker_choice"
+                 class="Setono\SyliusCompletenessPlugin\Form\Type\CheckerChoiceType">
+            <argument>%setono_sylius_completeness.checkers%</argument>
+            <tag name="form.type"/>
+        </service>
+
+        <service id="setono_sylius_completeness.form.type.weight_tier_choice"
+                 class="Setono\SyliusCompletenessPlugin\Form\Type\WeightTierChoiceType">
+            <argument>%setono_sylius_completeness.weight_tiers%</argument>
+            <tag name="form.type"/>
+        </service>
+
+        <service id="setono_sylius_completeness.form.type.channel_code_choice"
+                 class="Setono\SyliusCompletenessPlugin\Form\Type\ChannelCodeChoiceType">
+            <argument type="service" id="sylius.repository.channel"/>
+            <tag name="form.type"/>
+        </service>
+
+        <service id="setono_sylius_completeness.form.type.locale_code_choice"
+                 class="Setono\SyliusCompletenessPlugin\Form\Type\LocaleCodeChoiceType">
+            <argument type="service" id="sylius.repository.locale"/>
+            <tag name="form.type"/>
+        </service>
+
+        <service id="setono_sylius_completeness.form.type.taxon_code_choice"
+                 class="Setono\SyliusCompletenessPlugin\Form\Type\TaxonCodeChoiceType">
+            <argument type="service" id="sylius.repository.taxon"/>
+            <tag name="form.type"/>
+        </service>
+
+        <service id="setono_sylius_completeness.form.type.completeness_rule"
+                 class="Setono\SyliusCompletenessPlugin\Form\Type\CompletenessRuleType">
+            <argument>%setono_sylius_completeness.model.completeness_rule.class%</argument>
+            <argument type="collection"/>
+            <argument type="service" id="setono_sylius_completeness.form_registry.checker_configuration"/>
+            <argument>%setono_sylius_completeness.enable_custom_weight%</argument>
+            <tag name="form.type"/>
+        </service>
+
+        <service id="setono_sylius_completeness.form.type.context_setting"
+                 class="Setono\SyliusCompletenessPlugin\Form\Type\CompletenessContextSettingType">
+            <argument>%setono_sylius_completeness.model.context_setting.class%</argument>
+            <argument type="collection"/>
+            <argument>%setono_sylius_completeness.default_ready_threshold%</argument>
+            <tag name="form.type"/>
+        </service>
+
+        <service id="setono_sylius_completeness.form.type.checker_configuration.has_minimum_images"
+                 class="Setono\SyliusCompletenessPlugin\Form\Type\CheckerConfiguration\HasMinimumImagesConfigurationType">
+            <tag name="form.type"/>
+            <tag name="setono_sylius_completeness.checker_configuration_form_type" type="has_minimum_images"/>
+        </service>
+
+        <service id="setono_sylius_completeness.form.type.checker_configuration.has_attribute"
+                 class="Setono\SyliusCompletenessPlugin\Form\Type\CheckerConfiguration\HasAttributeConfigurationType">
+            <argument type="service" id="sylius.repository.product_attribute"/>
+            <tag name="form.type"/>
+            <tag name="setono_sylius_completeness.checker_configuration_form_type" type="has_attribute"/>
+        </service>
+
+        <service id="setono_sylius_completeness.form.type.checker_configuration.default"
+                 class="Setono\SyliusCompletenessPlugin\Form\Type\CheckerConfiguration\DefaultConfigurationType">
+            <tag name="form.type"/>
+        </service>
+    </services>
+</container>

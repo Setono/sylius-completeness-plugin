@@ -1,0 +1,47 @@
+<div class="ui two column stackable grid">
+    <div class="column">
+        <h4 class="ui dividing header">{{ 'setono_sylius_completeness.ui.rule'|trans }}</h4>
+        {{ form_row(form.label) }}
+        {{ form_row(form.group) }}
+        {{ form_row(form.type) }}
+        {% if form.configuration is defined %}
+            {{ form_row(form.configuration) }}
+        {% endif %}
+        {{ form_row(form.weightTier) }}
+        {{ form_row(form.position) }}
+        {{ form_row(form.enabled) }}
+
+        <div class="ui styled fluid accordion" style="margin-top: 1em;">
+            <div class="title">
+                <i class="dropdown icon"></i>
+                {{ 'setono_sylius_completeness.ui.advanced'|trans }}
+            </div>
+            <div class="content">
+                {{ form_row(form.code) }}
+                {% if form.customWeight is defined %}
+                    {{ form_row(form.customWeight) }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <h4 class="ui dividing header">{{ 'setono_sylius_completeness.ui.scope'|trans }}</h4>
+        {{ form_row(form.channelCode) }}
+        {{ form_row(form.localeCode) }}
+        {{ form_row(form.taxonCode) }}
+
+        <h4 class="ui dividing header">{{ 'setono_sylius_completeness.ui.expressions'|trans }}</h4>
+        {{ form_row(form.condition) }}
+        {{ form_row(form.expression) }}
+
+        <div class="ui styled fluid accordion" style="margin-top: 1em;">
+            <div class="title">
+                <i class="dropdown icon"></i>
+                {{ 'setono_sylius_completeness.ui.function_reference'|trans }}
+            </div>
+            <div class="content">
+                {% include '@SetonoSyliusCompletenessPlugin/Admin/_functionReference.html.twig' %}
+            </div>
+        </div>
+    </div>
+</div>

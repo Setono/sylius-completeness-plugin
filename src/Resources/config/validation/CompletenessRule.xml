@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping https://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+    <class name="Setono\SyliusCompletenessPlugin\Model\CompletenessRule">
+        <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
+            <option name="fields">code</option>
+            <option name="message">setono_sylius_completeness.completeness_rule.code.unique</option>
+        </constraint>
+        <constraint name="Setono\SyliusCompletenessPlugin\Validator\Constraints\ExpressionRequiredWhenExpressionType"/>
+
+        <property name="code">
+            <constraint name="NotBlank">
+                <option name="message">setono_sylius_completeness.completeness_rule.code.not_blank</option>
+            </constraint>
+        </property>
+        <property name="label">
+            <constraint name="NotBlank">
+                <option name="message">setono_sylius_completeness.completeness_rule.label.not_blank</option>
+            </constraint>
+        </property>
+        <property name="type">
+            <constraint name="NotBlank">
+                <option name="message">setono_sylius_completeness.completeness_rule.type.not_blank</option>
+            </constraint>
+            <constraint name="Setono\SyliusCompletenessPlugin\Validator\Constraints\RegisteredCheckerType"/>
+        </property>
+        <property name="weightTier">
+            <constraint name="NotBlank"/>
+        </property>
+        <property name="customWeight">
+            <constraint name="GreaterThan">
+                <option name="value">0</option>
+                <option name="message">setono_sylius_completeness.completeness_rule.custom_weight.greater_than</option>
+            </constraint>
+        </property>
+        <property name="condition">
+            <constraint name="Setono\SyliusCompletenessPlugin\Validator\Constraints\ValidExpression"/>
+        </property>
+        <property name="expression">
+            <constraint name="Setono\SyliusCompletenessPlugin\Validator\Constraints\ValidExpression"/>
+        </property>
+    </class>
+</constraint-mapping>

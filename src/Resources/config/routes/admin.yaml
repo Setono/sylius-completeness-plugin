@@ -1,1 +1,33 @@
-# TODO Add your admin routes here
+setono_sylius_completeness_admin_completeness_rule:
+    resource: |
+        alias: setono_sylius_completeness.completeness_rule
+        section: admin
+        permission: true
+        except: ['show']
+        redirect: update
+        grid: setono_sylius_completeness_admin_completeness_rule
+        templates: "@SyliusAdmin\\Crud"
+        vars:
+            all:
+                templates:
+                    form: "@SetonoSyliusCompletenessPlugin/Admin/CompletenessRule/_form.html.twig"
+            index:
+                icon: tasks
+    type: sylius.resource
+
+setono_sylius_completeness_admin_context_setting:
+    resource: |
+        alias: setono_sylius_completeness.context_setting
+        section: admin
+        permission: true
+        except: ['show']
+        redirect: update
+        grid: setono_sylius_completeness_admin_context_setting
+        templates: "@SyliusAdmin\\Crud"
+        vars:
+            all:
+                templates:
+                    form: "@SetonoSyliusCompletenessPlugin/Admin/ContextSetting/_form.html.twig"
+            index:
+                icon: sliders horizontal
+    type: sylius.resource

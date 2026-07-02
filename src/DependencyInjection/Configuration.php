@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Setono\SyliusCompletenessPlugin\DependencyInjection;
 
+use Setono\SyliusCompletenessPlugin\Form\Type\CompletenessContextSettingType;
+use Setono\SyliusCompletenessPlugin\Form\Type\CompletenessRuleType;
 use Setono\SyliusCompletenessPlugin\Model\CompletenessContextSetting;
 use Setono\SyliusCompletenessPlugin\Model\CompletenessContextSettingInterface;
 use Setono\SyliusCompletenessPlugin\Model\CompletenessRule;
@@ -107,7 +109,7 @@ final class Configuration implements ConfigurationInterface
                                         ->scalarNode('controller')->defaultValue(ResourceController::class)->cannotBeEmpty()->end()
                                         ->scalarNode('repository')->defaultValue(CompletenessRuleRepository::class)->cannotBeEmpty()->end()
                                         ->scalarNode('factory')->defaultValue(Factory::class)->end()
-                                        ->scalarNode('form')->defaultValue(DefaultResourceType::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('form')->defaultValue(CompletenessRuleType::class)->cannotBeEmpty()->end()
                                     ->end()
                                 ->end()
                             ->end()
@@ -141,7 +143,7 @@ final class Configuration implements ConfigurationInterface
                                         ->scalarNode('controller')->defaultValue(ResourceController::class)->cannotBeEmpty()->end()
                                         ->scalarNode('repository')->defaultValue(CompletenessContextSettingRepository::class)->cannotBeEmpty()->end()
                                         ->scalarNode('factory')->defaultValue(Factory::class)->end()
-                                        ->scalarNode('form')->defaultValue(DefaultResourceType::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('form')->defaultValue(CompletenessContextSettingType::class)->cannotBeEmpty()->end()
                                     ->end()
                                 ->end()
                             ->end()

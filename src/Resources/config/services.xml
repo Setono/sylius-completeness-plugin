@@ -7,10 +7,14 @@
         <import resource="services/checker.xml"/>
         <import resource="services/command.xml"/>
         <import resource="services/expression.xml"/>
+        <import resource="services/form.xml"/>
         <import resource="services/listener.xml"/>
+        <import resource="services/menu.xml"/>
         <import resource="services/messenger.xml"/>
         <import resource="services/provider.xml"/>
         <import resource="services/resolver.xml"/>
         <import resource="services/rollup.xml"/>
+        <import resource="services/twig.xml"/>
+        <import resource="services/validator.xml"/>
     </imports>
 </container>

@@ -1,0 +1,40 @@
+sylius_grid:
+    grids:
+        setono_sylius_completeness_admin_context_setting:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: "%setono_sylius_completeness.model.context_setting.class%"
+            sorting:
+                channelCode: asc
+            fields:
+                channelCode:
+                    type: string
+                    label: sylius.ui.channel
+                    sortable: ~
+                localeCode:
+                    type: string
+                    label: sylius.ui.locale
+                    sortable: ~
+                threshold:
+                    type: twig
+                    label: setono_sylius_completeness.ui.threshold
+                    options:
+                        template: "@SetonoSyliusCompletenessPlugin/Admin/ContextSetting/Grid/Field/threshold.html.twig"
+                rollupWeight:
+                    type: twig
+                    label: setono_sylius_completeness.ui.counts_toward_overall
+                    options:
+                        template: "@SetonoSyliusCompletenessPlugin/Admin/ContextSetting/Grid/Field/rollupWeight.html.twig"
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete
+                bulk:
+                    delete:
+                        type: delete

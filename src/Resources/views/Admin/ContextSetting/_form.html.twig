@@ -1,0 +1,16 @@
+<div class="ui segment">
+    {{ form_row(form.channelCode) }}
+    {{ form_row(form.localeCode) }}
+    {{ form_row(form.threshold) }}
+    {{ form_row(form.countsTowardOverall) }}
+
+    <div class="ui styled fluid accordion">
+        <div class="title">
+            <i class="dropdown icon"></i>
+            {{ 'setono_sylius_completeness.ui.advanced'|trans }}
+        </div>
+        <div class="content">
+            {{ form_row(form.rollupWeight) }}
+        </div>
+    </div>
+</div>

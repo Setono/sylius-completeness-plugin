@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Setono\SyliusCompletenessPlugin\DependencyInjection\Compiler;
 
 use Setono\SyliusCompletenessPlugin\Checker\CompletenessCheckerInterface;
+use Setono\SyliusCompletenessPlugin\Form\Type\CheckerConfiguration\DefaultConfigurationType;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -45,6 +46,48 @@ final class RegisterCheckersPass implements CompilerPassInterface
         }
 
         $container->setParameter('setono_sylius_completeness.checkers', $labels);
+
+        $this->registerConfigurationFormTypes($container, array_keys($checkers));
+    }
+
+    /**
+     * Maps every checker type to its configuration form type. Parameterless checkers fall back
+     * to the shared empty DefaultConfigurationType
+     *
+     * @param list<string> $types
+     */
+    private function registerConfigurationFormTypes(ContainerBuilder $container, array $types): void
+    {
+        if (!$container->hasDefinition('setono_sylius_completeness.form_registry.checker_configuration')) {
+            return;
+        }
+
+        $formRegistry = $container->getDefinition('setono_sylius_completeness.form_registry.checker_configuration');
+
+        /** @var array<string, string> $formTypes */
+        $formTypes = [];
+        foreach ($container->findTaggedServiceIds('setono_sylius_completeness.checker_configuration_form_type', true) as $serviceId => $tags) {
+            foreach ($tags as $attributes) {
+                /** @var array{type?: string} $attributes */
+                if (!isset($attributes['type'])) {
+                    throw new \InvalidArgumentException(sprintf(
+                        'The service "%s" is tagged as a checker configuration form type, so it needs a "type" attribute on the tag',
+                        $serviceId,
+                    ));
+                }
+
+                $class = $container->getDefinition($serviceId)->getClass();
+                if (!is_string($class)) {
+                    throw new \InvalidArgumentException(sprintf('The service "%s" has no class', $serviceId));
+                }
+
+                $formTypes[$attributes['type']] = $class;
+            }
+        }
+
+        foreach ($types as $type) {
+            $formRegistry->addMethodCall('add', [$type, 'default', $formTypes[$type] ?? DefaultConfigurationType::class]);
+        }
     }
 
     private function resolveType(ContainerBuilder $container, string $serviceId): string

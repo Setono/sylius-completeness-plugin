@@ -1,0 +1,8 @@
+{% if data > 0 %}
+    <span class="ui green text">{{ 'sylius.ui.yes_label'|trans }}</span>
+    {% if data != 1 %}
+        <span class="ui tiny circular label" title="{{ 'setono_sylius_completeness.ui.rollup_weight'|trans }}">&times; {{ data }}</span>
+    {% endif %}
+{% else %}
+    <span class="ui red text">{{ 'setono_sylius_completeness.ui.not_counted'|trans }}</span>
+{% endif %}

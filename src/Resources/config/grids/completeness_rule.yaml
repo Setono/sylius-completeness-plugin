@@ -1,0 +1,73 @@
+sylius_grid:
+    grids:
+        setono_sylius_completeness_admin_completeness_rule:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: "%setono_sylius_completeness.model.completeness_rule.class%"
+            sorting:
+                position: asc
+            fields:
+                label:
+                    type: string
+                    label: setono_sylius_completeness.ui.rule_label
+                    sortable: ~
+                group:
+                    type: string
+                    label: setono_sylius_completeness.ui.group
+                    sortable: ~
+                type:
+                    type: twig
+                    label: setono_sylius_completeness.ui.checker_type
+                    options:
+                        template: "@SetonoSyliusCompletenessPlugin/Admin/CompletenessRule/Grid/Field/type.html.twig"
+                weightTier:
+                    type: twig
+                    label: setono_sylius_completeness.ui.weight
+                    path: .
+                    sortable: weightTier
+                    options:
+                        template: "@SetonoSyliusCompletenessPlugin/Admin/CompletenessRule/Grid/Field/weightTier.html.twig"
+                share:
+                    type: twig
+                    label: setono_sylius_completeness.ui.share
+                    path: .
+                    options:
+                        template: "@SetonoSyliusCompletenessPlugin/Admin/CompletenessRule/Grid/Field/share.html.twig"
+                scope:
+                    type: twig
+                    label: setono_sylius_completeness.ui.scope
+                    path: .
+                    options:
+                        template: "@SetonoSyliusCompletenessPlugin/Admin/CompletenessRule/Grid/Field/scope.html.twig"
+                enabled:
+                    type: twig
+                    label: sylius.ui.enabled
+                    sortable: ~
+                    options:
+                        template: "@SyliusUi/Grid/Field/enabled.html.twig"
+                position:
+                    type: string
+                    label: setono_sylius_completeness.ui.position
+                    sortable: ~
+            filters:
+                search:
+                    type: string
+                    label: sylius.ui.search
+                    options:
+                        fields: [label, code, group]
+                enabled:
+                    type: boolean
+                    label: sylius.ui.enabled
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete
+                bulk:
+                    delete:
+                        type: delete

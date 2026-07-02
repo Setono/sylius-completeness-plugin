@@ -28,6 +28,8 @@ final class RecalculateOnFlushTest extends KernelTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         self::bootKernel();
 
         /** @var EntityManagerInterface $entityManager */
@@ -37,15 +39,27 @@ final class RecalculateOnFlushTest extends KernelTestCase
 
     protected function tearDown(): void
     {
-        foreach (array_reverse($this->entitiesToRemove) as $entity) {
-            if ($this->entityManager->contains($entity)) {
-                $this->entityManager->remove($entity);
-            }
-        }
-        $this->entityManager->flush();
-        $this->entitiesToRemove = [];
+        $this->removeCreatedEntities();
 
         parent::tearDown();
+    }
+
+    private function removeCreatedEntities(): void
+    {
+        try {
+            if ($this->entityManager->isOpen()) {
+                foreach (array_reverse($this->entitiesToRemove) as $entity) {
+                    if ($this->entityManager->contains($entity)) {
+                        $this->entityManager->remove($entity);
+                    }
+                }
+                $this->entityManager->flush();
+            }
+        } catch (\Throwable) {
+            // best effort cleanup - never mask the actual test result
+        } finally {
+            $this->entitiesToRemove = [];
+        }
     }
 
     private function getTransport(): InMemoryTransport

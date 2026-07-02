@@ -1,0 +1,18 @@
+setono_sylius_completeness:
+    completeness_rule:
+        code:
+            not_blank: Please enter a code.
+            unique: A rule with this code already exists.
+        custom_weight:
+            greater_than: The custom weight must be greater than 0.
+        expression:
+            invalid: 'The expression is invalid: {{ error }}'
+            not_allowed: The expression field is only used by the "Custom expression" checker. Choose that checker or clear this field.
+            required: Please enter the expression to evaluate.
+        label:
+            not_blank: Please enter a label.
+        type:
+            not_blank: Please choose a checker.
+            not_registered: The checker type "{{ type }}" is not registered.
+    context_setting:
+        unique: A setting for this channel and locale combination already exists.

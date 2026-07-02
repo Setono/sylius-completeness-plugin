@@ -1,0 +1,70 @@
+<p>
+    {{ 'setono_sylius_completeness.ui.function_reference_intro'|trans }}
+</p>
+
+<h5 class="ui header">{{ 'setono_sylius_completeness.ui.variables'|trans }}</h5>
+<p>
+    <code>product</code>, <code>channel</code>, <code>locale</code>, <code>channelCode</code>, <code>localeCode</code>
+</p>
+<p>
+    {{ 'setono_sylius_completeness.ui.native_getters_note'|trans }}
+    <code>product.getName()</code>, <code>product.getDescription()</code>, <code>product.getShortDescription()</code>,
+    <code>product.getMetaDescription()</code>, <code>product.getMetaKeywords()</code>, <code>product.getSlug()</code>,
+    <code>product.getTranslation('en').getName()</code>
+</p>
+
+<h5 class="ui header">{{ 'setono_sylius_completeness.ui.operators'|trans }}</h5>
+<p>
+    <code>+ - * / %</code> · <code>== != &lt; &gt; &lt;= &gt;=</code> · <code>and or not</code> ·
+    <code>in</code> / <code>not in</code> · <code>matches</code> (regex) · <code>~</code> (concat) · <code>? :</code> ·
+    <code>contains</code> / <code>starts with</code> / <code>ends with</code> (case sensitive)
+</p>
+
+<h5 class="ui header">{{ 'setono_sylius_completeness.ui.functions'|trans }}</h5>
+<table class="ui very compact small celled table">
+    <tbody>
+        <tr><td><code>word_count(text)</code> / <code>char_count(text)</code></td><td>int — HTML stripped, Unicode safe, null → 0</td></tr>
+        <tr><td><code>is_blank(text)</code></td><td>bool — true if null/empty after stripping HTML</td></tr>
+        <tr><td><code>lower(text)</code> / <code>upper(text)</code> / <code>trim(text)</code></td><td>string</td></tr>
+        <tr><td><code>icontains(text, needle)</code></td><td>bool — case insensitive contains</td></tr>
+        <tr><td><code>starts_with(text, prefix)</code> / <code>ends_with(text, suffix)</code></td><td>bool</td></tr>
+        <tr><td><code>has_translation(product[, locale])</code></td><td>bool — a real translation row exists</td></tr>
+        <tr><td><code>has_attribute(product, code[, locale])</code></td><td>bool — non empty value</td></tr>
+        <tr><td><code>attribute_value(product, code[, locale])</code></td><td>scalar — option CODES for select attributes</td></tr>
+        <tr><td><code>attribute_values(product, code[, locale])</code></td><td>list</td></tr>
+        <tr><td><code>attribute_count(product)</code></td><td>int</td></tr>
+        <tr><td><code>image_count(product)</code> / <code>has_image(product)</code></td><td>int / bool</td></tr>
+        <tr><td><code>image_count_of_type(product, type)</code> / <code>has_image_type(product, type)</code></td><td>int / bool</td></tr>
+        <tr><td><code>has_main_taxon(product)</code> / <code>in_taxon(product, taxonCode)</code></td><td>bool</td></tr>
+        <tr><td><code>taxon_codes(product)</code> / <code>taxon_count(product)</code></td><td>list / int</td></tr>
+        <tr><td><code>variant_count(product)</code> / <code>enabled_variant_count(product)</code></td><td>int</td></tr>
+        <tr><td><code>has_option(product, optionCode)</code> / <code>option_count(product)</code></td><td>bool / int</td></tr>
+        <tr><td><code>association_count(product, typeCode)</code></td><td>int</td></tr>
+        <tr><td><code>is_enabled(product)</code> / <code>is_in_channel(product[, channelCode])</code></td><td>bool</td></tr>
+        <tr><td><code>channel_count(product)</code></td><td>int</td></tr>
+        <tr><td><code>has_price(product[, channelCode])</code> / <code>price(product[, channelCode])</code></td><td>bool / int (minor units, 0 if none)</td></tr>
+        <tr><td><code>count(list)</code> / <code>is_empty(list)</code></td><td>int / bool</td></tr>
+        <tr><td><code>min(a, b)</code> / <code>max(a, b)</code> / <code>between(value, low, high)</code></td><td>number / bool</td></tr>
+    </tbody>
+</table>
+
+<h5 class="ui header">{{ 'setono_sylius_completeness.ui.examples'|trans }}</h5>
+<table class="ui very compact small celled table">
+    <tbody>
+        <tr>
+            <td><code>word_count(product.getDescription()) >= 200</code></td>
+            <td>{{ 'setono_sylius_completeness.ui.example_binary'|trans }}</td>
+        </tr>
+        <tr>
+            <td><code>min(word_count(product.getDescription()) / 200, 1)</code></td>
+            <td>{{ 'setono_sylius_completeness.ui.example_graded'|trans }}</td>
+        </tr>
+        <tr>
+            <td>
+                {{ 'setono_sylius_completeness.ui.example_condition'|trans }}: <code>attribute_value(product, 'type') == 'beer'</code><br/>
+                {{ 'setono_sylius_completeness.ui.example_expression'|trans }}: <code>has_attribute(product, 'beer_type')</code>
+            </td>
+            <td>{{ 'setono_sylius_completeness.ui.example_required_when'|trans }}</td>
+        </tr>
+    </tbody>
+</table>

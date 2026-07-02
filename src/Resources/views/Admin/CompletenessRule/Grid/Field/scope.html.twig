@@ -1,0 +1,20 @@
+{% set parts = [] %}
+{% if data.channelCode is not null %}
+    {% set parts = parts|merge([data.channelCode]) %}
+{% endif %}
+{% if data.localeCode is not null %}
+    {% set parts = parts|merge([data.localeCode]) %}
+{% endif %}
+{% if data.taxonCode is not null %}
+    {% set parts = parts|merge(['taxon:' ~ data.taxonCode]) %}
+{% endif %}
+
+{% if parts is empty %}
+    <span class="ui grey text">{{ 'setono_sylius_completeness.ui.all'|trans }}</span>
+{% else %}
+    {{ parts|join(' · ') }}
+{% endif %}
+
+{% if data.condition is not null %}
+    <i class="filter icon" title="{{ data.condition }}"></i>
+{% endif %}

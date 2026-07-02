@@ -1,0 +1,5 @@
+{% if data.enabled %}
+    {{ (ssc_rule_share(data) * 100)|round }}%
+{% else %}
+    <span class="ui grey text">&mdash;</span>
+{% endif %}

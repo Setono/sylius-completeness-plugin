@@ -1,0 +1,4 @@
+{{ ('setono_sylius_completeness.ui.weight_tier.' ~ data.weightTier)|trans }}
+{% if data.customWeight is not null %}
+    <span class="ui tiny circular label" title="{{ 'setono_sylius_completeness.ui.custom_weight'|trans }}">{{ data.customWeight }}</span>
+{% endif %}

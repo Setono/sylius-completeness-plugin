@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping https://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+    <class name="Setono\SyliusCompletenessPlugin\Model\CompletenessContextSetting">
+        <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
+            <option name="fields">
+                <value>channelCode</value>
+                <value>localeCode</value>
+            </option>
+            <option name="errorPath">localeCode</option>
+            <option name="message">setono_sylius_completeness.context_setting.unique</option>
+        </constraint>
+
+        <property name="channelCode">
+            <constraint name="NotBlank"/>
+        </property>
+        <property name="localeCode">
+            <constraint name="NotBlank"/>
+        </property>
+        <property name="threshold">
+            <constraint name="Range">
+                <option name="min">0</option>
+                <option name="max">100</option>
+            </constraint>
+        </property>
+        <property name="rollupWeight">
+            <constraint name="GreaterThanOrEqual">
+                <option name="value">0</option>
+            </constraint>
+        </property>
+    </class>
+</constraint-mapping>

@@ -1,0 +1,3 @@
+imports:
+    - { resource: "grids/completeness_rule.yaml" }
+    - { resource: "grids/context_setting.yaml" }
