@@ -6,6 +6,7 @@ namespace Setono\SyliusCompletenessPlugin\Twig;
 
 use Setono\SyliusCompletenessPlugin\Calculator\RuleWeightResolverInterface;
 use Setono\SyliusCompletenessPlugin\Display\ThresholdColor;
+use Setono\SyliusCompletenessPlugin\Expression\ExpressionFunctionDocumentationProviderInterface;
 use Setono\SyliusCompletenessPlugin\Expression\ExpressionFunctionNameProviderInterface;
 use Setono\SyliusCompletenessPlugin\Model\CompletenessRuleInterface;
 use Setono\SyliusCompletenessPlugin\Model\ProductCompletenessAwareInterface;
@@ -32,6 +33,7 @@ final class CompletenessDisplayRuntime implements RuntimeExtensionInterface, Res
         private readonly RubricVersionManagerInterface $rubricVersionManager,
         private readonly CompletenessPanelFactoryInterface $panelFactory,
         private readonly ExpressionFunctionNameProviderInterface $functionNameProvider,
+        private readonly ExpressionFunctionDocumentationProviderInterface $functionDocumentationProvider,
         private readonly array $checkers,
         private readonly int $defaultThreshold,
         private readonly int $amberBand,
@@ -46,6 +48,16 @@ final class CompletenessDisplayRuntime implements RuntimeExtensionInterface, Res
     public function expressionFunctions(): array
     {
         return $this->functionNameProvider->getNames();
+    }
+
+    /**
+     * Signature + description for the built-in expression functions, used to enrich the autocompletion.
+     *
+     * @return array<string, array{signature: string, description: string}>
+     */
+    public function expressionFunctionDocs(): array
+    {
+        return $this->functionDocumentationProvider->getDocumentation();
     }
 
     /**

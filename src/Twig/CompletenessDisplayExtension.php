@@ -19,6 +19,7 @@ final class CompletenessDisplayExtension extends AbstractExtension
             new TwigFunction('ssc_is_stale', [CompletenessDisplayRuntime::class, 'isStale']),
             new TwigFunction('ssc_panel', [CompletenessDisplayRuntime::class, 'panel']),
             new TwigFunction('ssc_expression_functions', [CompletenessDisplayRuntime::class, 'expressionFunctions']),
+            new TwigFunction('ssc_expression_function_docs', [CompletenessDisplayRuntime::class, 'expressionFunctionDocs']),
         ];
     }
 }

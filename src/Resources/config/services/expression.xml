@@ -29,6 +29,11 @@
         <service id="Setono\SyliusCompletenessPlugin\Expression\ExpressionFunctionNameProviderInterface"
                  alias="setono_sylius_completeness.expression_function_name_provider"/>
 
+        <service id="setono_sylius_completeness.expression_function_documentation_provider"
+                 class="Setono\SyliusCompletenessPlugin\Expression\ExpressionFunctionDocumentationProvider"/>
+        <service id="Setono\SyliusCompletenessPlugin\Expression\ExpressionFunctionDocumentationProviderInterface"
+                 alias="setono_sylius_completeness.expression_function_documentation_provider"/>
+
         <service id="setono_sylius_completeness.calculation_context"
                  class="Setono\SyliusCompletenessPlugin\Context\CalculationContext">
             <tag name="kernel.reset" method="reset"/>

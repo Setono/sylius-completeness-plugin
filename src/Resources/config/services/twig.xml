@@ -15,6 +15,7 @@
             <argument type="service" id="setono_sylius_completeness.rubric_version_manager"/>
             <argument type="service" id="setono_sylius_completeness.factory.completeness_panel"/>
             <argument type="service" id="setono_sylius_completeness.expression_function_name_provider"/>
+            <argument type="service" id="setono_sylius_completeness.expression_function_documentation_provider"/>
             <argument>%setono_sylius_completeness.checkers%</argument>
             <argument>%setono_sylius_completeness.default_ready_threshold%</argument>
             <argument>%setono_sylius_completeness.amber_band%</argument>
