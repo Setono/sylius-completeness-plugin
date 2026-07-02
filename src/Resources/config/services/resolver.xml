@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="setono_sylius_completeness.resolver.affected_products.product"
+                 class="Setono\SyliusCompletenessPlugin\Doctrine\Resolver\ProductResolver">
+            <tag name="setono_sylius_completeness.affected_products_resolver"/>
+        </service>
+
+        <service id="setono_sylius_completeness.resolver.affected_products.product_translation"
+                 class="Setono\SyliusCompletenessPlugin\Doctrine\Resolver\ProductTranslationResolver">
+            <tag name="setono_sylius_completeness.affected_products_resolver"/>
+        </service>
+
+        <service id="setono_sylius_completeness.resolver.affected_products.product_image"
+                 class="Setono\SyliusCompletenessPlugin\Doctrine\Resolver\ProductImageResolver">
+            <tag name="setono_sylius_completeness.affected_products_resolver"/>
+        </service>
+
+        <service id="setono_sylius_completeness.resolver.affected_products.product_variant"
+                 class="Setono\SyliusCompletenessPlugin\Doctrine\Resolver\ProductVariantResolver">
+            <tag name="setono_sylius_completeness.affected_products_resolver"/>
+        </service>
+
+        <service id="setono_sylius_completeness.resolver.affected_products.channel_pricing"
+                 class="Setono\SyliusCompletenessPlugin\Doctrine\Resolver\ChannelPricingResolver">
+            <tag name="setono_sylius_completeness.affected_products_resolver"/>
+        </service>
+
+        <service id="setono_sylius_completeness.resolver.affected_products.product_attribute_value"
+                 class="Setono\SyliusCompletenessPlugin\Doctrine\Resolver\ProductAttributeValueResolver">
+            <tag name="setono_sylius_completeness.affected_products_resolver"/>
+        </service>
+
+        <service id="setono_sylius_completeness.resolver.affected_products.product_taxon"
+                 class="Setono\SyliusCompletenessPlugin\Doctrine\Resolver\ProductTaxonResolver">
+            <tag name="setono_sylius_completeness.affected_products_resolver"/>
+        </service>
+    </services>
+</container>

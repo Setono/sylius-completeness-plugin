@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Setono\SyliusCompletenessPlugin\DependencyInjection;
 
 use Setono\SyliusCompletenessPlugin\Checker\CompletenessCheckerInterface;
+use Setono\SyliusCompletenessPlugin\Doctrine\Resolver\AffectedProductsResolverInterface;
 use Setono\SyliusCompletenessPlugin\Rollup\RollupStrategyInterface;
 use Sylius\Bundle\ResourceBundle\DependencyInjection\Extension\AbstractResourceExtension;
 use Symfony\Component\Config\FileLocator;
@@ -48,6 +49,8 @@ final class SetonoSyliusCompletenessExtension extends AbstractResourceExtension 
             ->addTag('setono_sylius_completeness.checker');
         $container->registerForAutoconfiguration(RollupStrategyInterface::class)
             ->addTag('setono_sylius_completeness.rollup_strategy');
+        $container->registerForAutoconfiguration(AffectedProductsResolverInterface::class)
+            ->addTag('setono_sylius_completeness.affected_products_resolver');
 
         $this->registerResources('setono_sylius_completeness', $config['driver'], $config['resources'], $container);
     }

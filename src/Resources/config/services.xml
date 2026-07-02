@@ -5,8 +5,12 @@
     <imports>
         <import resource="services/calculator.xml"/>
         <import resource="services/checker.xml"/>
+        <import resource="services/command.xml"/>
         <import resource="services/expression.xml"/>
+        <import resource="services/listener.xml"/>
+        <import resource="services/messenger.xml"/>
         <import resource="services/provider.xml"/>
+        <import resource="services/resolver.xml"/>
         <import resource="services/rollup.xml"/>
     </imports>
 </container>

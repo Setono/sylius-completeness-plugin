@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="setono_sylius_completeness.message_handler.recalculate_product_completeness"
+                 class="Setono\SyliusCompletenessPlugin\Message\Handler\RecalculateProductCompletenessHandler">
+            <argument type="service" id="setono_sylius_completeness.provider.product"/>
+            <argument type="service" id="setono_sylius_completeness.updater"/>
+            <tag name="messenger.message_handler" bus="setono_sylius_completeness.command_bus"/>
+        </service>
+
+        <service id="setono_sylius_completeness.message_handler.recalculate_all_products_completeness"
+                 class="Setono\SyliusCompletenessPlugin\Message\Handler\RecalculateAllProductsCompletenessHandler">
+            <argument type="service" id="setono_sylius_completeness.provider.product_ids"/>
+            <argument type="service" id="setono_sylius_completeness.provider.product"/>
+            <argument type="service" id="setono_sylius_completeness.updater"/>
+            <argument type="service" id="doctrine"/>
+            <argument>%sylius.model.product.class%</argument>
+            <tag name="messenger.message_handler" bus="setono_sylius_completeness.command_bus"/>
+        </service>
+
+        <service id="setono_sylius_completeness.message_handler.refresh_completeness_rollups"
+                 class="Setono\SyliusCompletenessPlugin\Message\Handler\RefreshCompletenessRollupsHandler">
+            <argument type="service" id="setono_sylius_completeness.provider.product_ids"/>
+            <argument type="service" id="setono_sylius_completeness.provider.product"/>
+            <argument type="service" id="setono_sylius_completeness.repository.product_completeness"/>
+            <argument type="service" id="setono_sylius_completeness.provider.context_settings"/>
+            <argument type="service" id="setono_sylius_completeness.rollup"/>
+            <argument type="service" id="setono_sylius_completeness.rubric_version_manager"/>
+            <argument type="service" id="doctrine"/>
+            <argument>%sylius.model.product.class%</argument>
+            <tag name="messenger.message_handler" bus="setono_sylius_completeness.command_bus"/>
+        </service>
+    </services>
+</container>

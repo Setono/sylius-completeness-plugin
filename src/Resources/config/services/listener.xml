@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="setono_sylius_completeness.listener.recalculate_affected_products"
+                 class="Setono\SyliusCompletenessPlugin\EventListener\Doctrine\RecalculateAffectedProductsListener">
+            <argument type="tagged_iterator" tag="setono_sylius_completeness.affected_products_resolver"/>
+            <argument type="service" id="setono_sylius_completeness.command_bus"/>
+            <argument type="service" id="logger"/>
+            <argument>%setono_sylius_completeness.bulk_threshold%</argument>
+            <argument>%setono_sylius_completeness.recalculate_on_doctrine_flush%</argument>
+            <tag name="doctrine.event_listener" event="onFlush" lazy="true"/>
+            <tag name="doctrine.event_listener" event="postFlush" lazy="true"/>
+            <tag name="monolog.logger" channel="setono_sylius_completeness"/>
+        </service>
+
+        <service id="setono_sylius_completeness.listener.rubric_change"
+                 class="Setono\SyliusCompletenessPlugin\EventListener\Doctrine\RubricChangeListener">
+            <argument type="service" id="setono_sylius_completeness.command_bus"/>
+            <argument type="service" id="setono_sylius_completeness.rubric_version_manager"/>
+            <tag name="doctrine.event_listener" event="onFlush" lazy="true"/>
+            <tag name="doctrine.event_listener" event="postFlush" lazy="true"/>
+        </service>
+    </services>
+</container>

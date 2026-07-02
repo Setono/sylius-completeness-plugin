@@ -11,6 +11,14 @@
         <service id="Setono\SyliusCompletenessPlugin\Provider\ProductIdsProviderInterface"
                  alias="setono_sylius_completeness.provider.product_ids"/>
 
+        <service id="setono_sylius_completeness.provider.product"
+                 class="Setono\SyliusCompletenessPlugin\Provider\ProductProvider">
+            <argument type="service" id="doctrine"/>
+            <argument>%sylius.model.product.class%</argument>
+        </service>
+        <service id="Setono\SyliusCompletenessPlugin\Provider\ProductProviderInterface"
+                 alias="setono_sylius_completeness.provider.product"/>
+
         <service id="setono_sylius_completeness.rubric_version_manager"
                  class="Setono\SyliusCompletenessPlugin\Rubric\RubricVersionManager">
             <argument type="service" id="doctrine"/>

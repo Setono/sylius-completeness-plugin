@@ -1,0 +1,6 @@
+framework:
+    messenger:
+        transports:
+            setono_sylius_completeness: 'in-memory://'
+        routing:
+            'Setono\SyliusCompletenessPlugin\Message\CommandInterface': setono_sylius_completeness
