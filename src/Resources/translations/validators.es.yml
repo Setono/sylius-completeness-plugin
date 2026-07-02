@@ -1,0 +1,18 @@
+setono_sylius_completeness:
+    completeness_rule:
+        code:
+            not_blank: Introduzca un código.
+            unique: Ya existe una regla con este código.
+        custom_weight:
+            greater_than: El peso personalizado debe ser mayor que 0.
+        expression:
+            invalid: 'La expresión no es válida: {{ error }}'
+            not_allowed: El campo de expresión solo lo usa la comprobación "Expresión personalizada". Elija esa comprobación o vacíe este campo.
+            required: Introduzca la expresión que se va a evaluar.
+        label:
+            not_blank: Introduzca una etiqueta.
+        type:
+            not_blank: Elija una comprobación.
+            not_registered: El tipo de comprobación "{{ type }}" no está registrado.
+    context_setting:
+        unique: Ya existe una configuración para esta combinación de canal e idioma.

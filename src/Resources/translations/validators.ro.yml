@@ -1,0 +1,18 @@
+setono_sylius_completeness:
+    completeness_rule:
+        code:
+            not_blank: Introduceți un cod.
+            unique: O regulă cu acest cod există deja.
+        custom_weight:
+            greater_than: Ponderea personalizată trebuie să fie mai mare decât 0.
+        expression:
+            invalid: 'Expresia nu este validă: {{ error }}'
+            not_allowed: Câmpul de expresie este folosit doar de verificarea „Expresie personalizată". Alegeți acea verificare sau goliți acest câmp.
+            required: Introduceți expresia de evaluat.
+        label:
+            not_blank: Introduceți o etichetă.
+        type:
+            not_blank: Alegeți o verificare.
+            not_registered: Tipul de verificare „{{ type }}" nu este înregistrat.
+    context_setting:
+        unique: O setare pentru această combinație de canal și limbă există deja.

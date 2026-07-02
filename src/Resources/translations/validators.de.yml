@@ -1,0 +1,18 @@
+setono_sylius_completeness:
+    completeness_rule:
+        code:
+            not_blank: Bitte geben Sie einen Code ein.
+            unique: Eine Regel mit diesem Code existiert bereits.
+        custom_weight:
+            greater_than: Die individuelle Gewichtung muss größer als 0 sein.
+        expression:
+            invalid: 'Der Ausdruck ist ungültig: {{ error }}'
+            not_allowed: Das Ausdrucksfeld wird nur von der Prüfung "Individueller Ausdruck" verwendet. Wählen Sie diese Prüfung oder leeren Sie dieses Feld.
+            required: Bitte geben Sie den auszuwertenden Ausdruck ein.
+        label:
+            not_blank: Bitte geben Sie eine Bezeichnung ein.
+        type:
+            not_blank: Bitte wählen Sie eine Prüfung.
+            not_registered: Der Prüfungstyp "{{ type }}" ist nicht registriert.
+    context_setting:
+        unique: Für diese Kombination aus Kanal und Sprache existiert bereits eine Einstellung.

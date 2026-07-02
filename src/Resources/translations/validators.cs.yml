@@ -1,0 +1,18 @@
+setono_sylius_completeness:
+    completeness_rule:
+        code:
+            not_blank: Zadejte kód.
+            unique: Pravidlo s tímto kódem již existuje.
+        custom_weight:
+            greater_than: Vlastní váha musí být větší než 0.
+        expression:
+            invalid: 'Výraz je neplatný: {{ error }}'
+            not_allowed: Pole výrazu používá pouze kontrola "Vlastní výraz". Vyberte tuto kontrolu nebo toto pole vymažte.
+            required: Zadejte výraz k vyhodnocení.
+        label:
+            not_blank: Zadejte popisek.
+        type:
+            not_blank: Vyberte kontrolu.
+            not_registered: Typ kontroly "{{ type }}" není registrován.
+    context_setting:
+        unique: Nastavení pro tuto kombinaci kanálu a jazyka již existuje.

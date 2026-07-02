@@ -1,0 +1,123 @@
+setono_sylius_completeness:
+    ui:
+        advanced: Avancé
+        all: Tous
+        all_channels: Tous les canaux
+        all_locales: Toutes les langues
+        all_rules_met: Toutes les règles satisfaites
+        all_taxons: Tous les taxons
+        checker_type: Contrôle
+        completeness: Complétude
+        completeness_rule: Règle de complétude
+        completeness_rules: Règles de complétude
+        context_setting: Contexte de complétude
+        context_settings: Contextes de complétude
+        edit_completeness_rule: Modifier la règle de complétude
+        edit_context_setting: Modifier le contexte de complétude
+        new_completeness_rule: Nouvelle règle de complétude
+        new_context_setting: Nouveau contexte de complétude
+        counts_toward_overall: Compte dans le total
+        custom_weight: Poids personnalisé
+        default: Par défaut
+        errored: En erreur
+        examples: Exemples
+        example_binary: Une règle d'expression binaire (satisfaite ou non)
+        example_condition: Condition
+        example_expression: Expression
+        example_graded: Une règle d'expression graduée (crédit partiel)
+        example_required_when: 'Une règle "requis quand" utilisant les deux champs : la règle ne s''applique (et ne compte) que pour les produits de type bière'
+        expressions: Conditions et expressions
+        function_reference: Référence des expressions
+        function_reference_intro: 'Les conditions et expressions sont écrites en Symfony ExpressionLanguage. Une condition décide SI une règle s''applique ; une expression EST le contrôle pour les règles d''expression : les booléens signifient satisfait/non satisfait et les nombres entre 0 et 1 accordent un crédit partiel.'
+        functions: Fonctions
+        group: Groupe
+        last_calculated_at: Dernier calcul
+        max: Max
+        min: Min
+        na: N/A
+        no_applicable_rules: Aucune règle ne s'applique à ce contexte.
+        not_a_score: Le résultat n'est ni un booléen ni un nombre, il ne peut donc pas être un score.
+        context_ratio: Score du contexte
+        preview: Tester sur un produit
+        preview_intro: Exécutez la grille actuelle sur un produit dans un canal et une langue spécifiques, et essayez des expressions ponctuelles.
+        raw_value: Valeur brute
+        result: Résultat
+        run_preview: Exécuter
+        scratchpad: Expression d'essai
+        score: Score
+        native_getters_note: 'Les champs traduisibles sont lus via les accesseurs du produit et se résolvent toujours dans la langue évaluée : une traduction manquante est lue comme vide, jamais comme la langue par défaut :'
+        not_applicable: 'Non applicable : aucune règle ne s''applique à ce contexte'
+        not_calculated_yet: La complétude de ce produit n'a pas encore été calculée.
+        not_counted: Non comptabilisé
+        operators: Opérateurs
+        overall: Global
+        position: Position
+        recalculate_completeness: Recalculer la complétude
+        recalculate_now: Recalculer maintenant
+        recalculating: Recalcul en cours…
+        rollup_weight: Poids d'agrégation
+        rule: Règle
+        rule_label: Libellé
+        scope: Portée
+        scored: Évalué
+        share: Part
+        threshold: Seuil de validité
+        ungrouped: Sans groupe
+        variables: Variables
+        weight: Poids
+        weight_tier:
+            low: Faible
+            medium: Moyen
+            high: Élevé
+            critical: Critique
+        checker:
+            is_enabled: Le produit est activé
+            has_main_taxon: A un taxon principal
+            has_image: A au moins une image
+            has_minimum_images: A un nombre minimum d'images (gradué)
+            has_name: A un nom
+            has_description: A une description
+            has_short_description: A une description courte
+            has_meta_description: A une méta-description
+            has_meta_keywords: A des méta-mots-clés
+            has_price: Est tarifé dans le canal
+            has_attribute: A une valeur d'attribut
+            expression: Expression personnalisée
+    form:
+        checker_configuration:
+            attribute: Attribut
+            minimum_image_count: Nombre minimum d'images
+        completeness_rule:
+            channel: Canal
+            channel_help: N'appliquer cette règle que dans le canal sélectionné.
+            code: Code
+            code_help: Un identifiant unique. Laissez vide pour le générer à partir du libellé.
+            condition: Condition
+            condition_help: 'Une condition facultative qui décide si la règle s''applique, par ex. attribute_value(product, "type") == "beer". Laissez vide pour appliquer la règle partout.'
+            custom_weight: Poids personnalisé
+            custom_weight_help: Remplace le niveau de poids par un poids exact.
+            expression: Expression
+            expression_help: 'Le contrôle lui-même - utilisé uniquement par le contrôle "Expression personnalisée", par ex. word_count(product.getDescription()) >= 200.'
+            group: Groupe
+            group_help: Un libellé facultatif pour regrouper la ventilation, par ex. Contenu, Médias ou SEO.
+            label: Libellé
+            locale: Langue
+            locale_help: N'appliquer cette règle que pour la langue sélectionnée.
+            position: Position
+            position_help: N'affecte que l'ordre des règles dans cette liste - jamais le score.
+            taxon: Taxon
+            taxon_help: N'appliquer cette règle qu'aux produits ayant le taxon sélectionné.
+            type: Contrôle
+            weight_tier: Poids
+            weight_tier_help: L'importance de cette règle pour le score.
+        preview:
+            expression_help: 'Saisissez éventuellement une condition/expression ponctuelle à évaluer sur le produit, le canal et la langue choisis - sans rien enregistrer.'
+        context_setting:
+            channel: Canal
+            counts_toward_overall: Compte dans le score global
+            counts_toward_overall_help: Si décoché, ce contexte est toujours calculé et affiché mais exclu du score global du produit.
+            locale: Langue
+            rollup_weight: Poids dans le score global
+            rollup_weight_help: Une pondération avancée de ce contexte dans le score global. 0 exclut le contexte.
+            threshold: Seuil de validité
+            threshold_help: Le score (0-100) à partir duquel ce contexte est considéré comme "prêt". Laissez vide pour utiliser la valeur globale par défaut.

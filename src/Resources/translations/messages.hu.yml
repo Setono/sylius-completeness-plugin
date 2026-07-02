@@ -1,0 +1,123 @@
+setono_sylius_completeness:
+    ui:
+        advanced: Speciális
+        all: Összes
+        all_channels: Összes csatorna
+        all_locales: Összes nyelv
+        all_rules_met: Minden szabály teljesül
+        all_taxons: Összes taxon
+        checker_type: Ellenőrzés
+        completeness: Teljesség
+        completeness_rule: Teljességi szabály
+        completeness_rules: Teljességi szabályok
+        context_setting: Teljességi kontextus
+        context_settings: Teljességi kontextusok
+        edit_completeness_rule: Teljességi szabály szerkesztése
+        edit_context_setting: Teljességi kontextus szerkesztése
+        new_completeness_rule: Új teljességi szabály
+        new_context_setting: Új teljességi kontextus
+        counts_toward_overall: Beleszámít az összesbe
+        custom_weight: Egyéni súly
+        default: Alapértelmezett
+        errored: Hibás
+        examples: Példák
+        example_binary: Bináris kifejezésszabály (teljesül vagy sem)
+        example_condition: Feltétel
+        example_expression: Kifejezés
+        example_graded: Fokozatos kifejezésszabály (részleges jóváírás)
+        example_required_when: 'Egy "kötelező, ha" szabály, amely mindkét mezőt használja: a szabály csak a sör típusú termékekre vonatkozik (és csak azokra számít)'
+        expressions: Feltételek és kifejezések
+        function_reference: Kifejezés-referencia
+        function_reference_intro: 'A feltételeket és kifejezéseket a Symfony ExpressionLanguage nyelven írjuk. A feltétel dönti el, HOGY egy szabály vonatkozik-e; a kifejezés MAGA az ellenőrzés a kifejezésszabályoknál: a logikai értékek teljesül/nem teljesül jelentésűek, a 0 és 1 közötti számok pedig részleges jóváírást adnak.'
+        functions: Függvények
+        group: Csoport
+        last_calculated_at: Utoljára számítva
+        max: Max
+        min: Min
+        na: Nem alkalmazható
+        no_applicable_rules: Egyetlen szabály sem vonatkozik erre a kontextusra.
+        not_a_score: Az eredmény nem logikai érték és nem szám, ezért nem lehet pontszám.
+        context_ratio: Kontextus pontszáma
+        preview: Tesztelés terméken
+        preview_intro: Futtassa az aktuális szabályrendszert egy terméken egy adott csatornában és nyelven, és próbáljon ki eseti kifejezéseket.
+        raw_value: Nyers érték
+        result: Eredmény
+        run_preview: Futtatás
+        scratchpad: Tesztkifejezés
+        score: Pontszám
+        native_getters_note: 'A fordítható mezőket a termék getter metódusain keresztül olvassuk be, és mindig az értékelt nyelvre oldjuk fel - a hiányzó fordítás üresként jelenik meg, soha nem az alapértelmezett nyelvként:'
+        not_applicable: 'Nem alkalmazható: egyetlen szabály sem vonatkozik erre a kontextusra'
+        not_calculated_yet: Ennek a terméknek a teljessége még nincs kiszámítva.
+        not_counted: Nem számít bele
+        operators: Operátorok
+        overall: Összesen
+        position: Pozíció
+        recalculate_completeness: Teljesség újraszámítása
+        recalculate_now: Újraszámítás most
+        recalculating: Újraszámítás…
+        rollup_weight: Összesítési súly
+        rule: Szabály
+        rule_label: Címke
+        scope: Hatókör
+        scored: Pontozva
+        share: Arány
+        threshold: Készültségi küszöb
+        ungrouped: Csoport nélküli
+        variables: Változók
+        weight: Súly
+        weight_tier:
+            low: Alacsony
+            medium: Közepes
+            high: Magas
+            critical: Kritikus
+        checker:
+            is_enabled: A termék engedélyezve van
+            has_main_taxon: Van fő taxonja
+            has_image: Van legalább egy képe
+            has_minimum_images: Van minimális számú képe (fokozatos)
+            has_name: Van neve
+            has_description: Van leírása
+            has_short_description: Van rövid leírása
+            has_meta_description: Van meta leírása
+            has_meta_keywords: Vannak meta kulcsszavai
+            has_price: Van ára a csatornában
+            has_attribute: Van attribútumértéke
+            expression: Egyéni kifejezés
+    form:
+        checker_configuration:
+            attribute: Attribútum
+            minimum_image_count: Képek minimális száma
+        completeness_rule:
+            channel: Csatorna
+            channel_help: A szabály csak a kiválasztott csatornában érvényesüljön.
+            code: Kód
+            code_help: Egyedi azonosító. Hagyja üresen, hogy a címkéből generálódjon.
+            condition: Feltétel
+            condition_help: 'Egy opcionális feltétel, amely eldönti, hogy a szabály érvényes-e, pl. attribute_value(product, "type") == "beer". Hagyja üresen a szabály mindenhol való alkalmazásához.'
+            custom_weight: Egyéni súly
+            custom_weight_help: Felülírja a súlyszintet egy pontos súllyal.
+            expression: Kifejezés
+            expression_help: 'Maga az ellenőrzés - csak az "Egyéni kifejezés" ellenőrzés használja, pl. word_count(product.getDescription()) >= 200.'
+            group: Csoport
+            group_help: Opcionális címke a bontás csoportosításához, pl. Tartalom, Média vagy SEO.
+            label: Címke
+            locale: Nyelv
+            locale_help: A szabály csak a kiválasztott nyelvre érvényesüljön.
+            position: Pozíció
+            position_help: Csak a szabályok sorrendjét befolyásolja ebben a listában - a pontszámot soha.
+            taxon: Taxon
+            taxon_help: A szabály csak a kiválasztott taxonnal rendelkező termékekre érvényesüljön.
+            type: Ellenőrzés
+            weight_tier: Súly
+            weight_tier_help: Mennyire számít ez a szabály a pontszám szempontjából.
+        preview:
+            expression_help: 'Opcionálisan írjon be egy egyszeri feltételt/kifejezést a kiválasztott termékkel, csatornával és nyelvvel szembeni kiértékeléshez - mentés nélkül.'
+        context_setting:
+            channel: Csatorna
+            counts_toward_overall: Beleszámít az összesített pontszámba
+            counts_toward_overall_help: Ha nincs bejelölve, ez a kontextus továbbra is számítva és megjelenítve van, de ki van zárva a termék összesített pontszámából.
+            locale: Nyelv
+            rollup_weight: Súly az összesített pontszámban
+            rollup_weight_help: E kontextus speciális súlyozása az összesített pontszámban. A 0 kizárja a kontextust.
+            threshold: Készültségi küszöb
+            threshold_help: A pontszám (0-100), amelytől ez a kontextus "készként" számít. Hagyja üresen a globális alapértelmezett érték használatához.

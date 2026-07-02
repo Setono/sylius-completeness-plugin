@@ -1,0 +1,18 @@
+setono_sylius_completeness:
+    completeness_rule:
+        code:
+            not_blank: Anna koodi.
+            unique: Tällä koodilla oleva sääntö on jo olemassa.
+        custom_weight:
+            greater_than: Mukautetun painon on oltava suurempi kuin 0.
+        expression:
+            invalid: 'Lauseke on virheellinen: {{ error }}'
+            not_allowed: Lausekekenttää käyttää vain tarkistus "Mukautettu lauseke". Valitse kyseinen tarkistus tai tyhjennä tämä kenttä.
+            required: Anna arvioitava lauseke.
+        label:
+            not_blank: Anna nimike.
+        type:
+            not_blank: Valitse tarkistus.
+            not_registered: Tarkistustyyppiä "{{ type }}" ei ole rekisteröity.
+    context_setting:
+        unique: Tälle kanavan ja kielen yhdistelmälle on jo asetus.

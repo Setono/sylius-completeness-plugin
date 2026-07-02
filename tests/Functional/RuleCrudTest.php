@@ -18,6 +18,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Smoke tests for both admin CRUDs: the grids render, valid submissions persist
  * and expression validation rejects broken expressions at save time
+ *
+ * @group functional
  */
 final class RuleCrudTest extends WebTestCase
 {

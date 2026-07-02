@@ -1,0 +1,123 @@
+setono_sylius_completeness:
+    ui:
+        advanced: Avansat
+        all: Toate
+        all_channels: Toate canalele
+        all_locales: Toate limbile
+        all_rules_met: Toate regulile îndeplinite
+        all_taxons: Toți taxonii
+        checker_type: Verificare
+        completeness: Completitudine
+        completeness_rule: Regulă de completitudine
+        completeness_rules: Reguli de completitudine
+        context_setting: Context de completitudine
+        context_settings: Contexte de completitudine
+        edit_completeness_rule: Editează regula de completitudine
+        edit_context_setting: Editează contextul de completitudine
+        new_completeness_rule: Regulă de completitudine nouă
+        new_context_setting: Context de completitudine nou
+        counts_toward_overall: Contează la total
+        custom_weight: Pondere personalizată
+        default: Implicit
+        errored: Eroare
+        examples: Exemple
+        example_binary: O regulă de expresie binară (îndeplinită sau nu)
+        example_condition: Condiție
+        example_expression: Expresie
+        example_graded: O regulă de expresie gradată (credit parțial)
+        example_required_when: 'O regulă „necesar când" care folosește ambele câmpuri: regula se aplică (și contează) doar pentru produsele de tip bere'
+        expressions: Condiții și expresii
+        function_reference: Referință de expresii
+        function_reference_intro: 'Condițiile și expresiile se scriu în Symfony ExpressionLanguage. O condiție decide DACĂ o regulă se aplică; o expresie ESTE verificarea pentru regulile de expresie: valorile booleene înseamnă îndeplinită/neîndeplinită, iar numerele între 0 și 1 acordă credit parțial.'
+        functions: Funcții
+        group: Grup
+        last_calculated_at: Ultima calculare
+        max: Max
+        min: Min
+        na: N/A
+        no_applicable_rules: Nicio regulă nu se aplică acestui context.
+        not_a_score: Rezultatul nu este nici o valoare booleană, nici un număr, deci nu poate fi un scor.
+        context_ratio: Scorul contextului
+        preview: Testează pe un produs
+        preview_intro: Rulează grila actuală pe un produs într-un anumit canal și limbă și încearcă expresii ad-hoc.
+        raw_value: Valoare brută
+        result: Rezultat
+        run_preview: Rulează
+        scratchpad: Expresie de test
+        score: Scor
+        native_getters_note: 'Câmpurile traductibile sunt citite prin getterele produsului și se rezolvă întotdeauna la limba evaluată - o traducere lipsă este citită ca goală, niciodată ca limba implicită:'
+        not_applicable: 'Neaplicabil: nicio regulă nu se aplică acestui context'
+        not_calculated_yet: Completitudinea acestui produs nu a fost încă calculată.
+        not_counted: Necontabilizat
+        operators: Operatori
+        overall: General
+        position: Poziție
+        recalculate_completeness: Recalculează completitudinea
+        recalculate_now: Recalculează acum
+        recalculating: Se recalculează…
+        rollup_weight: Pondere de agregare
+        rule: Regulă
+        rule_label: Etichetă
+        scope: Domeniu
+        scored: Punctat
+        share: Cotă
+        threshold: Prag de pregătire
+        ungrouped: Fără grup
+        variables: Variabile
+        weight: Pondere
+        weight_tier:
+            low: Scăzut
+            medium: Mediu
+            high: Ridicat
+            critical: Critic
+        checker:
+            is_enabled: Produsul este activat
+            has_main_taxon: Are un taxon principal
+            has_image: Are cel puțin o imagine
+            has_minimum_images: Are un număr minim de imagini (gradat)
+            has_name: Are un nume
+            has_description: Are o descriere
+            has_short_description: Are o descriere scurtă
+            has_meta_description: Are o meta-descriere
+            has_meta_keywords: Are meta-cuvinte cheie
+            has_price: Are un preț în canal
+            has_attribute: Are o valoare de atribut
+            expression: Expresie personalizată
+    form:
+        checker_configuration:
+            attribute: Atribut
+            minimum_image_count: Numărul minim de imagini
+        completeness_rule:
+            channel: Canal
+            channel_help: Aplică această regulă doar în canalul selectat.
+            code: Cod
+            code_help: Un identificator unic. Lasă gol pentru a-l genera din etichetă.
+            condition: Condiție
+            condition_help: 'O condiție opțională care decide dacă regula se aplică, de ex. attribute_value(product, "type") == "beer". Lasă gol pentru a aplica regula peste tot.'
+            custom_weight: Pondere personalizată
+            custom_weight_help: Înlocuiește nivelul de pondere cu o pondere exactă.
+            expression: Expresie
+            expression_help: 'Verificarea în sine - folosită doar de verificarea „Expresie personalizată", de ex. word_count(product.getDescription()) >= 200.'
+            group: Grup
+            group_help: O etichetă opțională pentru a grupa detalierea, de ex. Conținut, Media sau SEO.
+            label: Etichetă
+            locale: Limbă
+            locale_help: Aplică această regulă doar pentru limba selectată.
+            position: Poziție
+            position_help: Afectează doar ordinea regulilor din această listă - niciodată scorul.
+            taxon: Taxon
+            taxon_help: Aplică această regulă doar produselor cu taxonul selectat.
+            type: Verificare
+            weight_tier: Pondere
+            weight_tier_help: Cât de mult contează această regulă pentru scor.
+        preview:
+            expression_help: 'Opțional, scrie o condiție/expresie de unică folosință pentru a fi evaluată față de produsul, canalul și limba alese - fără a salva nimic.'
+        context_setting:
+            channel: Canal
+            counts_toward_overall: Contează la scorul general
+            counts_toward_overall_help: Când nu este bifat, acest context este în continuare calculat și afișat, dar exclus din scorul general al produsului.
+            locale: Limbă
+            rollup_weight: Pondere în scorul general
+            rollup_weight_help: O ponderare avansată a acestui context în scorul general. 0 exclude contextul.
+            threshold: Prag de pregătire
+            threshold_help: Scorul (0-100) de la care acest context contează ca „pregătit". Lasă gol pentru a folosi valoarea implicită globală.

@@ -1,0 +1,18 @@
+setono_sylius_completeness:
+    completeness_rule:
+        code:
+            not_blank: Voer een code in.
+            unique: Er bestaat al een regel met deze code.
+        custom_weight:
+            greater_than: Het aangepaste gewicht moet groter zijn dan 0.
+        expression:
+            invalid: 'De expressie is ongeldig: {{ error }}'
+            not_allowed: Het expressieveld wordt alleen gebruikt door de controle "Aangepaste expressie". Kies die controle of maak dit veld leeg.
+            required: Voer de te evalueren expressie in.
+        label:
+            not_blank: Voer een label in.
+        type:
+            not_blank: Kies een controle.
+            not_registered: Het controletype "{{ type }}" is niet geregistreerd.
+    context_setting:
+        unique: Er bestaat al een instelling voor deze combinatie van kanaal en taal.

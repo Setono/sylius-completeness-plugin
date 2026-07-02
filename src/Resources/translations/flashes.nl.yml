@@ -1,0 +1,3 @@
+setono_sylius_completeness:
+    product_recalculated: De volledigheid van het product is herberekend.
+    recalculation_scheduled: De herberekening van de volledigheid is ingepland voor de geselecteerde producten.

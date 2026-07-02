@@ -1,0 +1,123 @@
+setono_sylius_completeness:
+    ui:
+        advanced: Zaawansowane
+        all: Wszystkie
+        all_channels: Wszystkie kanały
+        all_locales: Wszystkie języki
+        all_rules_met: Wszystkie reguły spełnione
+        all_taxons: Wszystkie taksony
+        checker_type: Weryfikacja
+        completeness: Kompletność
+        completeness_rule: Reguła kompletności
+        completeness_rules: Reguły kompletności
+        context_setting: Kontekst kompletności
+        context_settings: Konteksty kompletności
+        edit_completeness_rule: Edytuj regułę kompletności
+        edit_context_setting: Edytuj kontekst kompletności
+        new_completeness_rule: Nowa reguła kompletności
+        new_context_setting: Nowy kontekst kompletności
+        counts_toward_overall: Liczy się do sumy
+        custom_weight: Niestandardowa waga
+        default: Domyślne
+        errored: Błąd
+        examples: Przykłady
+        example_binary: Binarna reguła wyrażenia (spełniona lub nie)
+        example_condition: Warunek
+        example_expression: Wyrażenie
+        example_graded: Stopniowana reguła wyrażenia (częściowe zaliczenie)
+        example_required_when: 'Reguła "wymagane, gdy" używająca obu pól: reguła dotyczy (i liczy się) tylko dla produktów typu piwo'
+        expressions: Warunki i wyrażenia
+        function_reference: Odwołanie do wyrażeń
+        function_reference_intro: 'Warunki i wyrażenia są zapisywane w Symfony ExpressionLanguage. Warunek decyduje, CZY reguła obowiązuje; wyrażenie JEST sprawdzeniem dla reguł wyrażeń: wartości logiczne oznaczają spełnione/niespełnione, a liczby od 0 do 1 przyznają częściowe zaliczenie.'
+        functions: Funkcje
+        group: Grupa
+        last_calculated_at: Ostatnio obliczono
+        max: Maks
+        min: Min
+        na: Nie dotyczy
+        no_applicable_rules: Żadna reguła nie dotyczy tego kontekstu.
+        not_a_score: Wynik nie jest ani wartością logiczną, ani liczbą, więc nie może być wynikiem.
+        context_ratio: Wynik kontekstu
+        preview: Przetestuj na produkcie
+        preview_intro: Uruchom bieżący zestaw reguł na produkcie w określonym kanale i języku oraz wypróbuj doraźne wyrażenia.
+        raw_value: Wartość surowa
+        result: Wynik
+        run_preview: Uruchom
+        scratchpad: Wyrażenie testowe
+        score: Wynik
+        native_getters_note: 'Pola tłumaczone są odczytywane przez gettery produktu i zawsze rozwiązywane do ocenianego języka - brakujące tłumaczenie jest odczytywane jako puste, nigdy jako język domyślny:'
+        not_applicable: 'Nie dotyczy: żadna reguła nie dotyczy tego kontekstu'
+        not_calculated_yet: Kompletność tego produktu nie została jeszcze obliczona.
+        not_counted: Nie liczone
+        operators: Operatory
+        overall: Ogółem
+        position: Pozycja
+        recalculate_completeness: Przelicz kompletność
+        recalculate_now: Przelicz teraz
+        recalculating: Przeliczanie…
+        rollup_weight: Waga agregacji
+        rule: Reguła
+        rule_label: Etykieta
+        scope: Zakres
+        scored: Oceniono
+        share: Udział
+        threshold: Próg gotowości
+        ungrouped: Bez grupy
+        variables: Zmienne
+        weight: Waga
+        weight_tier:
+            low: Niska
+            medium: Średnia
+            high: Wysoka
+            critical: Krytyczna
+        checker:
+            is_enabled: Produkt jest włączony
+            has_main_taxon: Ma główny takson
+            has_image: Ma co najmniej jeden obraz
+            has_minimum_images: Ma minimalną liczbę obrazów (stopniowane)
+            has_name: Ma nazwę
+            has_description: Ma opis
+            has_short_description: Ma krótki opis
+            has_meta_description: Ma metaopis
+            has_meta_keywords: Ma metasłowa kluczowe
+            has_price: Ma cenę w kanale
+            has_attribute: Ma wartość atrybutu
+            expression: Niestandardowe wyrażenie
+    form:
+        checker_configuration:
+            attribute: Atrybut
+            minimum_image_count: Minimalna liczba obrazów
+        completeness_rule:
+            channel: Kanał
+            channel_help: Zastosuj tę regułę tylko w wybranym kanale.
+            code: Kod
+            code_help: Unikalny identyfikator. Pozostaw puste, aby wygenerować go z etykiety.
+            condition: Warunek
+            condition_help: 'Opcjonalny warunek decydujący, czy reguła obowiązuje, np. attribute_value(product, "type") == "beer". Pozostaw puste, aby stosować regułę wszędzie.'
+            custom_weight: Niestandardowa waga
+            custom_weight_help: Zastępuje poziom wagi dokładną wagą.
+            expression: Wyrażenie
+            expression_help: 'Samo sprawdzenie - używane tylko przez weryfikację "Niestandardowe wyrażenie", np. word_count(product.getDescription()) >= 200.'
+            group: Grupa
+            group_help: Opcjonalna etykieta do grupowania podziału, np. Treść, Media lub SEO.
+            label: Etykieta
+            locale: Język
+            locale_help: Zastosuj tę regułę tylko dla wybranego języka.
+            position: Pozycja
+            position_help: Wpływa tylko na kolejność reguł na tej liście - nigdy na wynik.
+            taxon: Takson
+            taxon_help: Zastosuj tę regułę tylko do produktów z wybranym taksonem.
+            type: Weryfikacja
+            weight_tier: Waga
+            weight_tier_help: Jak bardzo ta reguła wpływa na wynik.
+        preview:
+            expression_help: 'Opcjonalnie wpisz jednorazowy warunek/wyrażenie do oceny względem wybranego produktu, kanału i języka - bez zapisywania czegokolwiek.'
+        context_setting:
+            channel: Kanał
+            counts_toward_overall: Liczy się do wyniku ogólnego
+            counts_toward_overall_help: Gdy nie jest zaznaczone, ten kontekst jest nadal obliczany i wyświetlany, ale wykluczony z ogólnego wyniku produktu.
+            locale: Język
+            rollup_weight: Waga w wyniku ogólnym
+            rollup_weight_help: Zaawansowane ważenie tego kontekstu w wyniku ogólnym. 0 wyklucza kontekst.
+            threshold: Próg gotowości
+            threshold_help: Wynik (0-100), od którego ten kontekst liczy się jako "gotowy". Pozostaw puste, aby użyć globalnej wartości domyślnej.

@@ -1,0 +1,123 @@
+setono_sylius_completeness:
+    ui:
+        advanced: Erweitert
+        all: Alle
+        all_channels: Alle Kanäle
+        all_locales: Alle Sprachen
+        all_rules_met: Alle Regeln erfüllt
+        all_taxons: Alle Taxons
+        checker_type: Prüfung
+        completeness: Vollständigkeit
+        completeness_rule: Vollständigkeitsregel
+        completeness_rules: Vollständigkeitsregeln
+        context_setting: Vollständigkeitskontext
+        context_settings: Vollständigkeitskontexte
+        edit_completeness_rule: Vollständigkeitsregel bearbeiten
+        edit_context_setting: Vollständigkeitskontext bearbeiten
+        new_completeness_rule: Neue Vollständigkeitsregel
+        new_context_setting: Neuer Vollständigkeitskontext
+        counts_toward_overall: Zählt zur Gesamtwertung
+        custom_weight: Individuelle Gewichtung
+        default: Standard
+        errored: Fehlerhaft
+        examples: Beispiele
+        example_binary: Eine binäre Ausdrucksregel (erfüllt oder nicht)
+        example_condition: Bedingung
+        example_expression: Ausdruck
+        example_graded: Eine abgestufte Ausdrucksregel (Teilwertung)
+        example_required_when: 'Eine "erforderlich, wenn"-Regel, die beide Felder nutzt: Die Regel gilt nur für (und zählt nur für) Bier-Produkte'
+        expressions: Bedingungen & Ausdrücke
+        function_reference: Ausdrucksreferenz
+        function_reference_intro: 'Bedingungen und Ausdrücke werden in der Symfony ExpressionLanguage geschrieben. Eine Bedingung entscheidet, OB eine Regel gilt; ein Ausdruck IST die Prüfung bei Ausdrucksregeln: Booleans bedeuten erfüllt/nicht erfüllt, und Zahlen zwischen 0 und 1 ergeben eine Teilwertung.'
+        functions: Funktionen
+        group: Gruppe
+        last_calculated_at: Zuletzt berechnet
+        max: Max
+        min: Min
+        na: Nicht zutreffend
+        no_applicable_rules: Für diesen Kontext gelten keine Regeln.
+        not_a_score: Das Ergebnis ist weder ein Boolean noch eine Zahl und kann daher keine Wertung sein.
+        context_ratio: Kontextwertung
+        preview: An einem Produkt testen
+        preview_intro: Führen Sie die aktuelle Rubrik an einem Produkt in einem bestimmten Kanal und einer bestimmten Sprache aus und probieren Sie Ad-hoc-Ausdrücke aus.
+        raw_value: Rohwert
+        result: Ergebnis
+        run_preview: Ausführen
+        scratchpad: Testausdruck
+        score: Wertung
+        native_getters_note: 'Übersetzbare Felder werden über die Produkt-Getter gelesen und immer in die bewertete Sprache aufgelöst - eine fehlende Übersetzung wird als leer gelesen, niemals als Standardsprache:'
+        not_applicable: 'Nicht zutreffend: Für diesen Kontext gelten keine Regeln'
+        not_calculated_yet: Die Vollständigkeit dieses Produkts wurde noch nicht berechnet.
+        not_counted: Zählt nicht mit
+        operators: Operatoren
+        overall: Gesamt
+        position: Position
+        recalculate_completeness: Vollständigkeit neu berechnen
+        recalculate_now: Jetzt neu berechnen
+        recalculating: Wird neu berechnet…
+        rollup_weight: Aggregationsgewichtung
+        rule: Regel
+        rule_label: Bezeichnung
+        scope: Geltungsbereich
+        scored: Bewertet
+        share: Anteil
+        threshold: Bereit-Schwellenwert
+        ungrouped: Ohne Gruppe
+        variables: Variablen
+        weight: Gewichtung
+        weight_tier:
+            low: Niedrig
+            medium: Mittel
+            high: Hoch
+            critical: Kritisch
+        checker:
+            is_enabled: Produkt ist aktiviert
+            has_main_taxon: Hat ein Haupt-Taxon
+            has_image: Hat mindestens ein Bild
+            has_minimum_images: Hat eine Mindestanzahl an Bildern (abgestuft)
+            has_name: Hat einen Namen
+            has_description: Hat eine Beschreibung
+            has_short_description: Hat eine Kurzbeschreibung
+            has_meta_description: Hat eine Meta-Beschreibung
+            has_meta_keywords: Hat Meta-Schlüsselwörter
+            has_price: Ist im Kanal bepreist
+            has_attribute: Hat einen Attributwert
+            expression: Individueller Ausdruck
+    form:
+        checker_configuration:
+            attribute: Attribut
+            minimum_image_count: Mindestanzahl an Bildern
+        completeness_rule:
+            channel: Kanal
+            channel_help: Diese Regel nur im ausgewählten Kanal anwenden.
+            code: Code
+            code_help: Ein eindeutiger Bezeichner. Leer lassen, um ihn aus der Bezeichnung zu erzeugen.
+            condition: Bedingung
+            condition_help: 'Eine optionale Bedingung, die entscheidet, ob die Regel gilt, z. B. attribute_value(product, "type") == "beer". Leer lassen, um die Regel überall anzuwenden.'
+            custom_weight: Individuelle Gewichtung
+            custom_weight_help: Überschreibt die Gewichtungsstufe mit einer exakten Gewichtung.
+            expression: Ausdruck
+            expression_help: 'Die Prüfung selbst - wird nur von der Prüfung "Individueller Ausdruck" verwendet, z. B. word_count(product.getDescription()) >= 200.'
+            group: Gruppe
+            group_help: Eine optionale Bezeichnung zur Gliederung der Aufschlüsselung, z. B. Inhalt, Medien oder SEO.
+            label: Bezeichnung
+            locale: Sprache
+            locale_help: Diese Regel nur für die ausgewählte Sprache anwenden.
+            position: Position
+            position_help: Beeinflusst nur die Reihenfolge der Regeln in dieser Liste - niemals die Wertung.
+            taxon: Taxon
+            taxon_help: Diese Regel nur auf Produkte mit dem ausgewählten Taxon anwenden.
+            type: Prüfung
+            weight_tier: Gewichtung
+            weight_tier_help: Wie wichtig diese Regel für die Wertung ist.
+        preview:
+            expression_help: 'Optional eine einmalige Bedingung/Ausdruck eingeben, die gegen das gewählte Produkt, den Kanal und die Sprache ausgewertet wird - ohne etwas zu speichern.'
+        context_setting:
+            channel: Kanal
+            counts_toward_overall: Zählt zur Gesamtwertung
+            counts_toward_overall_help: Wenn nicht aktiviert, wird dieser Kontext weiterhin berechnet und angezeigt, aber von der Gesamtwertung des Produkts ausgeschlossen.
+            locale: Sprache
+            rollup_weight: Gewichtung in der Gesamtwertung
+            rollup_weight_help: Eine erweiterte Gewichtung dieses Kontexts in der Gesamtwertung. 0 schließt den Kontext aus.
+            threshold: Bereit-Schwellenwert
+            threshold_help: Die Wertung (0-100), ab der dieser Kontext als "bereit" gilt. Leer lassen, um den globalen Standard zu verwenden.

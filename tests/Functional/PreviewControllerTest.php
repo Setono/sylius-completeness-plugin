@@ -10,6 +10,9 @@ use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * @group functional
+ */
 final class PreviewControllerTest extends WebTestCase
 {
     private KernelBrowser $client;

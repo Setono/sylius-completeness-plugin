@@ -1,0 +1,3 @@
+setono_sylius_completeness:
+    product_recalculated: Produktets fullstendighet er beregnet på nytt.
+    recalculation_scheduled: Ny beregning av fullstendigheten er planlagt for de valgte produktene.

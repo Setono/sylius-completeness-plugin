@@ -1,0 +1,123 @@
+setono_sylius_completeness:
+    ui:
+        advanced: Розширені
+        all: Усі
+        all_channels: Усі канали
+        all_locales: Усі мови
+        all_rules_met: Усі правила виконано
+        all_taxons: Усі таксони
+        checker_type: Перевірка
+        completeness: Повнота
+        completeness_rule: Правило повноти
+        completeness_rules: Правила повноти
+        context_setting: Контекст повноти
+        context_settings: Контексти повноти
+        edit_completeness_rule: Редагувати правило повноти
+        edit_context_setting: Редагувати контекст повноти
+        new_completeness_rule: Нове правило повноти
+        new_context_setting: Новий контекст повноти
+        counts_toward_overall: Зараховується до загального
+        custom_weight: Власна вага
+        default: За замовчуванням
+        errored: Помилка
+        examples: Приклади
+        example_binary: Бінарне правило виразу (виконано чи ні)
+        example_condition: Умова
+        example_expression: Вираз
+        example_graded: Градуйоване правило виразу (часткове зарахування)
+        example_required_when: 'Правило «обовʼязково, коли», що використовує обидва поля: правило застосовується (і зараховується) лише до продуктів типу пиво'
+        expressions: Умови та вирази
+        function_reference: Довідник виразів
+        function_reference_intro: 'Умови та вирази пишуться мовою Symfony ExpressionLanguage. Умова визначає, ЧИ застосовується правило; вираз Є перевіркою для правил виразів: логічні значення означають виконано/не виконано, а числа від 0 до 1 надають часткове зарахування.'
+        functions: Функції
+        group: Група
+        last_calculated_at: Востаннє обчислено
+        max: Макс
+        min: Мін
+        na: Не застосовно
+        no_applicable_rules: Жодне правило не застосовується до цього контексту.
+        not_a_score: Результат не є ані логічним значенням, ані числом, тому не може бути оцінкою.
+        context_ratio: Оцінка контексту
+        preview: Перевірити на продукті
+        preview_intro: Виконайте поточний набір правил для продукту в певному каналі та мові й спробуйте разові вирази.
+        raw_value: Необроблене значення
+        result: Результат
+        run_preview: Виконати
+        scratchpad: Тестовий вираз
+        score: Оцінка
+        native_getters_note: 'Перекладні поля читаються через геттери продукту й завжди визначаються для оцінюваної мови - відсутній переклад читається як порожній, ніколи як мова за замовчуванням:'
+        not_applicable: 'Не застосовно: жодне правило не застосовується до цього контексту'
+        not_calculated_yet: Повноту цього продукту ще не обчислено.
+        not_counted: Не зараховується
+        operators: Оператори
+        overall: Загалом
+        position: Позиція
+        recalculate_completeness: Перерахувати повноту
+        recalculate_now: Перерахувати зараз
+        recalculating: Перераховується…
+        rollup_weight: Вага агрегації
+        rule: Правило
+        rule_label: Мітка
+        scope: Область застосування
+        scored: Оцінено
+        share: Частка
+        threshold: Поріг готовності
+        ungrouped: Без групи
+        variables: Змінні
+        weight: Вага
+        weight_tier:
+            low: Низька
+            medium: Середня
+            high: Висока
+            critical: Критична
+        checker:
+            is_enabled: Продукт увімкнено
+            has_main_taxon: Має головний таксон
+            has_image: Має щонайменше одне зображення
+            has_minimum_images: Має мінімальну кількість зображень (градуйовано)
+            has_name: Має назву
+            has_description: Має опис
+            has_short_description: Має короткий опис
+            has_meta_description: Має метаопис
+            has_meta_keywords: Має метаключові слова
+            has_price: Має ціну в каналі
+            has_attribute: Має значення атрибута
+            expression: Власний вираз
+    form:
+        checker_configuration:
+            attribute: Атрибут
+            minimum_image_count: Мінімальна кількість зображень
+        completeness_rule:
+            channel: Канал
+            channel_help: Застосовувати це правило лише у вибраному каналі.
+            code: Код
+            code_help: Унікальний ідентифікатор. Залиште порожнім, щоб згенерувати його з мітки.
+            condition: Умова
+            condition_help: 'Необовʼязкова умова, яка визначає, чи застосовується правило, напр. attribute_value(product, "type") == "beer". Залиште порожнім, щоб застосовувати правило всюди.'
+            custom_weight: Власна вага
+            custom_weight_help: Замінює рівень ваги точною вагою.
+            expression: Вираз
+            expression_help: 'Сама перевірка - використовується лише перевіркою «Власний вираз», напр. word_count(product.getDescription()) >= 200.'
+            group: Група
+            group_help: Необовʼязкова мітка для групування розбивки, напр. Контент, Медіа або SEO.
+            label: Мітка
+            locale: Мова
+            locale_help: Застосовувати це правило лише для вибраної мови.
+            position: Позиція
+            position_help: Впливає лише на порядок правил у цьому списку - ніколи на оцінку.
+            taxon: Таксон
+            taxon_help: Застосовувати це правило лише до продуктів із вибраним таксоном.
+            type: Перевірка
+            weight_tier: Вага
+            weight_tier_help: Наскільки це правило важливе для оцінки.
+        preview:
+            expression_help: 'За бажанням введіть разову умову/вираз для оцінювання щодо вибраного продукту, каналу та мови - без збереження.'
+        context_setting:
+            channel: Канал
+            counts_toward_overall: Зараховується до загальної оцінки
+            counts_toward_overall_help: Якщо не позначено, цей контекст усе одно обчислюється й відображається, але виключається із загальної оцінки продукту.
+            locale: Мова
+            rollup_weight: Вага в загальній оцінці
+            rollup_weight_help: Розширене зважування цього контексту в загальній оцінці. 0 виключає контекст.
+            threshold: Поріг готовності
+            threshold_help: Оцінка (0-100), від якої цей контекст вважається «готовим». Залиште порожнім, щоб використовувати глобальне значення за замовчуванням.

@@ -1,0 +1,123 @@
+setono_sylius_completeness:
+    ui:
+        advanced: Avansert
+        all: Alle
+        all_channels: Alle kanaler
+        all_locales: Alle språk
+        all_rules_met: Alle regler oppfylt
+        all_taxons: Alle taksonomier
+        checker_type: Kontroll
+        completeness: Fullstendighet
+        completeness_rule: Fullstendighetsregel
+        completeness_rules: Fullstendighetsregler
+        context_setting: Fullstendighetskontekst
+        context_settings: Fullstendighetskontekster
+        edit_completeness_rule: Rediger fullstendighetsregel
+        edit_context_setting: Rediger fullstendighetskontekst
+        new_completeness_rule: Ny fullstendighetsregel
+        new_context_setting: Ny fullstendighetskontekst
+        counts_toward_overall: Teller med i totalen
+        custom_weight: Egendefinert vekt
+        default: Standard
+        errored: Feilet
+        examples: Eksempler
+        example_binary: En binær uttrykksregel (oppfylt eller ikke)
+        example_condition: Betingelse
+        example_expression: Uttrykk
+        example_graded: En gradert uttrykksregel (delvis uttelling)
+        example_required_when: 'En "påkrevd når"-regel som bruker begge feltene: regelen gjelder bare for (og teller bare for) ølprodukter'
+        expressions: Betingelser og uttrykk
+        function_reference: Uttrykksreferanse
+        function_reference_intro: 'Betingelser og uttrykk skrives i Symfony ExpressionLanguage. En betingelse avgjør OM en regel gjelder; et uttrykk ER kontrollen for uttrykksregler: booleaner betyr oppfylt/ikke oppfylt og tall mellom 0 og 1 gir delvis uttelling.'
+        functions: Funksjoner
+        group: Gruppe
+        last_calculated_at: Sist beregnet
+        max: Maks
+        min: Min
+        na: Ikke aktuelt
+        no_applicable_rules: Ingen regler gjelder for denne konteksten.
+        not_a_score: Resultatet er verken en boolean eller et tall, og kan derfor ikke være en poengsum.
+        context_ratio: Kontekstpoeng
+        preview: Test mot et produkt
+        preview_intro: Kjør den gjeldende rubrikken mot et produkt i en bestemt kanal og et bestemt språk, og prøv ut ad hoc-uttrykk.
+        raw_value: Råverdi
+        result: Resultat
+        run_preview: Kjør
+        scratchpad: Testuttrykk
+        score: Poeng
+        native_getters_note: 'Oversettbare felt leses via produktets gettere og løses alltid opp til språket som vurderes - en manglende oversettelse leses som tom, aldri som standardspråket:'
+        not_applicable: 'Ikke aktuelt: ingen regler gjelder for denne konteksten'
+        not_calculated_yet: Fullstendigheten til dette produktet er ikke beregnet ennå.
+        not_counted: Teller ikke med
+        operators: Operatorer
+        overall: Totalt
+        position: Posisjon
+        recalculate_completeness: Beregn fullstendighet på nytt
+        recalculate_now: Beregn på nytt nå
+        recalculating: Beregner på nytt…
+        rollup_weight: Aggregeringsvekt
+        rule: Regel
+        rule_label: Etikett
+        scope: Omfang
+        scored: Poengsatt
+        share: Andel
+        threshold: Klar-terskel
+        ungrouped: Ugruppert
+        variables: Variabler
+        weight: Vekt
+        weight_tier:
+            low: Lav
+            medium: Middels
+            high: Høy
+            critical: Kritisk
+        checker:
+            is_enabled: Produktet er aktivert
+            has_main_taxon: Har en hovedtaksonomi
+            has_image: Har minst ett bilde
+            has_minimum_images: Har et minimum antall bilder (gradert)
+            has_name: Har et navn
+            has_description: Har en beskrivelse
+            has_short_description: Har en kort beskrivelse
+            has_meta_description: Har en metabeskrivelse
+            has_meta_keywords: Har metanøkkelord
+            has_price: Er priset i kanalen
+            has_attribute: Har en attributtverdi
+            expression: Egendefinert uttrykk
+    form:
+        checker_configuration:
+            attribute: Attributt
+            minimum_image_count: Minimum antall bilder
+        completeness_rule:
+            channel: Kanal
+            channel_help: Bruk denne regelen kun i den valgte kanalen.
+            code: Kode
+            code_help: En unik identifikator. La stå tom for å generere den fra etiketten.
+            condition: Betingelse
+            condition_help: 'En valgfri betingelse som avgjør om regelen gjelder, f.eks. attribute_value(product, "type") == "beer". La stå tom for å bruke regelen overalt.'
+            custom_weight: Egendefinert vekt
+            custom_weight_help: Overstyrer vektnivået med en nøyaktig vekt.
+            expression: Uttrykk
+            expression_help: 'Selve kontrollen - brukes kun av kontrollen "Egendefinert uttrykk", f.eks. word_count(product.getDescription()) >= 200.'
+            group: Gruppe
+            group_help: En valgfri etikett for å gruppere oppdelingen, f.eks. Innhold, Media eller SEO.
+            label: Etikett
+            locale: Språk
+            locale_help: Bruk denne regelen kun for det valgte språket.
+            position: Posisjon
+            position_help: Påvirker kun rekkefølgen på reglene i denne listen - aldri poengsummen.
+            taxon: Taksonomi
+            taxon_help: Bruk denne regelen kun på produkter med den valgte taksonomien.
+            type: Kontroll
+            weight_tier: Vekt
+            weight_tier_help: Hvor mye denne regelen betyr for poengsummen.
+        preview:
+            expression_help: 'Skriv eventuelt en engangs betingelse/uttrykk som skal evalueres mot det valgte produktet, kanalen og språket - uten å lagre noe.'
+        context_setting:
+            channel: Kanal
+            counts_toward_overall: Teller med i den totale poengsummen
+            counts_toward_overall_help: Når dette ikke er avmerket, beregnes og vises konteksten fortsatt, men den utelates fra produktets totale poengsum.
+            locale: Språk
+            rollup_weight: Vekt i den totale poengsummen
+            rollup_weight_help: En avansert vekting av denne konteksten i den totale poengsummen. 0 utelater konteksten.
+            threshold: Klar-terskel
+            threshold_help: Poengsummen (0-100) som denne konteksten teller som "klar" fra. La stå tom for å bruke den globale standarden.

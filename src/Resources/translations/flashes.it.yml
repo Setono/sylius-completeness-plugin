@@ -1,0 +1,3 @@
+setono_sylius_completeness:
+    product_recalculated: La completezza del prodotto è stata ricalcolata.
+    recalculation_scheduled: Il ricalcolo della completezza è stato pianificato per i prodotti selezionati.

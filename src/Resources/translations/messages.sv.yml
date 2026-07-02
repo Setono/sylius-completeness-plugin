@@ -1,0 +1,123 @@
+setono_sylius_completeness:
+    ui:
+        advanced: Avancerat
+        all: Alla
+        all_channels: Alla kanaler
+        all_locales: Alla språk
+        all_rules_met: Alla regler uppfyllda
+        all_taxons: Alla taxonomier
+        checker_type: Kontroll
+        completeness: Fullständighet
+        completeness_rule: Fullständighetsregel
+        completeness_rules: Fullständighetsregler
+        context_setting: Fullständighetskontext
+        context_settings: Fullständighetskontexter
+        edit_completeness_rule: Redigera fullständighetsregel
+        edit_context_setting: Redigera fullständighetskontext
+        new_completeness_rule: Ny fullständighetsregel
+        new_context_setting: Ny fullständighetskontext
+        counts_toward_overall: Räknas med i totalen
+        custom_weight: Anpassad vikt
+        default: Standard
+        errored: Fel
+        examples: Exempel
+        example_binary: En binär uttrycksregel (uppfylld eller inte)
+        example_condition: Villkor
+        example_expression: Uttryck
+        example_graded: En graderad uttrycksregel (delvis poäng)
+        example_required_when: 'En "krävs när"-regel som använder båda fälten: regeln gäller bara för (och räknas bara för) ölprodukter'
+        expressions: Villkor och uttryck
+        function_reference: Uttrycksreferens
+        function_reference_intro: 'Villkor och uttryck skrivs i Symfony ExpressionLanguage. Ett villkor avgör OM en regel gäller; ett uttryck ÄR kontrollen för uttrycksregler: booleaner betyder uppfylld/ej uppfylld och tal mellan 0 och 1 ger delvis poäng.'
+        functions: Funktioner
+        group: Grupp
+        last_calculated_at: Senast beräknad
+        max: Max
+        min: Min
+        na: Ej tillämpligt
+        no_applicable_rules: Inga regler gäller för denna kontext.
+        not_a_score: Resultatet är varken en boolean eller ett tal och kan därför inte vara en poäng.
+        context_ratio: Kontextpoäng
+        preview: Testa mot en produkt
+        preview_intro: Kör den aktuella rubriken mot en produkt i en specifik kanal och ett specifikt språk, och testa tillfälliga uttryck.
+        raw_value: Råvärde
+        result: Resultat
+        run_preview: Kör
+        scratchpad: Testuttryck
+        score: Poäng
+        native_getters_note: 'Översättningsbara fält läses via produktens getters och löses alltid upp till det bedömda språket - en saknad översättning läses som tom, aldrig som standardspråket:'
+        not_applicable: 'Ej tillämpligt: inga regler gäller för denna kontext'
+        not_calculated_yet: Denna produkts fullständighet har inte beräknats ännu.
+        not_counted: Räknas inte
+        operators: Operatorer
+        overall: Totalt
+        position: Position
+        recalculate_completeness: Beräkna om fullständighet
+        recalculate_now: Beräkna om nu
+        recalculating: Beräknar om…
+        rollup_weight: Aggregeringsvikt
+        rule: Regel
+        rule_label: Etikett
+        scope: Omfattning
+        scored: Poängsatt
+        share: Andel
+        threshold: Klar-tröskel
+        ungrouped: Ogrupperad
+        variables: Variabler
+        weight: Vikt
+        weight_tier:
+            low: Låg
+            medium: Medel
+            high: Hög
+            critical: Kritisk
+        checker:
+            is_enabled: Produkten är aktiverad
+            has_main_taxon: Har en huvudtaxonomi
+            has_image: Har minst en bild
+            has_minimum_images: Har ett minsta antal bilder (graderat)
+            has_name: Har ett namn
+            has_description: Har en beskrivning
+            has_short_description: Har en kort beskrivning
+            has_meta_description: Har en metabeskrivning
+            has_meta_keywords: Har metanyckelord
+            has_price: Är prissatt i kanalen
+            has_attribute: Har ett attributvärde
+            expression: Anpassat uttryck
+    form:
+        checker_configuration:
+            attribute: Attribut
+            minimum_image_count: Minsta antal bilder
+        completeness_rule:
+            channel: Kanal
+            channel_help: Tillämpa endast denna regel i den valda kanalen.
+            code: Kod
+            code_help: En unik identifierare. Lämna tom för att generera den från etiketten.
+            condition: Villkor
+            condition_help: 'Ett valfritt villkor som avgör om regeln gäller, t.ex. attribute_value(product, "type") == "beer". Lämna tom för att tillämpa regeln överallt.'
+            custom_weight: Anpassad vikt
+            custom_weight_help: Ersätter viktnivån med en exakt vikt.
+            expression: Uttryck
+            expression_help: 'Själva kontrollen - används endast av kontrollen "Anpassat uttryck", t.ex. word_count(product.getDescription()) >= 200.'
+            group: Grupp
+            group_help: En valfri etikett för att gruppera uppdelningen, t.ex. Innehåll, Media eller SEO.
+            label: Etikett
+            locale: Språk
+            locale_help: Tillämpa endast denna regel för det valda språket.
+            position: Position
+            position_help: Påverkar endast ordningen på reglerna i denna lista - aldrig poängen.
+            taxon: Taxonomi
+            taxon_help: Tillämpa endast denna regel på produkter med den valda taxonomin.
+            type: Kontroll
+            weight_tier: Vikt
+            weight_tier_help: Hur mycket denna regel betyder för poängen.
+        preview:
+            expression_help: 'Skriv eventuellt ett engångsvillkor/-uttryck att utvärdera mot den valda produkten, kanalen och språket - utan att spara något.'
+        context_setting:
+            channel: Kanal
+            counts_toward_overall: Räknas med i den totala poängen
+            counts_toward_overall_help: När detta inte är markerat beräknas och visas kontexten fortfarande, men den utesluts från produktens totala poäng.
+            locale: Språk
+            rollup_weight: Vikt i den totala poängen
+            rollup_weight_help: En avancerad viktning av denna kontext i den totala poängen. 0 utesluter kontexten.
+            threshold: Klar-tröskel
+            threshold_help: Poängen (0-100) från vilken denna kontext räknas som "klar". Lämna tom för att använda den globala standarden.

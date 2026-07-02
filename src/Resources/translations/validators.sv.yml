@@ -1,0 +1,18 @@
+setono_sylius_completeness:
+    completeness_rule:
+        code:
+            not_blank: Ange en kod.
+            unique: En regel med denna kod finns redan.
+        custom_weight:
+            greater_than: Den anpassade vikten måste vara större än 0.
+        expression:
+            invalid: 'Uttrycket är ogiltigt: {{ error }}'
+            not_allowed: Uttrycksfältet används endast av kontrollen "Anpassat uttryck". Välj den kontrollen eller töm detta fält.
+            required: Ange uttrycket som ska utvärderas.
+        label:
+            not_blank: Ange en etikett.
+        type:
+            not_blank: Välj en kontroll.
+            not_registered: Kontrolltypen "{{ type }}" är inte registrerad.
+    context_setting:
+        unique: En inställning för denna kombination av kanal och språk finns redan.

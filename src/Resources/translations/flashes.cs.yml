@@ -1,0 +1,3 @@
+setono_sylius_completeness:
+    product_recalculated: Úplnost produktu byla přepočítána.
+    recalculation_scheduled: Přepočet úplnosti byl naplánován pro vybrané produkty.

@@ -1,0 +1,18 @@
+setono_sylius_completeness:
+    completeness_rule:
+        code:
+            not_blank: Введіть код.
+            unique: Правило з цим кодом уже існує.
+        custom_weight:
+            greater_than: Власна вага має бути більшою за 0.
+        expression:
+            invalid: 'Вираз недійсний: {{ error }}'
+            not_allowed: Поле виразу використовується лише перевіркою «Власний вираз». Виберіть цю перевірку або очистіть це поле.
+            required: Введіть вираз для оцінювання.
+        label:
+            not_blank: Введіть мітку.
+        type:
+            not_blank: Виберіть перевірку.
+            not_registered: Тип перевірки «{{ type }}» не зареєстровано.
+    context_setting:
+        unique: Налаштування для цієї комбінації каналу та мови вже існує.

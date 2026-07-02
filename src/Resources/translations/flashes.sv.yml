@@ -1,0 +1,3 @@
+setono_sylius_completeness:
+    product_recalculated: Produktens fullständighet har beräknats om.
+    recalculation_scheduled: Omberäkningen av fullständigheten har schemalagts för de valda produkterna.

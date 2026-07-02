@@ -248,8 +248,10 @@ bin/console setono:completeness:recalculate --product=SKU-1 --product=SKU-2
 
 ## Translations
 
-`en` is the source of truth. Additional locales fall back to English via the Symfony translator until a
-translated catalog is provided — contributions welcome.
+`en` is the authoritative source of truth. The plugin ships admin translations for **`da`, `sv`, `no`, `fi`,
+`de`, `fr`, `es`, `it`, `nl`, `pl`, `pt`, `cs`, `hu`, `ro` and `uk`**; any untranslated key falls back to
+English via the Symfony translator. (Norwegian uses `no`; if your shop runs `nb`, copy the catalog under that
+code.)
 
 [ico-version]: https://poser.pugx.org/setono/sylius-completeness-plugin/v/stable
 [ico-license]: https://poser.pugx.org/setono/sylius-completeness-plugin/license

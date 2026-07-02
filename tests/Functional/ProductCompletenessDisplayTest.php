@@ -16,6 +16,9 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Messenger\Transport\InMemory\InMemoryTransport;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * @group functional
+ */
 final class ProductCompletenessDisplayTest extends WebTestCase
 {
     private KernelBrowser $client;

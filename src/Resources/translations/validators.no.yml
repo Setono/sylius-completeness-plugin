@@ -1,0 +1,18 @@
+setono_sylius_completeness:
+    completeness_rule:
+        code:
+            not_blank: Angi en kode.
+            unique: En regel med denne koden finnes allerede.
+        custom_weight:
+            greater_than: Den egendefinerte vekten må være større enn 0.
+        expression:
+            invalid: 'Uttrykket er ugyldig: {{ error }}'
+            not_allowed: Uttrykksfeltet brukes kun av kontrollen "Egendefinert uttrykk". Velg den kontrollen eller tøm dette feltet.
+            required: Angi uttrykket som skal evalueres.
+        label:
+            not_blank: Angi en etikett.
+        type:
+            not_blank: Velg en kontroll.
+            not_registered: Kontrolltypen "{{ type }}" er ikke registrert.
+    context_setting:
+        unique: En innstilling for denne kombinasjonen av kanal og språk finnes allerede.

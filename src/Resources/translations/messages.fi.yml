@@ -1,0 +1,123 @@
+setono_sylius_completeness:
+    ui:
+        advanced: Lisäasetukset
+        all: Kaikki
+        all_channels: Kaikki kanavat
+        all_locales: Kaikki kielet
+        all_rules_met: Kaikki säännöt täyttyvät
+        all_taxons: Kaikki taksonit
+        checker_type: Tarkistus
+        completeness: Täydellisyys
+        completeness_rule: Täydellisyyssääntö
+        completeness_rules: Täydellisyyssäännöt
+        context_setting: Täydellisyyskonteksti
+        context_settings: Täydellisyyskontekstit
+        edit_completeness_rule: Muokkaa täydellisyyssääntöä
+        edit_context_setting: Muokkaa täydellisyyskontekstia
+        new_completeness_rule: Uusi täydellisyyssääntö
+        new_context_setting: Uusi täydellisyyskonteksti
+        counts_toward_overall: Lasketaan kokonaisuuteen
+        custom_weight: Mukautettu paino
+        default: Oletus
+        errored: Virhe
+        examples: Esimerkkejä
+        example_binary: Binäärinen lausekesääntö (täyttyy tai ei)
+        example_condition: Ehto
+        example_expression: Lauseke
+        example_graded: Porrastettu lausekesääntö (osittainen hyvitys)
+        example_required_when: '"Vaaditaan kun" -sääntö, joka käyttää molempia kenttiä: sääntö koskee (ja lasketaan) vain oluttuotteille'
+        expressions: Ehdot ja lausekkeet
+        function_reference: Lausekeviite
+        function_reference_intro: 'Ehdot ja lausekkeet kirjoitetaan Symfony ExpressionLanguage -kielellä. Ehto päättää, KOSKEEKO sääntö; lauseke ON tarkistus lausekesäännöille: totuusarvot tarkoittavat täyttyy/ei täyty, ja luvut väliltä 0 ja 1 antavat osittaisen hyvityksen.'
+        functions: Funktiot
+        group: Ryhmä
+        last_calculated_at: Viimeksi laskettu
+        max: Maks.
+        min: Min.
+        na: Ei sovellu
+        no_applicable_rules: Yksikään sääntö ei koske tätä kontekstia.
+        not_a_score: Tulos ei ole totuusarvo eikä luku, joten se ei voi olla pistemäärä.
+        context_ratio: Kontekstin pistemäärä
+        preview: Testaa tuotteella
+        preview_intro: Aja nykyinen säännöstö tuotteella tietyssä kanavassa ja kielessä sekä kokeile tilapäisiä lausekkeita.
+        raw_value: Raaka-arvo
+        result: Tulos
+        run_preview: Suorita
+        scratchpad: Testilauseke
+        score: Pistemäärä
+        native_getters_note: 'Käännettävät kentät luetaan tuotteen gettereiden kautta ja ratkaistaan aina arvioitavaan kieleen - puuttuva käännös luetaan tyhjänä, ei koskaan oletuskielenä:'
+        not_applicable: 'Ei sovellu: yksikään sääntö ei koske tätä kontekstia'
+        not_calculated_yet: Tämän tuotteen täydellisyyttä ei ole vielä laskettu.
+        not_counted: Ei lasketa
+        operators: Operaattorit
+        overall: Kokonaisuus
+        position: Sijainti
+        recalculate_completeness: Laske täydellisyys uudelleen
+        recalculate_now: Laske uudelleen nyt
+        recalculating: Lasketaan uudelleen…
+        rollup_weight: Koontipaino
+        rule: Sääntö
+        rule_label: Nimike
+        scope: Laajuus
+        scored: Pisteytetty
+        share: Osuus
+        threshold: Valmiuskynnys
+        ungrouped: Ryhmittelemätön
+        variables: Muuttujat
+        weight: Paino
+        weight_tier:
+            low: Matala
+            medium: Keskitaso
+            high: Korkea
+            critical: Kriittinen
+        checker:
+            is_enabled: Tuote on käytössä
+            has_main_taxon: Sillä on päätaksoni
+            has_image: Sillä on vähintään yksi kuva
+            has_minimum_images: Sillä on vähimmäismäärä kuvia (porrastettu)
+            has_name: Sillä on nimi
+            has_description: Sillä on kuvaus
+            has_short_description: Sillä on lyhyt kuvaus
+            has_meta_description: Sillä on metakuvaus
+            has_meta_keywords: Sillä on metahakusanat
+            has_price: Sille on hinta kanavassa
+            has_attribute: Sillä on attribuutin arvo
+            expression: Mukautettu lauseke
+    form:
+        checker_configuration:
+            attribute: Attribuutti
+            minimum_image_count: Kuvien vähimmäismäärä
+        completeness_rule:
+            channel: Kanava
+            channel_help: Käytä tätä sääntöä vain valitussa kanavassa.
+            code: Koodi
+            code_help: Yksilöllinen tunniste. Jätä tyhjäksi luodaksesi sen nimikkeestä.
+            condition: Ehto
+            condition_help: 'Valinnainen ehto, joka päättää, koskeeko sääntö, esim. attribute_value(product, "type") == "beer". Jätä tyhjäksi käyttääksesi sääntöä kaikkialla.'
+            custom_weight: Mukautettu paino
+            custom_weight_help: Korvaa painotason tarkalla painolla.
+            expression: Lauseke
+            expression_help: 'Itse tarkistus - käyttää vain tarkistus "Mukautettu lauseke", esim. word_count(product.getDescription()) >= 200.'
+            group: Ryhmä
+            group_help: Valinnainen nimike erittelyn ryhmittelyyn, esim. Sisältö, Media tai SEO.
+            label: Nimike
+            locale: Kieli
+            locale_help: Käytä tätä sääntöä vain valitulle kielelle.
+            position: Sijainti
+            position_help: Vaikuttaa vain sääntöjen järjestykseen tässä luettelossa - ei koskaan pistemäärään.
+            taxon: Taksoni
+            taxon_help: Käytä tätä sääntöä vain tuotteisiin, joilla on valittu taksoni.
+            type: Tarkistus
+            weight_tier: Paino
+            weight_tier_help: Kuinka paljon tämä sääntö vaikuttaa pistemäärään.
+        preview:
+            expression_help: 'Kirjoita halutessasi kertaluonteinen ehto/lauseke arvioitavaksi valittua tuotetta, kanavaa ja kieltä vasten - tallentamatta mitään.'
+        context_setting:
+            channel: Kanava
+            counts_toward_overall: Lasketaan kokonaispistemäärään
+            counts_toward_overall_help: Kun tätä ei ole valittu, tämä konteksti lasketaan ja näytetään edelleen, mutta se jätetään pois tuotteen kokonaispistemäärästä.
+            locale: Kieli
+            rollup_weight: Paino kokonaispistemäärässä
+            rollup_weight_help: Tämän kontekstin edistynyt painotus kokonaispistemäärässä. 0 jättää kontekstin pois.
+            threshold: Valmiuskynnys
+            threshold_help: Pistemäärä (0-100), josta alkaen tämä konteksti lasketaan "valmiiksi". Jätä tyhjäksi käyttääksesi yleistä oletusarvoa.

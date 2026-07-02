@@ -18,6 +18,8 @@ use Symfony\Component\Messenger\Transport\InMemory\InMemoryTransport;
  * Proves the single-capture-point promise of the onFlush pipeline against a real database:
  * one flush touching a product and several of its child entities produces exactly ONE
  * recalculation message, and a rule change produces a catalog-wide recalculation + version bump
+ *
+ * @group functional
  */
 final class RecalculateOnFlushTest extends KernelTestCase
 {

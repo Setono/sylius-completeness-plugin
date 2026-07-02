@@ -1,0 +1,18 @@
+setono_sylius_completeness:
+    completeness_rule:
+        code:
+            not_blank: Veuillez saisir un code.
+            unique: Une règle avec ce code existe déjà.
+        custom_weight:
+            greater_than: Le poids personnalisé doit être supérieur à 0.
+        expression:
+            invalid: 'L''expression est invalide : {{ error }}'
+            not_allowed: Le champ expression n'est utilisé que par le contrôle "Expression personnalisée". Choisissez ce contrôle ou videz ce champ.
+            required: Veuillez saisir l'expression à évaluer.
+        label:
+            not_blank: Veuillez saisir un libellé.
+        type:
+            not_blank: Veuillez choisir un contrôle.
+            not_registered: Le type de contrôle "{{ type }}" n'est pas enregistré.
+    context_setting:
+        unique: Un paramètre pour cette combinaison de canal et de langue existe déjà.

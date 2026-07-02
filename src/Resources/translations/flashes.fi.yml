@@ -1,0 +1,3 @@
+setono_sylius_completeness:
+    product_recalculated: Tuotteen täydellisyys on laskettu uudelleen.
+    recalculation_scheduled: Täydellisyyden uudelleenlaskenta on ajastettu valituille tuotteille.

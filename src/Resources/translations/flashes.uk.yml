@@ -1,0 +1,3 @@
+setono_sylius_completeness:
+    product_recalculated: Повноту продукту перераховано.
+    recalculation_scheduled: Перерахунок повноти заплановано для вибраних продуктів.

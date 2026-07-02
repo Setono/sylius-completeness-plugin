@@ -1,0 +1,18 @@
+setono_sylius_completeness:
+    completeness_rule:
+        code:
+            not_blank: Adjon meg egy kódot.
+            unique: Már létezik szabály ezzel a kóddal.
+        custom_weight:
+            greater_than: Az egyéni súlynak nagyobbnak kell lennie 0-nál.
+        expression:
+            invalid: 'A kifejezés érvénytelen: {{ error }}'
+            not_allowed: A kifejezés mezőt csak az "Egyéni kifejezés" ellenőrzés használja. Válassza azt az ellenőrzést, vagy törölje ezt a mezőt.
+            required: Adja meg a kiértékelendő kifejezést.
+        label:
+            not_blank: Adjon meg egy címkét.
+        type:
+            not_blank: Válasszon egy ellenőrzést.
+            not_registered: A(z) "{{ type }}" ellenőrzéstípus nincs regisztrálva.
+    context_setting:
+        unique: Már létezik beállítás ehhez a csatorna és nyelv kombinációhoz.

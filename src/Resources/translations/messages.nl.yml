@@ -1,0 +1,123 @@
+setono_sylius_completeness:
+    ui:
+        advanced: Geavanceerd
+        all: Alle
+        all_channels: Alle kanalen
+        all_locales: Alle talen
+        all_rules_met: Alle regels voldaan
+        all_taxons: Alle taxons
+        checker_type: Controle
+        completeness: Volledigheid
+        completeness_rule: Volledigheidsregel
+        completeness_rules: Volledigheidsregels
+        context_setting: Volledigheidscontext
+        context_settings: Volledigheidscontexten
+        edit_completeness_rule: Volledigheidsregel bewerken
+        edit_context_setting: Volledigheidscontext bewerken
+        new_completeness_rule: Nieuwe volledigheidsregel
+        new_context_setting: Nieuwe volledigheidscontext
+        counts_toward_overall: Telt mee in het totaal
+        custom_weight: Aangepast gewicht
+        default: Standaard
+        errored: Fout
+        examples: Voorbeelden
+        example_binary: Een binaire expressieregel (voldaan of niet)
+        example_condition: Voorwaarde
+        example_expression: Expressie
+        example_graded: Een gegradueerde expressieregel (gedeeltelijk krediet)
+        example_required_when: 'Een "vereist wanneer"-regel die beide velden gebruikt: de regel geldt alleen voor (en telt alleen voor) bierproducten'
+        expressions: Voorwaarden en expressies
+        function_reference: Expressiereferentie
+        function_reference_intro: 'Voorwaarden en expressies worden geschreven in Symfony ExpressionLanguage. Een voorwaarde bepaalt OF een regel geldt; een expressie IS de controle bij expressieregels: booleans betekenen voldaan/niet voldaan en getallen tussen 0 en 1 geven gedeeltelijk krediet.'
+        functions: Functies
+        group: Groep
+        last_calculated_at: Laatst berekend
+        max: Max
+        min: Min
+        na: N.v.t.
+        no_applicable_rules: Geen regels van toepassing op deze context.
+        not_a_score: Het resultaat is geen boolean of getal en kan dus geen score zijn.
+        context_ratio: Contextscore
+        preview: Testen op een product
+        preview_intro: Voer de huidige rubriek uit op een product in een specifiek kanaal en een specifieke taal, en probeer ad-hoc-expressies uit.
+        raw_value: Ruwe waarde
+        result: Resultaat
+        run_preview: Uitvoeren
+        scratchpad: Testexpressie
+        score: Score
+        native_getters_note: 'Vertaalbare velden worden gelezen via de product-getters en worden altijd omgezet naar de beoordeelde taal - een ontbrekende vertaling wordt als leeg gelezen, nooit als de standaardtaal:'
+        not_applicable: 'Niet van toepassing: geen regels van toepassing op deze context'
+        not_calculated_yet: De volledigheid van dit product is nog niet berekend.
+        not_counted: Telt niet mee
+        operators: Operatoren
+        overall: Totaal
+        position: Positie
+        recalculate_completeness: Volledigheid herberekenen
+        recalculate_now: Nu herberekenen
+        recalculating: Bezig met herberekenen…
+        rollup_weight: Aggregatiegewicht
+        rule: Regel
+        rule_label: Label
+        scope: Bereik
+        scored: Beoordeeld
+        share: Aandeel
+        threshold: Gereed-drempel
+        ungrouped: Zonder groep
+        variables: Variabelen
+        weight: Gewicht
+        weight_tier:
+            low: Laag
+            medium: Gemiddeld
+            high: Hoog
+            critical: Kritiek
+        checker:
+            is_enabled: Product is ingeschakeld
+            has_main_taxon: Heeft een hoofdtaxon
+            has_image: Heeft ten minste één afbeelding
+            has_minimum_images: Heeft een minimum aantal afbeeldingen (gegradueerd)
+            has_name: Heeft een naam
+            has_description: Heeft een beschrijving
+            has_short_description: Heeft een korte beschrijving
+            has_meta_description: Heeft een metabeschrijving
+            has_meta_keywords: Heeft metatrefwoorden
+            has_price: Heeft een prijs in het kanaal
+            has_attribute: Heeft een attribuutwaarde
+            expression: Aangepaste expressie
+    form:
+        checker_configuration:
+            attribute: Attribuut
+            minimum_image_count: Minimum aantal afbeeldingen
+        completeness_rule:
+            channel: Kanaal
+            channel_help: Pas deze regel alleen toe in het geselecteerde kanaal.
+            code: Code
+            code_help: Een unieke identificatie. Laat leeg om deze uit het label te genereren.
+            condition: Voorwaarde
+            condition_help: 'Een optionele voorwaarde die bepaalt of de regel geldt, bijv. attribute_value(product, "type") == "beer". Laat leeg om de regel overal toe te passen.'
+            custom_weight: Aangepast gewicht
+            custom_weight_help: Overschrijft het gewichtsniveau met een exact gewicht.
+            expression: Expressie
+            expression_help: 'De controle zelf - alleen gebruikt door de controle "Aangepaste expressie", bijv. word_count(product.getDescription()) >= 200.'
+            group: Groep
+            group_help: Een optioneel label om de uitsplitsing te groeperen, bijv. Inhoud, Media of SEO.
+            label: Label
+            locale: Taal
+            locale_help: Pas deze regel alleen toe voor de geselecteerde taal.
+            position: Positie
+            position_help: Beïnvloedt alleen de volgorde van de regels in deze lijst - nooit de score.
+            taxon: Taxon
+            taxon_help: Pas deze regel alleen toe op producten met het geselecteerde taxon.
+            type: Controle
+            weight_tier: Gewicht
+            weight_tier_help: Hoeveel deze regel meeweegt voor de score.
+        preview:
+            expression_help: 'Typ eventueel een eenmalige voorwaarde/expressie om te evalueren tegen het gekozen product, kanaal en taal - zonder iets op te slaan.'
+        context_setting:
+            channel: Kanaal
+            counts_toward_overall: Telt mee in de totale score
+            counts_toward_overall_help: Wanneer niet aangevinkt, wordt deze context nog steeds berekend en getoond, maar uitgesloten van de totale score van het product.
+            locale: Taal
+            rollup_weight: Gewicht in de totale score
+            rollup_weight_help: Een geavanceerde weging van deze context in de totale score. 0 sluit de context uit.
+            threshold: Gereed-drempel
+            threshold_help: De score (0-100) vanaf welke deze context als "gereed" telt. Laat leeg om de globale standaard te gebruiken.

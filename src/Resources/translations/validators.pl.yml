@@ -1,0 +1,18 @@
+setono_sylius_completeness:
+    completeness_rule:
+        code:
+            not_blank: Wprowadź kod.
+            unique: Reguła z tym kodem już istnieje.
+        custom_weight:
+            greater_than: Niestandardowa waga musi być większa niż 0.
+        expression:
+            invalid: 'Wyrażenie jest nieprawidłowe: {{ error }}'
+            not_allowed: Pole wyrażenia jest używane tylko przez weryfikację "Niestandardowe wyrażenie". Wybierz tę weryfikację lub wyczyść to pole.
+            required: Wprowadź wyrażenie do oceny.
+        label:
+            not_blank: Wprowadź etykietę.
+        type:
+            not_blank: Wybierz weryfikację.
+            not_registered: Typ weryfikacji "{{ type }}" nie jest zarejestrowany.
+    context_setting:
+        unique: Ustawienie dla tej kombinacji kanału i języka już istnieje.

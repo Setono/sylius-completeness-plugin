@@ -1,0 +1,123 @@
+setono_sylius_completeness:
+    ui:
+        advanced: Avançado
+        all: Todos
+        all_channels: Todos os canais
+        all_locales: Todos os idiomas
+        all_rules_met: Todas as regras cumpridas
+        all_taxons: Todos os taxons
+        checker_type: Verificação
+        completeness: Completude
+        completeness_rule: Regra de completude
+        completeness_rules: Regras de completude
+        context_setting: Contexto de completude
+        context_settings: Contextos de completude
+        edit_completeness_rule: Editar regra de completude
+        edit_context_setting: Editar contexto de completude
+        new_completeness_rule: Nova regra de completude
+        new_context_setting: Novo contexto de completude
+        counts_toward_overall: Conta para o total
+        custom_weight: Peso personalizado
+        default: Predefinido
+        errored: Com erro
+        examples: Exemplos
+        example_binary: Uma regra de expressão binária (cumprida ou não)
+        example_condition: Condição
+        example_expression: Expressão
+        example_graded: Uma regra de expressão graduada (crédito parcial)
+        example_required_when: 'Uma regra "obrigatório quando" que usa ambos os campos: a regra só se aplica a (e só conta para) produtos do tipo cerveja'
+        expressions: Condições e expressões
+        function_reference: Referência de expressões
+        function_reference_intro: 'As condições e expressões são escritas em Symfony ExpressionLanguage. Uma condição decide SE uma regra se aplica; uma expressão É a verificação nas regras de expressão: booleanos significam cumprida/não cumprida e números entre 0 e 1 concedem crédito parcial.'
+        functions: Funções
+        group: Grupo
+        last_calculated_at: Último cálculo
+        max: Máx
+        min: Mín
+        na: N/D
+        no_applicable_rules: Nenhuma regra se aplica a este contexto.
+        not_a_score: O resultado não é um booleano nem um número, pelo que não pode ser uma pontuação.
+        context_ratio: Pontuação do contexto
+        preview: Testar num produto
+        preview_intro: Execute a rubrica atual num produto num canal e idioma específicos, e experimente expressões pontuais.
+        raw_value: Valor bruto
+        result: Resultado
+        run_preview: Executar
+        scratchpad: Expressão de teste
+        score: Pontuação
+        native_getters_note: 'Os campos traduzíveis são lidos através dos getters do produto e resolvem-se sempre para o idioma avaliado - uma tradução em falta é lida como vazia, nunca como o idioma predefinido:'
+        not_applicable: 'Não aplicável: nenhuma regra se aplica a este contexto'
+        not_calculated_yet: A completude deste produto ainda não foi calculada.
+        not_counted: Não contabilizado
+        operators: Operadores
+        overall: Global
+        position: Posição
+        recalculate_completeness: Recalcular completude
+        recalculate_now: Recalcular agora
+        recalculating: A recalcular…
+        rollup_weight: Peso de agregação
+        rule: Regra
+        rule_label: Rótulo
+        scope: Âmbito
+        scored: Pontuado
+        share: Quota
+        threshold: Limiar de validade
+        ungrouped: Sem grupo
+        variables: Variáveis
+        weight: Peso
+        weight_tier:
+            low: Baixo
+            medium: Médio
+            high: Alto
+            critical: Crítico
+        checker:
+            is_enabled: O produto está ativado
+            has_main_taxon: Tem um taxon principal
+            has_image: Tem pelo menos uma imagem
+            has_minimum_images: Tem um número mínimo de imagens (graduado)
+            has_name: Tem um nome
+            has_description: Tem uma descrição
+            has_short_description: Tem uma descrição curta
+            has_meta_description: Tem uma metadescrição
+            has_meta_keywords: Tem metapalavras-chave
+            has_price: Tem preço no canal
+            has_attribute: Tem um valor de atributo
+            expression: Expressão personalizada
+    form:
+        checker_configuration:
+            attribute: Atributo
+            minimum_image_count: Número mínimo de imagens
+        completeness_rule:
+            channel: Canal
+            channel_help: Aplicar esta regra apenas no canal selecionado.
+            code: Código
+            code_help: Um identificador único. Deixe em branco para o gerar a partir do rótulo.
+            condition: Condição
+            condition_help: 'Uma condição opcional que decide se a regra se aplica, p. ex. attribute_value(product, "type") == "beer". Deixe em branco para aplicar a regra em todo o lado.'
+            custom_weight: Peso personalizado
+            custom_weight_help: Substitui o nível de peso por um peso exato.
+            expression: Expressão
+            expression_help: 'A verificação em si - usada apenas pela verificação "Expressão personalizada", p. ex. word_count(product.getDescription()) >= 200.'
+            group: Grupo
+            group_help: Um rótulo opcional para agrupar a repartição, p. ex. Conteúdo, Media ou SEO.
+            label: Rótulo
+            locale: Idioma
+            locale_help: Aplicar esta regra apenas para o idioma selecionado.
+            position: Posição
+            position_help: Afeta apenas a ordem das regras nesta lista - nunca a pontuação.
+            taxon: Taxon
+            taxon_help: Aplicar esta regra apenas aos produtos com o taxon selecionado.
+            type: Verificação
+            weight_tier: Peso
+            weight_tier_help: Quanto esta regra importa para a pontuação.
+        preview:
+            expression_help: 'Opcionalmente, escreva uma condição/expressão pontual para avaliar em relação ao produto, canal e idioma escolhidos - sem guardar nada.'
+        context_setting:
+            channel: Canal
+            counts_toward_overall: Conta para a pontuação global
+            counts_toward_overall_help: Quando não está marcado, este contexto continua a ser calculado e mostrado, mas é excluído da pontuação global do produto.
+            locale: Idioma
+            rollup_weight: Peso na pontuação global
+            rollup_weight_help: Uma ponderação avançada deste contexto na pontuação global. 0 exclui o contexto.
+            threshold: Limiar de validade
+            threshold_help: A pontuação (0-100) a partir da qual este contexto conta como "pronto". Deixe em branco para usar o valor global predefinido.

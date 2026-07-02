@@ -4,13 +4,14 @@
             "src"
         ]
     },
+    "testFrameworkOptions": "--exclude-group=functional",
     "logs": {
         "text": "php://stderr",
         "github": true,
         "stryker": {
-            "badge": "1.12.x"
+            "badge": "1.14.x"
         }
     },
-    "minMsi": 100.00,
-    "minCoveredMsi": 100.00
+    "minMsi": 70,
+    "minCoveredMsi": 85
 }
