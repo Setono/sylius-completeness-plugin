@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Setono\SyliusCompletenessPlugin\Model\ProductCompleteness" table="setono_sylius_completeness__product_completeness">
+        <unique-constraints>
+            <unique-constraint columns="product_id,channel_code,locale_code" name="setono_sylius_completeness__product_context_uniq"/>
+        </unique-constraints>
+        <indexes>
+            <index columns="channel_code,locale_code"/>
+        </indexes>
+
+        <id name="id" type="integer">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="channelCode" column="channel_code" type="string"/>
+        <field name="localeCode" column="locale_code" type="string" length="12"/>
+        <field name="ratio" type="smallint" nullable="true"/>
+        <field name="weightedPassed" column="weighted_passed" type="float"/>
+        <field name="weightedTotal" column="weighted_total" type="float"/>
+        <field name="groupScores" column="group_scores" type="json"/>
+        <field name="unmetRules" column="unmet_rules" type="json"/>
+        <field name="calculatedAt" column="calculated_at" type="datetime_immutable" nullable="true"/>
+
+        <many-to-one field="product" target-entity="Sylius\Component\Core\Model\ProductInterface" inversed-by="completenesses">
+            <join-column name="product_id" nullable="false" on-delete="CASCADE"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

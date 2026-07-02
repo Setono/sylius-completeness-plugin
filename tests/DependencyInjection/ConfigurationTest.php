@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace Setono\SyliusCompletenessPlugin\Tests\DependencyInjection;
 
-use Setono\SyliusCompletenessPlugin\DependencyInjection\Configuration;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use PHPUnit\Framework\TestCase;
+use Setono\SyliusCompletenessPlugin\DependencyInjection\Configuration;
 
-/**
- * See examples of tests and configuration options here: https://github.com/SymfonyTest/SymfonyConfigTest
- */
 final class ConfigurationTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
@@ -23,27 +20,64 @@ final class ConfigurationTest extends TestCase
     /**
      * @test
      */
-    public function values_are_invalid_if_required_value_is_not_provided(): void
+    public function it_has_sensible_defaults(): void
     {
-        $this->assertConfigurationIsInvalid(
-            [
-                [], // no values at all
+        $this->assertProcessedConfigurationEquals([[]], ['rollup_strategy' => 'weighted_average'], 'rollup_strategy');
+        $this->assertProcessedConfigurationEquals([[]], ['default_channel_code' => null], 'default_channel_code');
+        $this->assertProcessedConfigurationEquals([[]], ['default_ready_threshold' => 80], 'default_ready_threshold');
+        $this->assertProcessedConfigurationEquals([[]], ['amber_band' => 20], 'amber_band');
+        $this->assertProcessedConfigurationEquals([[]], [
+            'weight_tiers' => [
+                'low' => 1.0,
+                'medium' => 3.0,
+                'high' => 6.0,
+                'critical' => 10.0,
             ],
-            '/The child (config|node) "option" (under|at path) "setono_sylius_completeness" must be configured/',
-            true,
-        );
+        ], 'weight_tiers');
+        $this->assertProcessedConfigurationEquals([[]], ['enable_custom_weight' => false], 'enable_custom_weight');
+        $this->assertProcessedConfigurationEquals([[]], ['recalculate_on_doctrine_flush' => true], 'recalculate_on_doctrine_flush');
+        $this->assertProcessedConfigurationEquals([[]], ['bulk_threshold' => 300], 'bulk_threshold');
     }
 
     /**
      * @test
      */
-    public function processed_value_contains_required_value(): void
+    public function it_replaces_weight_tiers_when_configured(): void
     {
         $this->assertProcessedConfigurationEquals([
-            ['option' => 'first value'],
-            ['option' => 'last value'],
+            ['weight_tiers' => ['must' => 5.0, 'nice' => 1.0]],
         ], [
-            'option' => 'last value',
+            'weight_tiers' => ['must' => 5.0, 'nice' => 1.0],
+        ], 'weight_tiers');
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_ready_threshold_above_100(): void
+    {
+        $this->assertConfigurationIsInvalid([
+            ['default_ready_threshold' => 101],
+        ]);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_negative_amber_band(): void
+    {
+        $this->assertConfigurationIsInvalid([
+            ['amber_band' => -1],
+        ]);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_bulk_threshold_below_1(): void
+    {
+        $this->assertConfigurationIsInvalid([
+            ['bulk_threshold' => 0],
         ]);
     }
 }

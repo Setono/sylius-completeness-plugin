@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace Setono\SyliusCompletenessPlugin\Tests\DependencyInjection;
 
-use Setono\SyliusCompletenessPlugin\DependencyInjection\SetonoSyliusCompletenessExtension;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use Setono\SyliusCompletenessPlugin\DependencyInjection\SetonoSyliusCompletenessExtension;
 
-/**
- * See examples of tests and configuration options here: https://github.com/SymfonyTest/SymfonyDependencyInjectionTest
- */
 final class SetonoSyliusCompletenessExtensionTest extends AbstractExtensionTestCase
 {
     protected function getContainerExtensions(): array
@@ -20,22 +17,45 @@ final class SetonoSyliusCompletenessExtensionTest extends AbstractExtensionTestC
     }
 
     /**
-     * @return array<string, mixed>
+     * @test
      */
-    protected function getMinimalConfiguration(): array
+    public function after_loading_the_correct_parameters_have_been_set(): void
     {
-        return [
-            'option' => 'option_value',
-        ];
+        $this->load();
+
+        $this->assertContainerBuilderHasParameter('setono_sylius_completeness.rollup_strategy', 'weighted_average');
+        $this->assertContainerBuilderHasParameter('setono_sylius_completeness.default_channel_code', null);
+        $this->assertContainerBuilderHasParameter('setono_sylius_completeness.default_ready_threshold', 80);
+        $this->assertContainerBuilderHasParameter('setono_sylius_completeness.amber_band', 20);
+        $this->assertContainerBuilderHasParameter('setono_sylius_completeness.weight_tiers', [
+            'low' => 1.0,
+            'medium' => 3.0,
+            'high' => 6.0,
+            'critical' => 10.0,
+        ]);
+        $this->assertContainerBuilderHasParameter('setono_sylius_completeness.enable_custom_weight', false);
+        $this->assertContainerBuilderHasParameter('setono_sylius_completeness.recalculate_on_doctrine_flush', true);
+        $this->assertContainerBuilderHasParameter('setono_sylius_completeness.bulk_threshold', 300);
     }
 
     /**
      * @test
      */
-    public function after_loading_the_correct_parameter_has_been_set(): void
+    public function after_loading_the_resources_have_been_registered(): void
     {
         $this->load();
 
-        $this->assertContainerBuilderHasParameter('setono_sylius_completeness.option', 'option_value');
+        $this->assertContainerBuilderHasParameter(
+            'setono_sylius_completeness.model.completeness_rule.class',
+            \Setono\SyliusCompletenessPlugin\Model\CompletenessRule::class,
+        );
+        $this->assertContainerBuilderHasParameter(
+            'setono_sylius_completeness.model.product_completeness.class',
+            \Setono\SyliusCompletenessPlugin\Model\ProductCompleteness::class,
+        );
+        $this->assertContainerBuilderHasParameter(
+            'setono_sylius_completeness.model.context_setting.class',
+            \Setono\SyliusCompletenessPlugin\Model\CompletenessContextSetting::class,
+        );
     }
 }

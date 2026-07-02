@@ -11,5 +11,11 @@ sylius_shop:
     product_grid:
         include_all_descendants: true
 
+sylius_product:
+    resources:
+        product:
+            classes:
+                model: Setono\SyliusCompletenessPlugin\Tests\Application\Entity\Product
+
 sylius_api:
     enabled: true

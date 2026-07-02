@@ -12,3 +12,12 @@ doctrine:
         charset: UTF8
 
         url: '%env(resolve:DATABASE_URL)%'
+
+    orm:
+        mappings:
+            SetonoSyliusCompletenessPluginTestApplication:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine'
+                prefix: 'Setono\SyliusCompletenessPlugin\Tests\Application\Entity'
+                alias: SetonoSyliusCompletenessPluginTestApplication

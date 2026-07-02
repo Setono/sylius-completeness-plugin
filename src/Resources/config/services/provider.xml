@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="setono_sylius_completeness.provider.product_ids"
+                 class="Setono\SyliusCompletenessPlugin\Provider\ProductIdsProvider">
+            <argument type="service" id="doctrine"/>
+            <argument>%sylius.model.product.class%</argument>
+        </service>
+        <service id="Setono\SyliusCompletenessPlugin\Provider\ProductIdsProviderInterface"
+                 alias="setono_sylius_completeness.provider.product_ids"/>
+
+        <service id="setono_sylius_completeness.rubric_version_manager"
+                 class="Setono\SyliusCompletenessPlugin\Rubric\RubricVersionManager">
+            <argument type="service" id="doctrine"/>
+        </service>
+        <service id="Setono\SyliusCompletenessPlugin\Rubric\RubricVersionManagerInterface"
+                 alias="setono_sylius_completeness.rubric_version_manager"/>
+    </services>
+</container>
