@@ -20,6 +20,7 @@ setono_sylius_completeness:
         custom_weight: Aangepast gewicht
         default: Standaard
         details: Details
+        edit_code: Code bewerken
         errored: Fout
         examples: Voorbeelden
         example_binary: Een binaire expressieregel (voldaan of niet)
@@ -97,7 +98,7 @@ setono_sylius_completeness:
             channels: Kanaal
             channels_help: Pas deze regel alleen toe in het geselecteerde kanaal.
             code: Code
-            code_help: Een unieke identificatie. Laat leeg om deze uit het label te genereren.
+            code_help: Een stabiele machinenaam voor de regel, gegenereerd uit het label. Wordt alleen-lezen zodra de regel is aangemaakt – ontgrendel om een eigen naam in te voeren.
             condition: Voorwaarde
             condition_help: 'Een optionele voorwaarde die bepaalt of de regel geldt, bijv. attribute_value(product, "type") == "beer". Laat leeg om de regel overal toe te passen.'
             custom_weight: Aangepast gewicht

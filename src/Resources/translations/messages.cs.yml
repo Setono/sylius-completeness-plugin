@@ -20,6 +20,7 @@ setono_sylius_completeness:
         custom_weight: Vlastní váha
         default: Výchozí
         details: Podrobnosti
+        edit_code: Upravit kód
         errored: Chyba
         examples: Příklady
         example_binary: Binární pravidlo výrazu (splněno, nebo ne)
@@ -97,7 +98,7 @@ setono_sylius_completeness:
             channels: Kanál
             channels_help: Použít toto pravidlo pouze ve vybraném kanálu.
             code: Kód
-            code_help: Jedinečný identifikátor. Ponechte prázdné pro vygenerování z popisku.
+            code_help: Stabilní strojový název pravidla, generovaný z popisku. Po vytvoření je jen pro čtení – odemkněte pro zadání vlastního.
             condition: Podmínka
             condition_help: 'Volitelná podmínka rozhodující, zda pravidlo platí, např. attribute_value(product, "type") == "beer". Ponechte prázdné pro použití pravidla všude.'
             custom_weight: Vlastní váha

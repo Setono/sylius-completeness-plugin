@@ -20,6 +20,7 @@ setono_sylius_completeness:
         custom_weight: Pondere personalizată
         default: Implicit
         details: Detalii
+        edit_code: Editează codul
         errored: Eroare
         examples: Exemple
         example_binary: O regulă de expresie binară (îndeplinită sau nu)
@@ -97,7 +98,7 @@ setono_sylius_completeness:
             channels: Canal
             channels_help: Aplică această regulă doar în canalul selectat.
             code: Cod
-            code_help: Un identificator unic. Lasă gol pentru a-l genera din etichetă.
+            code_help: Un nume tehnic stabil pentru regulă, generat din etichetă. Devine doar-citire după creare – deblochează pentru a introduce unul.
             condition: Condiție
             condition_help: 'O condiție opțională care decide dacă regula se aplică, de ex. attribute_value(product, "type") == "beer". Lasă gol pentru a aplica regula peste tot.'
             custom_weight: Pondere personalizată

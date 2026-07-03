@@ -20,6 +20,7 @@ setono_sylius_completeness:
         custom_weight: Custom weight
         default: Default
         details: Details
+        edit_code: Edit the code
         errored: Errored
         examples: Examples
         example_binary: A binary expression rule (met or not met)
@@ -97,7 +98,7 @@ setono_sylius_completeness:
             channels: Channels
             channels_help: Only apply this rule in the selected channels. Leave empty to apply it in every channel.
             code: Code
-            code_help: A unique identifier. Leave blank to generate it from the label.
+            code_help: A stable machine name for the rule, generated from the label. It becomes read-only once the rule is created - unlock it to enter a custom one.
             condition: Condition
             condition_help: 'An optional gate deciding whether this rule applies, e.g. attribute_value(product, "type") == "beer". Leave blank to apply the rule everywhere.'
             custom_weight: Custom weight

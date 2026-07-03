@@ -20,6 +20,7 @@ setono_sylius_completeness:
         custom_weight: Peso personalizado
         default: Predefinido
         details: Detalhes
+        edit_code: Editar o código
         errored: Com erro
         examples: Exemplos
         example_binary: Uma regra de expressão binária (cumprida ou não)
@@ -97,7 +98,7 @@ setono_sylius_completeness:
             channels: Canal
             channels_help: Aplicar esta regra apenas no canal selecionado.
             code: Código
-            code_help: Um identificador único. Deixe em branco para o gerar a partir do rótulo.
+            code_help: Um nome técnico estável para a regra, gerado a partir do rótulo. Fica só de leitura depois de a regra ser criada – desbloqueie para inserir um.
             condition: Condição
             condition_help: 'Uma condição opcional que decide se a regra se aplica, p. ex. attribute_value(product, "type") == "beer". Deixe em branco para aplicar a regra em todo o lado.'
             custom_weight: Peso personalizado

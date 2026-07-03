@@ -20,6 +20,7 @@ setono_sylius_completeness:
         custom_weight: Individuelle Gewichtung
         default: Standard
         details: Details
+        edit_code: Code bearbeiten
         errored: Fehlerhaft
         examples: Beispiele
         example_binary: Eine binäre Ausdrucksregel (erfüllt oder nicht)
@@ -97,7 +98,7 @@ setono_sylius_completeness:
             channels: Kanal
             channels_help: Diese Regel nur im ausgewählten Kanal anwenden.
             code: Code
-            code_help: Ein eindeutiger Bezeichner. Leer lassen, um ihn aus der Bezeichnung zu erzeugen.
+            code_help: Ein stabiler technischer Name der Regel, aus der Bezeichnung generiert. Nach dem Erstellen ist er schreibgeschützt – zum Ändern entsperren.
             condition: Bedingung
             condition_help: 'Eine optionale Bedingung, die entscheidet, ob die Regel gilt, z. B. attribute_value(product, "type") == "beer". Leer lassen, um die Regel überall anzuwenden.'
             custom_weight: Individuelle Gewichtung

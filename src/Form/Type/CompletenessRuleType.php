@@ -89,11 +89,6 @@ final class CompletenessRuleType extends AbstractResourceType
             ->add('enabled', CheckboxType::class, [
                 'label' => 'sylius.ui.enabled',
                 'required' => false,
-            ])
-            ->add('code', TextType::class, [
-                'label' => 'setono_sylius_completeness.form.completeness_rule.code',
-                'required' => false,
-                'help' => 'setono_sylius_completeness.form.completeness_rule.code_help',
             ]);
 
         if ($this->enableCustomWeight) {
@@ -106,13 +101,23 @@ final class CompletenessRuleType extends AbstractResourceType
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
             $rule = $event->getData();
-            if (!$rule instanceof CompletenessRuleInterface) {
-                return;
-            }
 
-            $type = $rule->getType();
-            if (null !== $type) {
-                $this->addConfigurationField($event->getForm(), $type);
+            // the code is a stable machine name: generated from the label and read-only on create,
+            // then immutable (disabled) once the rule exists - mirrors Sylius' own code/slug fields
+            $existing = $rule instanceof CompletenessRuleInterface && null !== $rule->getCode();
+            $event->getForm()->add('code', TextType::class, [
+                'label' => 'setono_sylius_completeness.form.completeness_rule.code',
+                'required' => false,
+                'help' => 'setono_sylius_completeness.form.completeness_rule.code_help',
+                'disabled' => $existing,
+                'attr' => $existing ? [] : ['readonly' => 'readonly', 'data-ssc-code' => '1'],
+            ]);
+
+            if ($rule instanceof CompletenessRuleInterface) {
+                $type = $rule->getType();
+                if (null !== $type) {
+                    $this->addConfigurationField($event->getForm(), $type);
+                }
             }
         });
 

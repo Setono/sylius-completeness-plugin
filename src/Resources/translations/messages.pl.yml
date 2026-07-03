@@ -20,6 +20,7 @@ setono_sylius_completeness:
         custom_weight: Niestandardowa waga
         default: Domyślne
         details: Szczegóły
+        edit_code: Edytuj kod
         errored: Błąd
         examples: Przykłady
         example_binary: Binarna reguła wyrażenia (spełniona lub nie)
@@ -97,7 +98,7 @@ setono_sylius_completeness:
             channels: Kanał
             channels_help: Zastosuj tę regułę tylko w wybranym kanale.
             code: Kod
-            code_help: Unikalny identyfikator. Pozostaw puste, aby wygenerować go z etykiety.
+            code_help: Stabilna nazwa techniczna reguły, generowana z etykiety. Po utworzeniu reguły staje się tylko do odczytu – odblokuj, aby wpisać własną.
             condition: Warunek
             condition_help: 'Opcjonalny warunek decydujący, czy reguła obowiązuje, np. attribute_value(product, "type") == "beer". Pozostaw puste, aby stosować regułę wszędzie.'
             custom_weight: Niestandardowa waga

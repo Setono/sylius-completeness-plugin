@@ -20,6 +20,7 @@ setono_sylius_completeness:
         custom_weight: Egendefinert vekt
         default: Standard
         details: Detaljer
+        edit_code: Rediger koden
         errored: Feilet
         examples: Eksempler
         example_binary: En binær uttrykksregel (oppfylt eller ikke)
@@ -97,7 +98,7 @@ setono_sylius_completeness:
             channels: Kanal
             channels_help: Bruk denne regelen kun i den valgte kanalen.
             code: Kode
-            code_help: En unik identifikator. La stå tom for å generere den fra etiketten.
+            code_help: Et stabilt maskinnavn for regelen, generert fra etiketten. Det blir skrivebeskyttet når regelen er opprettet – lås opp for å angi et eget.
             condition: Betingelse
             condition_help: 'En valgfri betingelse som avgjør om regelen gjelder, f.eks. attribute_value(product, "type") == "beer". La stå tom for å bruke regelen overalt.'
             custom_weight: Egendefinert vekt

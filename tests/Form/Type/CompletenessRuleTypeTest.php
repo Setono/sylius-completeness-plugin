@@ -156,6 +156,19 @@ final class CompletenessRuleTypeTest extends TypeTestCase
     /**
      * @test
      */
+    public function it_keeps_the_code_editable_on_a_new_rule_but_immutable_once_it_exists(): void
+    {
+        $new = $this->factory->create(CompletenessRuleType::class, new CompletenessRule());
+        self::assertFalse($new->get('code')->isDisabled());
+
+        $existing = new CompletenessRule();
+        $existing->setCode('has_a_name');
+        self::assertTrue($this->factory->create(CompletenessRuleType::class, $existing)->get('code')->isDisabled());
+    }
+
+    /**
+     * @test
+     */
     public function it_generates_the_code_from_the_label_when_blank(): void
     {
         $form = $this->factory->create(CompletenessRuleType::class);

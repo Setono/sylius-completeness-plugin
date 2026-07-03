@@ -17,23 +17,40 @@
 
         <h4 class="ui dividing header" style="margin-top: 1.5em;">{{ 'setono_sylius_completeness.ui.details'|trans }}</h4>
         {{ form_row(form.label) }}
+        {# the code sits right under the label: generated from it and read-only on create (unlock to edit),
+           disabled/immutable once the rule exists - the same idea as Sylius' code and slug fields #}
+        <div class="field">
+            {{ form_label(form.code) }}
+            {% if form.code.vars.disabled %}
+                {{ form_widget(form.code) }}
+            {% else %}
+                <div class="ui action input">
+                    {{ form_widget(form.code) }}
+                    <button type="button" class="ui icon button ssc-code-toggle" tabindex="-1"
+                            title="{{ 'setono_sylius_completeness.ui.edit_code'|trans }}">
+                        <i class="lock icon"></i>
+                    </button>
+                </div>
+            {% endif %}
+            {{ form_help(form.code) }}
+            {{ form_errors(form.code) }}
+        </div>
         {{ form_row(form.group) }}
         {{ form_row(form.weightTier) }}
         {{ form_row(form.position) }}
         {{ form_row(form.enabled) }}
 
-        <div class="ui styled fluid accordion" style="margin-top: 1em;">
-            <div class="title">
-                <i class="dropdown icon"></i>
-                {{ 'setono_sylius_completeness.ui.advanced'|trans }}
-            </div>
-            <div class="content">
-                {{ form_row(form.code) }}
-                {% if form.customWeight is defined %}
+        {% if form.customWeight is defined %}
+            <div class="ui styled fluid accordion" style="margin-top: 1em;">
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    {{ 'setono_sylius_completeness.ui.advanced'|trans }}
+                </div>
+                <div class="content">
                     {{ form_row(form.customWeight) }}
-                {% endif %}
+                </div>
             </div>
-        </div>
+        {% endif %}
     </div>
     <div class="column">
         <h4 class="ui dividing header">{{ 'setono_sylius_completeness.ui.scope'|trans }}</h4>
@@ -94,6 +111,50 @@
                     clearInterval(timer);
                 }
             }, 100);
+        }
+    })();
+
+    (function () {
+        // on create, keep the (read-only) code in sync with the label until the user unlocks it to type
+        // a custom one - the same live-generation idea as Sylius' slug field
+        var code = document.querySelector('input[data-ssc-code]');
+        var label = document.querySelector('#{{ form.label.vars.id }}');
+        if (!code || !label) {
+            return;
+        }
+
+        function slugify(value) {
+            return value
+                .normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '_')
+                .replace(/^_+|_+$/g, '');
+        }
+
+        var timer;
+        label.addEventListener('input', function () {
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                if (code.hasAttribute('readonly')) {
+                    code.value = slugify(label.value);
+                }
+            }, 250);
+        });
+
+        var toggle = document.querySelector('.ssc-code-toggle');
+        if (toggle) {
+            toggle.addEventListener('click', function () {
+                var icon = toggle.querySelector('i');
+                if (code.hasAttribute('readonly')) {
+                    code.removeAttribute('readonly');
+                    if (icon) { icon.className = 'unlock icon'; }
+                    code.focus();
+                } else {
+                    code.setAttribute('readonly', 'readonly');
+                    if (icon) { icon.className = 'lock icon'; }
+                    code.value = slugify(label.value);
+                }
+            });
         }
     })();
 </script>
