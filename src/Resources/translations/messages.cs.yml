@@ -12,10 +12,16 @@ setono_sylius_completeness:
         completeness_rules: Pravidla úplnosti
         context_setting: Kontext úplnosti
         context_settings: Kontexty úplnosti
+        context_intro: 'Kontext úplnosti je jedna kombinace kanálu a jazyka, ve které se produkty hodnotí samostatně. Například "Fashion Web Store + angličtina (USA)" je jeden kontext a "Fashion Web Store + němčina" je jiný. Pomocí těchto nastavení dáte kontextu vlastní práh "připravenosti" a určíte, jak moc se počítá do celkového skóre produktu - nenakonfigurované kontexty používají globální výchozí hodnoty.'
         dashboard_intro: Úplnost celého katalogu na první pohled.
         products_scored: Ohodnocené produkty
+        products_scored_help: Produkty, které mají skóre úplnosti. Přepočítejte katalog pro ohodnocení ostatních.
         average_completeness: Průměrná úplnost
+        average_completeness_help: Průměrná úplnost všech ohodnocených produktů.
         ready: Připraveno
+        ready_help: Produkty ohodnocené na prahu připravenosti nebo nad ním.
+        awaiting_recalculation: Čeká na přepočet
+        awaiting_recalculation_help: Produkty, jejichž skóre zaostává za aktuálními pravidly nebo kontexty – přepočítávají se na pozadí.
         score_distribution: Rozložení skóre
         products_needing_work: Produkty, které nejvíce potřebují práci
         recalculate_catalog: Přepočítat celý katalog

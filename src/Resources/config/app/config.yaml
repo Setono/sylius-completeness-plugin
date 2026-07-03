@@ -1,8 +1,21 @@
 imports:
     - { resource: "../grids.yaml" }
 
+sylius_grid:
+    templates:
+        filter:
+            # the scope filters render a plain choice dropdown, so reuse the select filter template
+            setono_sylius_completeness_channel_scope: "@SyliusUi/Grid/Filter/select.html.twig"
+            setono_sylius_completeness_locale_scope: "@SyliusUi/Grid/Filter/select.html.twig"
+
 sylius_ui:
     events:
+        # an intro box above the context-settings grid (priority 15 = between the header at 20 and grid at 10)
+        setono_sylius_completeness.admin.context_setting.index:
+            blocks:
+                setono_sylius_completeness_context_intro:
+                    template: "@SetonoSyliusCompletenessPlugin/Admin/ContextSetting/_intro.html.twig"
+                    priority: 15
         sylius.admin.simple_product.show.more_details:
             blocks:
                 setono_sylius_completeness_panel:

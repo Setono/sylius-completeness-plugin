@@ -10,6 +10,7 @@
         <import resource="services/expression.xml"/>
         <import resource="services/fixture.xml"/>
         <import resource="services/form.xml"/>
+        <import resource="services/grid.xml"/>
         <import resource="services/listener.xml"/>
         <import resource="services/menu.xml"/>
         <import resource="services/messenger.xml"/>

@@ -1,47 +1,43 @@
 {% extends '@SyliusAdmin/layout.html.twig' %}
 
+{% import '@SyliusUi/Macro/headers.html.twig' as headers %}
 {% import '@SetonoSyliusCompletenessPlugin/Admin/_progressBar.html.twig' as completeness %}
 
 {% block title %}{{ 'setono_sylius_completeness.ui.completeness'|trans }} {{ parent() }}{% endblock %}
 
 {% block content %}
-    <div class="ui segment">
-        <div class="ui stackable grid">
-            <div class="twelve wide column">
-                <h1 class="ui header">
-                    {{ 'setono_sylius_completeness.ui.completeness'|trans }}
-                    <div class="sub header">{{ 'setono_sylius_completeness.ui.dashboard_intro'|trans }}</div>
-                </h1>
-            </div>
-            <div class="four wide right aligned column">
-                <form method="post" action="{{ path('setono_sylius_completeness_admin_recalculate_all') }}">
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('recalculate_completeness') }}">
-                    <button type="submit" class="ui labeled icon button">
-                        <i class="sync icon"></i>
-                        {{ 'setono_sylius_completeness.ui.recalculate_catalog'|trans }}
-                    </button>
-                </form>
-            </div>
+    <div class="ui stackable two column grid">
+        <div class="column">
+            {{ headers.default('setono_sylius_completeness.ui.completeness'|trans, 'chart bar', 'setono_sylius_completeness.ui.dashboard_intro'|trans) }}
+        </div>
+        <div class="right aligned column">
+            <form method="post" action="{{ path('setono_sylius_completeness_admin_recalculate_all') }}">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('recalculate_completeness') }}">
+                <button type="submit" class="ui labeled icon button">
+                    <i class="sync icon"></i>
+                    {{ 'setono_sylius_completeness.ui.recalculate_catalog'|trans }}
+                </button>
+            </form>
         </div>
     </div>
 
     <div class="ui segment">
         <div class="ui four small statistics">
-            <div class="statistic">
+            <div class="statistic" style="cursor: help;" title="{{ 'setono_sylius_completeness.ui.products_scored_help'|trans }}">
                 <div class="value">{{ statistics.scoredProducts }} <span style="color: #bbb;">/ {{ statistics.totalProducts }}</span></div>
                 <div class="label">{{ 'setono_sylius_completeness.ui.products_scored'|trans }}</div>
             </div>
-            <div class="{{ ssc_threshold_color(statistics.averageRatio) }} statistic">
+            <div class="{{ ssc_threshold_color(statistics.averageRatio) }} statistic" style="cursor: help;" title="{{ 'setono_sylius_completeness.ui.average_completeness_help'|trans }}">
                 <div class="value">{{ statistics.averageRatio }}%</div>
                 <div class="label">{{ 'setono_sylius_completeness.ui.average_completeness'|trans }}</div>
             </div>
-            <div class="green statistic">
+            <div class="green statistic" style="cursor: help;" title="{{ 'setono_sylius_completeness.ui.ready_help'|trans }}">
                 <div class="value">{{ statistics.readyProducts }}</div>
                 <div class="label">{{ 'setono_sylius_completeness.ui.ready'|trans }} (&ge; {{ statistics.readyThreshold }}%)</div>
             </div>
-            <div class="{{ statistics.staleProducts > 0 ? 'grey' : '' }} statistic">
+            <div class="{{ statistics.staleProducts > 0 ? 'grey' : '' }} statistic" style="cursor: help;" title="{{ 'setono_sylius_completeness.ui.awaiting_recalculation_help'|trans }}">
                 <div class="value">{{ statistics.staleProducts }}</div>
-                <div class="label">{{ 'setono_sylius_completeness.ui.recalculating'|trans }}</div>
+                <div class="label">{{ 'setono_sylius_completeness.ui.awaiting_recalculation'|trans }}</div>
             </div>
         </div>
     </div>

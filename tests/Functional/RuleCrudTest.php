@@ -98,10 +98,16 @@ final class RuleCrudTest extends WebTestCase
      */
     public function the_rule_grid_and_create_form_render(): void
     {
-        $this->client->request('GET', '/admin/completeness-rules/');
+        $crawler = $this->client->request('GET', '/admin/completeness/rules/');
         self::assertResponseIsSuccessful();
 
-        $this->client->request('GET', '/admin/completeness-rules/new');
+        // the breadcrumb links to the completeness dashboard
+        self::assertGreaterThan(
+            0,
+            $crawler->filter('.breadcrumb a[href$="/admin/completeness/dashboard"]')->count(),
+        );
+
+        $this->client->request('GET', '/admin/completeness/rules/new');
         self::assertResponseIsSuccessful();
     }
 
@@ -110,7 +116,7 @@ final class RuleCrudTest extends WebTestCase
      */
     public function a_valid_rule_is_created(): void
     {
-        $this->client->request('GET', '/admin/completeness-rules/new');
+        $this->client->request('GET', '/admin/completeness/rules/new');
 
         $this->client->submitForm('Create', [
             'setono_sylius_completeness_completeness_rule[label]' => 'Has a name (functional test)',
@@ -164,10 +170,10 @@ final class RuleCrudTest extends WebTestCase
 
         // the channels render as toggles (an expanded choice); post what the browser sends when both
         // are checked, rather than driving the checkbox group through the Dom crawler
-        $crawler = $this->client->request('GET', '/admin/completeness-rules/new');
+        $crawler = $this->client->request('GET', '/admin/completeness/rules/new');
         $token = $crawler->filter('input[name="setono_sylius_completeness_completeness_rule[_token]"]')->attr('value');
 
-        $this->client->request('POST', '/admin/completeness-rules/new', [
+        $this->client->request('POST', '/admin/completeness/rules/new', [
             'setono_sylius_completeness_completeness_rule' => [
                 'label' => 'Multi channel rule',
                 'type' => 'has_name',
@@ -193,10 +199,10 @@ final class RuleCrudTest extends WebTestCase
     {
         // the configuration field is swapped in client-side when the checker changes; without JS we
         // post what the browser would send once the "minimum number of images" field is present
-        $crawler = $this->client->request('GET', '/admin/completeness-rules/new');
+        $crawler = $this->client->request('GET', '/admin/completeness/rules/new');
         $token = $crawler->filter('input[name="setono_sylius_completeness_completeness_rule[_token]"]')->attr('value');
 
-        $this->client->request('POST', '/admin/completeness-rules/new', [
+        $this->client->request('POST', '/admin/completeness/rules/new', [
             'setono_sylius_completeness_completeness_rule' => [
                 'label' => 'Has enough images',
                 'type' => 'has_minimum_images',
@@ -221,7 +227,7 @@ final class RuleCrudTest extends WebTestCase
      */
     public function a_rule_with_an_invalid_condition_is_rejected(): void
     {
-        $this->client->request('GET', '/admin/completeness-rules/new');
+        $this->client->request('GET', '/admin/completeness/rules/new');
 
         $this->client->submitForm('Create', [
             'setono_sylius_completeness_completeness_rule[label]' => 'Broken rule',
@@ -241,10 +247,14 @@ final class RuleCrudTest extends WebTestCase
      */
     public function the_context_setting_grid_and_create_form_render(): void
     {
-        $this->client->request('GET', '/admin/context-settings/');
+        $crawler = $this->client->request('GET', '/admin/completeness/context-settings/');
         self::assertResponseIsSuccessful();
 
-        $this->client->request('GET', '/admin/context-settings/new');
+        // the intro box that explains what a completeness context is
+        self::assertGreaterThan(0, $crawler->filter('.ui.info.message')->count());
+        self::assertStringContainsString('completeness context', $crawler->filter('.ui.info.message')->text());
+
+        $this->client->request('GET', '/admin/completeness/context-settings/new');
         self::assertResponseIsSuccessful();
     }
 
@@ -283,7 +293,7 @@ final class RuleCrudTest extends WebTestCase
         $this->entityManager->flush();
         $this->entitiesToRemove[] = $channel;
 
-        $this->client->request('GET', '/admin/context-settings/new');
+        $this->client->request('GET', '/admin/completeness/context-settings/new');
         self::assertResponseIsSuccessful();
 
         $this->client->submitForm('Create', [

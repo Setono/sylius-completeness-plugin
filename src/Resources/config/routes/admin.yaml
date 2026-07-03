@@ -1,37 +1,10 @@
-setono_sylius_completeness_admin_completeness_rule:
-    resource: |
-        alias: setono_sylius_completeness.completeness_rule
-        section: admin
-        permission: true
-        except: ['show']
-        redirect: update
-        grid: setono_sylius_completeness_admin_completeness_rule
-        templates: "@SyliusAdmin\\Crud"
-        vars:
-            all:
-                templates:
-                    form: "@SetonoSyliusCompletenessPlugin/Admin/CompletenessRule/_form.html.twig"
-            index:
-                icon: tasks
-    type: sylius.resource
+# the completeness section (rules, context settings, dashboard, preview, recalculate-all) all live
+# under a single /completeness prefix - added here in one place rather than per route
+setono_sylius_completeness_admin_completeness:
+    resource: "@SetonoSyliusCompletenessPlugin/Resources/config/routes/admin/completeness.yaml"
+    prefix: /completeness
 
-setono_sylius_completeness_admin_context_setting:
-    resource: |
-        alias: setono_sylius_completeness.context_setting
-        section: admin
-        permission: true
-        except: ['show']
-        redirect: update
-        grid: setono_sylius_completeness_admin_context_setting
-        templates: "@SyliusAdmin\\Crud"
-        vars:
-            all:
-                templates:
-                    form: "@SetonoSyliusCompletenessPlugin/Admin/ContextSetting/_form.html.twig"
-            index:
-                icon: sliders horizontal
-    type: sylius.resource
-
+# these two are actions on the product grid/page, so they belong under /products, not /completeness
 setono_sylius_completeness_admin_product_bulk_recalculate:
     path: /products/completeness/bulk-recalculate
     methods: [POST]
@@ -45,21 +18,3 @@ setono_sylius_completeness_admin_product_recalculate:
         id: \d+
     defaults:
         _controller: setono_sylius_completeness.controller.admin.recalculate_product
-
-setono_sylius_completeness_admin_dashboard:
-    path: /completeness/dashboard
-    methods: [GET]
-    defaults:
-        _controller: setono_sylius_completeness.controller.admin.dashboard
-
-setono_sylius_completeness_admin_recalculate_all:
-    path: /completeness/recalculate-all
-    methods: [POST]
-    defaults:
-        _controller: setono_sylius_completeness.controller.admin.recalculate_all
-
-setono_sylius_completeness_admin_preview:
-    path: /completeness/preview
-    methods: [GET]
-    defaults:
-        _controller: setono_sylius_completeness.controller.admin.preview

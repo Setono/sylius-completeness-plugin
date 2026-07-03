@@ -12,10 +12,16 @@ setono_sylius_completeness:
         completeness_rules: Fullständighetsregler
         context_setting: Fullständighetskontext
         context_settings: Fullständighetskontexter
+        context_intro: 'En fullständighetskontext är en enda kanal-och-språk-kombination som produkter poängsätts i var för sig. Till exempel är "Fashion Web Store + engelska (USA)" en kontext och "Fashion Web Store + tyska" en annan. Använd dessa inställningar för att ge en kontext sin egen "klar"-tröskel och för att bestämma hur mycket den räknas in i produktens totala poäng - kontexter du lämnar okonfigurerade återgår till de globala standardvärdena.'
         dashboard_intro: Katalogövergripande fullständighet i överblick.
         products_scored: Produkter poängsatta
+        products_scored_help: Produkter som har ett fullständighetsvärde. Beräkna om katalogen för att poängsätta resten.
         average_completeness: Genomsnittlig fullständighet
+        average_completeness_help: Den genomsnittliga fullständigheten över alla poängsatta produkter.
         ready: Klar
+        ready_help: Produkter poängsatta på eller över klar-tröskeln.
+        awaiting_recalculation: Väntar på omberäkning
+        awaiting_recalculation_help: Produkter vars poäng ligger efter de aktuella reglerna eller kontexterna – de beräknas om i bakgrunden.
         score_distribution: Poängfördelning
         products_needing_work: Produkter som behöver mest arbete
         recalculate_catalog: Beräkna om hela katalogen

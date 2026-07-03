@@ -12,10 +12,16 @@ setono_sylius_completeness:
         completeness_rules: Reguli de completitudine
         context_setting: Context de completitudine
         context_settings: Contexte de completitudine
+        context_intro: 'Un context de completitudine este o singură combinație de canal și limbă în care produsele sunt punctate separat. De exemplu, "Fashion Web Store + engleză (SUA)" este un context, iar "Fashion Web Store + germană" este altul. Folosește aceste setări pentru a-i da unui context propriul prag de "pregătit" și pentru a decide cât contează în scorul general al unui produs - contextele lăsate neconfigurate folosesc valorile implicite globale.'
         dashboard_intro: Completitudinea întregului catalog dintr-o privire.
         products_scored: Produse punctate
+        products_scored_help: Produse care au un scor de completitudine. Recalculează catalogul pentru a le puncta pe celelalte.
         average_completeness: Completitudine medie
+        average_completeness_help: Completitudinea medie a tuturor produselor punctate.
         ready: Gata
+        ready_help: Produse punctate la pragul de pregătire sau peste.
+        awaiting_recalculation: În așteptarea recalculării
+        awaiting_recalculation_help: Produse al căror scor este în urma regulilor sau contextelor actuale – sunt recalculate în fundal.
         score_distribution: Distribuția scorurilor
         products_needing_work: Produsele care necesită cel mai mult efort
         recalculate_catalog: Recalculează întregul catalog

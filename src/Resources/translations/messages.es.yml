@@ -12,10 +12,16 @@ setono_sylius_completeness:
         completeness_rules: Reglas de completitud
         context_setting: Contexto de completitud
         context_settings: Contextos de completitud
+        context_intro: 'Un contexto de completitud es una única combinación de canal e idioma en la que los productos se puntúan por separado. Por ejemplo, "Fashion Web Store + inglés (US)" es un contexto y "Fashion Web Store + alemán" es otro. Usa estos ajustes para darle a un contexto su propio umbral de "listo" y decidir cuánto cuenta en la puntuación general de un producto - los contextos que dejes sin configurar usan los valores predeterminados globales.'
         dashboard_intro: La completitud de todo el catálogo de un vistazo.
         products_scored: Productos puntuados
+        products_scored_help: Productos que tienen una puntuación de completitud. Recalcula el catálogo para puntuar el resto.
         average_completeness: Completitud media
+        average_completeness_help: La completitud media de todos los productos puntuados.
         ready: Listo
+        ready_help: Productos puntuados en el umbral de listo o por encima.
+        awaiting_recalculation: Pendiente de recálculo
+        awaiting_recalculation_help: Productos cuya puntuación está por detrás de las reglas o contextos actuales; se recalculan en segundo plano.
         score_distribution: Distribución de puntuaciones
         products_needing_work: Productos que más necesitan trabajo
         recalculate_catalog: Recalcular todo el catálogo

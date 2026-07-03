@@ -12,10 +12,16 @@ setono_sylius_completeness:
         completeness_rules: Volledigheidsregels
         context_setting: Volledigheidscontext
         context_settings: Volledigheidscontexten
+        context_intro: 'Een volledigheidscontext is één kanaal-en-taal-combinatie waarin producten afzonderlijk worden beoordeeld. Bijvoorbeeld "Fashion Web Store + Engels (VS)" is één context en "Fashion Web Store + Duits" is een andere. Gebruik deze instellingen om een context zijn eigen "gereed"-drempel te geven en te bepalen hoeveel die meetelt voor de totale score van een product - niet-geconfigureerde contexten vallen terug op de globale standaardwaarden.'
         dashboard_intro: Catalogusbrede volledigheid in één oogopslag.
         products_scored: Beoordeelde producten
+        products_scored_help: Producten met een volledigheidsscore. Herbereken de catalogus om de rest te beoordelen.
         average_completeness: Gemiddelde volledigheid
+        average_completeness_help: De gemiddelde volledigheid over alle beoordeelde producten.
         ready: Gereed
+        ready_help: Producten beoordeeld op of boven de gereed-drempel.
+        awaiting_recalculation: Wacht op herberekening
+        awaiting_recalculation_help: Producten waarvan de score achterloopt op de huidige regels of contexten – ze worden op de achtergrond herberekend.
         score_distribution: Scoreverdeling
         products_needing_work: Producten die het meeste werk nodig hebben
         recalculate_catalog: Hele catalogus herberekenen

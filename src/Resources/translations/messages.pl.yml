@@ -12,10 +12,16 @@ setono_sylius_completeness:
         completeness_rules: Reguły kompletności
         context_setting: Kontekst kompletności
         context_settings: Konteksty kompletności
+        context_intro: 'Kontekst kompletności to pojedyncza kombinacja kanału i języka, w której produkty są oceniane osobno. Na przykład "Fashion Web Store + angielski (USA)" to jeden kontekst, a "Fashion Web Store + niemiecki" to inny. Użyj tych ustawień, aby nadać kontekstowi własny próg "gotowości" i zdecydować, ile liczy się on w ogólnym wyniku produktu - konteksty pozostawione bez konfiguracji korzystają z globalnych wartości domyślnych.'
         dashboard_intro: Kompletność całego katalogu w skrócie.
         products_scored: Ocenione produkty
+        products_scored_help: Produkty, które mają wynik kompletności. Przelicz katalog, aby ocenić pozostałe.
         average_completeness: Średnia kompletność
+        average_completeness_help: Średnia kompletność wszystkich ocenionych produktów.
         ready: Gotowe
+        ready_help: Produkty ocenione na poziomie progu gotowości lub powyżej.
+        awaiting_recalculation: Oczekuje na przeliczenie
+        awaiting_recalculation_help: Produkty, których wynik jest w tyle za aktualnymi regułami lub kontekstami – są przeliczane w tle.
         score_distribution: Rozkład wyników
         products_needing_work: Produkty wymagające najwięcej pracy
         recalculate_catalog: Przelicz cały katalog

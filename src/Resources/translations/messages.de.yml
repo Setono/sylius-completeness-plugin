@@ -12,10 +12,16 @@ setono_sylius_completeness:
         completeness_rules: Vollständigkeitsregeln
         context_setting: Vollständigkeitskontext
         context_settings: Vollständigkeitskontexte
+        context_intro: 'Ein Vollständigkeitskontext ist eine einzelne Kanal-und-Gebietsschema-Kombination, in der Produkte separat bewertet werden. Zum Beispiel ist "Fashion Web Store + Englisch (USA)" ein Kontext und "Fashion Web Store + Deutsch" ein anderer. Mit diesen Einstellungen geben Sie einem Kontext seine eigene "Bereit"-Schwelle und legen fest, wie stark er in die Gesamtbewertung eines Produkts einfließt - nicht konfigurierte Kontexte greifen auf die globalen Standardwerte zurück.'
         dashboard_intro: Katalogweite Vollständigkeit auf einen Blick.
         products_scored: Bewertete Produkte
+        products_scored_help: Produkte mit einer Vollständigkeitsbewertung. Berechnen Sie den Katalog neu, um die übrigen zu bewerten.
         average_completeness: Durchschnittliche Vollständigkeit
+        average_completeness_help: Die durchschnittliche Vollständigkeit über alle bewerteten Produkte.
         ready: Bereit
+        ready_help: Produkte, die auf oder über der Bereitschaftsschwelle bewertet sind.
+        awaiting_recalculation: Neuberechnung ausstehend
+        awaiting_recalculation_help: Produkte, deren Bewertung hinter den aktuellen Regeln oder Kontexten liegt – sie werden im Hintergrund neu berechnet.
         score_distribution: Punkteverteilung
         products_needing_work: Produkte mit dem größten Handlungsbedarf
         recalculate_catalog: Gesamten Katalog neu berechnen

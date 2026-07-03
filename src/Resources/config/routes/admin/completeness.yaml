@@ -1,0 +1,58 @@
+# Every route here is mounted under the /completeness prefix by admin.yaml, so the paths below are
+# relative to it (e.g. rules -> /admin/completeness/rules/). Product-attached actions that belong
+# under /products stay in admin.yaml instead.
+setono_sylius_completeness_admin_completeness_rule:
+    resource: |
+        alias: setono_sylius_completeness.completeness_rule
+        path: rules
+        section: admin
+        permission: true
+        except: ['show']
+        redirect: update
+        grid: setono_sylius_completeness_admin_completeness_rule
+        templates: "@SyliusAdmin\\Crud"
+        vars:
+            all:
+                templates:
+                    form: "@SetonoSyliusCompletenessPlugin/Admin/CompletenessRule/_form.html.twig"
+                    breadcrumb: "@SetonoSyliusCompletenessPlugin/Admin/Crud/_breadcrumb.html.twig"
+            index:
+                icon: tasks
+    type: sylius.resource
+
+setono_sylius_completeness_admin_context_setting:
+    resource: |
+        alias: setono_sylius_completeness.context_setting
+        path: context-settings
+        section: admin
+        permission: true
+        except: ['show']
+        redirect: update
+        grid: setono_sylius_completeness_admin_context_setting
+        templates: "@SyliusAdmin\\Crud"
+        vars:
+            all:
+                templates:
+                    form: "@SetonoSyliusCompletenessPlugin/Admin/ContextSetting/_form.html.twig"
+                    breadcrumb: "@SetonoSyliusCompletenessPlugin/Admin/Crud/_breadcrumb.html.twig"
+            index:
+                icon: sliders horizontal
+    type: sylius.resource
+
+setono_sylius_completeness_admin_dashboard:
+    path: /dashboard
+    methods: [GET]
+    defaults:
+        _controller: setono_sylius_completeness.controller.admin.dashboard
+
+setono_sylius_completeness_admin_recalculate_all:
+    path: /recalculate-all
+    methods: [POST]
+    defaults:
+        _controller: setono_sylius_completeness.controller.admin.recalculate_all
+
+setono_sylius_completeness_admin_preview:
+    path: /preview
+    methods: [GET]
+    defaults:
+        _controller: setono_sylius_completeness.controller.admin.preview

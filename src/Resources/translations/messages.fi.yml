@@ -12,10 +12,16 @@ setono_sylius_completeness:
         completeness_rules: Täydellisyyssäännöt
         context_setting: Täydellisyyskonteksti
         context_settings: Täydellisyyskontekstit
+        context_intro: 'Täydellisyyskonteksti on yksittäinen kanava-ja-kieli-yhdistelmä, jossa tuotteet pisteytetään erikseen. Esimerkiksi "Fashion Web Store + englanti (USA)" on yksi konteksti ja "Fashion Web Store + saksa" toinen. Näillä asetuksilla voit antaa kontekstille oman valmiuskynnyksensä ja päättää, kuinka paljon se lasketaan mukaan tuotteen kokonaispisteisiin - määrittämättömät kontekstit käyttävät yleisiä oletusasetuksia.'
         dashboard_intro: Koko luettelon täydellisyys yhdellä silmäyksellä.
         products_scored: Pisteytetyt tuotteet
+        products_scored_help: Tuotteet, joilla on täydellisyyspisteet. Laske luettelo uudelleen pisteyttääksesi loput.
         average_completeness: Keskimääräinen täydellisyys
+        average_completeness_help: Keskimääräinen täydellisyys kaikkien pisteytettyjen tuotteiden osalta.
         ready: Valmis
+        ready_help: Tuotteet, jotka on pisteytetty valmiuskynnyksen tasolle tai sen yli.
+        awaiting_recalculation: Odottaa uudelleenlaskentaa
+        awaiting_recalculation_help: Tuotteet, joiden pisteet ovat jäljessä nykyisistä säännöistä tai konteksteista – ne lasketaan uudelleen taustalla.
         score_distribution: Pistejakauma
         products_needing_work: Eniten työtä vaativat tuotteet
         recalculate_catalog: Laske koko luettelo uudelleen

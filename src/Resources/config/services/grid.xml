@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <!-- membership filters over the JSON scope columns; reuse the rule form's code-choice widgets -->
+        <service id="setono_sylius_completeness.grid_filter.channel_scope"
+                 class="Setono\SyliusCompletenessPlugin\Grid\Filter\ScopeCodeFilter">
+            <tag name="sylius.grid_filter"
+                 type="setono_sylius_completeness_channel_scope"
+                 form-type="Setono\SyliusCompletenessPlugin\Form\Type\ChannelCodeChoiceType"/>
+        </service>
+
+        <service id="setono_sylius_completeness.grid_filter.locale_scope"
+                 class="Setono\SyliusCompletenessPlugin\Grid\Filter\ScopeCodeFilter">
+            <tag name="sylius.grid_filter"
+                 type="setono_sylius_completeness_locale_scope"
+                 form-type="Setono\SyliusCompletenessPlugin\Form\Type\LocaleCodeChoiceType"/>
+        </service>
+    </services>
+</container>

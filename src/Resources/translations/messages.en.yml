@@ -12,10 +12,16 @@ setono_sylius_completeness:
         completeness_rules: Completeness rules
         context_setting: Completeness context
         context_settings: Completeness contexts
+        context_intro: 'A completeness context is a single channel-and-locale combination that products are scored in separately. For example, "Fashion Web Store + English (US)" is one context and "Fashion Web Store + German" is another. Use these settings to give a context its own "ready" threshold and to decide how much it counts toward a product''s overall score - contexts you leave unconfigured fall back to the global defaults.'
         dashboard_intro: Catalog-wide completeness at a glance.
         products_scored: Products scored
+        products_scored_help: Products that have a completeness score. Recalculate the catalog to score the rest.
         average_completeness: Average completeness
+        average_completeness_help: The average completeness across all scored products.
         ready: Ready
+        ready_help: Products scored at or above the ready threshold.
+        awaiting_recalculation: Awaiting recalculation
+        awaiting_recalculation_help: Products whose score is behind the current rules or contexts - they are recalculated in the background.
         score_distribution: Score distribution
         products_needing_work: Products that need the most work
         recalculate_catalog: Recalculate the whole catalog
