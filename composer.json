@@ -22,6 +22,7 @@
         "psr/log": "^1.1 || ^2.0 || ^3.0",
         "sylius/core": "^1.0",
         "sylius/core-bundle": "^1.0",
+        "sylius/grid-bundle": "^1.12",
         "sylius/locale": "^1.0",
         "sylius/product": "^1.0",
         "sylius/product-bundle": "^1.0",
