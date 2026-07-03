@@ -12,6 +12,14 @@ setono_sylius_completeness:
         completeness_rules: Règles de complétude
         context_setting: Contexte de complétude
         context_settings: Contextes de complétude
+        dashboard_intro: La complétude de tout le catalogue en un coup d'œil.
+        products_scored: Produits évalués
+        average_completeness: Complétude moyenne
+        ready: Prêt
+        score_distribution: Répartition des scores
+        products_needing_work: Produits qui nécessitent le plus de travail
+        recalculate_catalog: Recalculer tout le catalogue
+        no_products_scored: Aucun produit n'a encore été évalué. Recalculez le catalogue pour commencer.
         edit_completeness_rule: Modifier la règle de complétude
         edit_context_setting: Modifier le contexte de complétude
         new_completeness_rule: Nouvelle règle de complétude

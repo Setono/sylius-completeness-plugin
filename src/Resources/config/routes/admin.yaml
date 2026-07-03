@@ -46,6 +46,18 @@ setono_sylius_completeness_admin_product_recalculate:
     defaults:
         _controller: setono_sylius_completeness.controller.admin.recalculate_product
 
+setono_sylius_completeness_admin_dashboard:
+    path: /completeness/dashboard
+    methods: [GET]
+    defaults:
+        _controller: setono_sylius_completeness.controller.admin.dashboard
+
+setono_sylius_completeness_admin_recalculate_all:
+    path: /completeness/recalculate-all
+    methods: [POST]
+    defaults:
+        _controller: setono_sylius_completeness.controller.admin.recalculate_all
+
 setono_sylius_completeness_admin_preview:
     path: /completeness/preview
     methods: [GET]

@@ -12,6 +12,14 @@ setono_sylius_completeness:
         completeness_rules: Teljességi szabályok
         context_setting: Teljességi kontextus
         context_settings: Teljességi kontextusok
+        dashboard_intro: A teljes katalógus teljessége egy pillantásra.
+        products_scored: Pontozott termékek
+        average_completeness: Átlagos teljesség
+        ready: Kész
+        score_distribution: Pontszámeloszlás
+        products_needing_work: A legtöbb munkát igénylő termékek
+        recalculate_catalog: Teljes katalógus újraszámítása
+        no_products_scored: Még nincs pontozott termék. Számítsd újra a katalógust a kezdéshez.
         edit_completeness_rule: Teljességi szabály szerkesztése
         edit_context_setting: Teljességi kontextus szerkesztése
         new_completeness_rule: Új teljességi szabály

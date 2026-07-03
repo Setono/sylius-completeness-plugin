@@ -12,6 +12,14 @@ setono_sylius_completeness:
         completeness_rules: Reguli de completitudine
         context_setting: Context de completitudine
         context_settings: Contexte de completitudine
+        dashboard_intro: Completitudinea întregului catalog dintr-o privire.
+        products_scored: Produse punctate
+        average_completeness: Completitudine medie
+        ready: Gata
+        score_distribution: Distribuția scorurilor
+        products_needing_work: Produsele care necesită cel mai mult efort
+        recalculate_catalog: Recalculează întregul catalog
+        no_products_scored: Niciun produs nu a fost punctat încă. Recalculează catalogul pentru a începe.
         edit_completeness_rule: Editează regula de completitudine
         edit_context_setting: Editează contextul de completitudine
         new_completeness_rule: Regulă de completitudine nouă

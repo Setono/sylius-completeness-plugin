@@ -12,6 +12,14 @@ setono_sylius_completeness:
         completeness_rules: Pravidla úplnosti
         context_setting: Kontext úplnosti
         context_settings: Kontexty úplnosti
+        dashboard_intro: Úplnost celého katalogu na první pohled.
+        products_scored: Ohodnocené produkty
+        average_completeness: Průměrná úplnost
+        ready: Připraveno
+        score_distribution: Rozložení skóre
+        products_needing_work: Produkty, které nejvíce potřebují práci
+        recalculate_catalog: Přepočítat celý katalog
+        no_products_scored: Zatím nebyly ohodnoceny žádné produkty. Přepočítejte katalog a začněte.
         edit_completeness_rule: Upravit pravidlo úplnosti
         edit_context_setting: Upravit kontext úplnosti
         new_completeness_rule: Nové pravidlo úplnosti

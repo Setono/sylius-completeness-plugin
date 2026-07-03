@@ -12,6 +12,14 @@ setono_sylius_completeness:
         completeness_rules: Volledigheidsregels
         context_setting: Volledigheidscontext
         context_settings: Volledigheidscontexten
+        dashboard_intro: Catalogusbrede volledigheid in één oogopslag.
+        products_scored: Beoordeelde producten
+        average_completeness: Gemiddelde volledigheid
+        ready: Gereed
+        score_distribution: Scoreverdeling
+        products_needing_work: Producten die het meeste werk nodig hebben
+        recalculate_catalog: Hele catalogus herberekenen
+        no_products_scored: Er zijn nog geen producten beoordeeld. Herbereken de catalogus om te beginnen.
         edit_completeness_rule: Volledigheidsregel bewerken
         edit_context_setting: Volledigheidscontext bewerken
         new_completeness_rule: Nieuwe volledigheidsregel

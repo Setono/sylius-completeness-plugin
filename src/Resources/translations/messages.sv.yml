@@ -12,6 +12,14 @@ setono_sylius_completeness:
         completeness_rules: Fullständighetsregler
         context_setting: Fullständighetskontext
         context_settings: Fullständighetskontexter
+        dashboard_intro: Katalogövergripande fullständighet i överblick.
+        products_scored: Produkter poängsatta
+        average_completeness: Genomsnittlig fullständighet
+        ready: Klar
+        score_distribution: Poängfördelning
+        products_needing_work: Produkter som behöver mest arbete
+        recalculate_catalog: Beräkna om hela katalogen
+        no_products_scored: Inga produkter har poängsatts ännu. Beräkna om katalogen för att komma igång.
         edit_completeness_rule: Redigera fullständighetsregel
         edit_context_setting: Redigera fullständighetskontext
         new_completeness_rule: Ny fullständighetsregel

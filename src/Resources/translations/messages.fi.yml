@@ -12,6 +12,14 @@ setono_sylius_completeness:
         completeness_rules: Täydellisyyssäännöt
         context_setting: Täydellisyyskonteksti
         context_settings: Täydellisyyskontekstit
+        dashboard_intro: Koko luettelon täydellisyys yhdellä silmäyksellä.
+        products_scored: Pisteytetyt tuotteet
+        average_completeness: Keskimääräinen täydellisyys
+        ready: Valmis
+        score_distribution: Pistejakauma
+        products_needing_work: Eniten työtä vaativat tuotteet
+        recalculate_catalog: Laske koko luettelo uudelleen
+        no_products_scored: Yhtään tuotetta ei ole vielä pisteytetty. Laske luettelo uudelleen aloittaaksesi.
         edit_completeness_rule: Muokkaa täydellisyyssääntöä
         edit_context_setting: Muokkaa täydellisyyskontekstia
         new_completeness_rule: Uusi täydellisyyssääntö

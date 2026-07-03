@@ -12,6 +12,14 @@ setono_sylius_completeness:
         completeness_rules: Правила повноти
         context_setting: Контекст повноти
         context_settings: Контексти повноти
+        dashboard_intro: Повнота всього каталогу з першого погляду.
+        products_scored: Оцінені продукти
+        average_completeness: Середня повнота
+        ready: Готово
+        score_distribution: Розподіл оцінок
+        products_needing_work: Продукти, що потребують найбільше роботи
+        recalculate_catalog: Перерахувати весь каталог
+        no_products_scored: Жоден продукт ще не оцінено. Перерахуйте каталог, щоб почати.
         edit_completeness_rule: Редагувати правило повноти
         edit_context_setting: Редагувати контекст повноти
         new_completeness_rule: Нове правило повноти

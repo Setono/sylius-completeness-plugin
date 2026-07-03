@@ -13,25 +13,12 @@ final class AdminMenuListener
         $menu = $event->getMenu();
         $parent = $menu->getChild('catalog') ?? $menu;
 
+        // a single entry point: the dashboard links out to the rules, contexts and preview
         $parent
-            ->addChild('setono_sylius_completeness_rules', [
-                'route' => 'setono_sylius_completeness_admin_completeness_rule_index',
+            ->addChild('setono_sylius_completeness', [
+                'route' => 'setono_sylius_completeness_admin_dashboard',
             ])
-            ->setLabel('setono_sylius_completeness.ui.completeness_rules')
-            ->setLabelAttribute('icon', 'tasks');
-
-        $parent
-            ->addChild('setono_sylius_completeness_context_settings', [
-                'route' => 'setono_sylius_completeness_admin_context_setting_index',
-            ])
-            ->setLabel('setono_sylius_completeness.ui.context_settings')
-            ->setLabelAttribute('icon', 'sliders horizontal');
-
-        $parent
-            ->addChild('setono_sylius_completeness_preview', [
-                'route' => 'setono_sylius_completeness_admin_preview',
-            ])
-            ->setLabel('setono_sylius_completeness.ui.preview')
-            ->setLabelAttribute('icon', 'flask');
+            ->setLabel('setono_sylius_completeness.ui.completeness')
+            ->setLabelAttribute('icon', 'chart bar');
     }
 }

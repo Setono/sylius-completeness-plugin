@@ -20,6 +20,21 @@
             <argument type="service" id="router"/>
         </service>
 
+        <service id="setono_sylius_completeness.controller.admin.dashboard"
+                 class="Setono\SyliusCompletenessPlugin\Controller\Admin\DashboardAction"
+                 public="true">
+            <argument type="service" id="setono_sylius_completeness.provider.completeness_dashboard"/>
+            <argument type="service" id="twig"/>
+        </service>
+
+        <service id="setono_sylius_completeness.controller.admin.recalculate_all"
+                 class="Setono\SyliusCompletenessPlugin\Controller\Admin\RecalculateAllAction"
+                 public="true">
+            <argument type="service" id="setono_sylius_completeness.command_bus"/>
+            <argument type="service" id="security.csrf.token_manager"/>
+            <argument type="service" id="router"/>
+        </service>
+
         <service id="setono_sylius_completeness.controller.admin.preview"
                  class="Setono\SyliusCompletenessPlugin\Controller\Admin\PreviewAction"
                  public="true">

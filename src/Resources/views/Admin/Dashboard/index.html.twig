@@ -1,0 +1,117 @@
+{% extends '@SyliusAdmin/layout.html.twig' %}
+
+{% import '@SetonoSyliusCompletenessPlugin/Admin/_progressBar.html.twig' as completeness %}
+
+{% block title %}{{ 'setono_sylius_completeness.ui.completeness'|trans }} {{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="ui segment">
+        <div class="ui stackable grid">
+            <div class="twelve wide column">
+                <h1 class="ui header">
+                    {{ 'setono_sylius_completeness.ui.completeness'|trans }}
+                    <div class="sub header">{{ 'setono_sylius_completeness.ui.dashboard_intro'|trans }}</div>
+                </h1>
+            </div>
+            <div class="four wide right aligned column">
+                <form method="post" action="{{ path('setono_sylius_completeness_admin_recalculate_all') }}">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('recalculate_completeness') }}">
+                    <button type="submit" class="ui labeled icon button">
+                        <i class="sync icon"></i>
+                        {{ 'setono_sylius_completeness.ui.recalculate_catalog'|trans }}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui segment">
+        <div class="ui four small statistics">
+            <div class="statistic">
+                <div class="value">{{ statistics.scoredProducts }} <span style="color: #bbb;">/ {{ statistics.totalProducts }}</span></div>
+                <div class="label">{{ 'setono_sylius_completeness.ui.products_scored'|trans }}</div>
+            </div>
+            <div class="{{ ssc_threshold_color(statistics.averageRatio) }} statistic">
+                <div class="value">{{ statistics.averageRatio }}%</div>
+                <div class="label">{{ 'setono_sylius_completeness.ui.average_completeness'|trans }}</div>
+            </div>
+            <div class="green statistic">
+                <div class="value">{{ statistics.readyProducts }}</div>
+                <div class="label">{{ 'setono_sylius_completeness.ui.ready'|trans }} (&ge; {{ statistics.readyThreshold }}%)</div>
+            </div>
+            <div class="{{ statistics.staleProducts > 0 ? 'grey' : '' }} statistic">
+                <div class="value">{{ statistics.staleProducts }}</div>
+                <div class="label">{{ 'setono_sylius_completeness.ui.recalculating'|trans }}</div>
+            </div>
+        </div>
+    </div>
+
+    {% if statistics.scoredProducts == 0 %}
+        <div class="ui info message">
+            <i class="info circle icon"></i>
+            {{ 'setono_sylius_completeness.ui.no_products_scored'|trans }}
+        </div>
+    {% else %}
+        <div class="ui stackable two column grid">
+            <div class="column">
+                <div class="ui segment">
+                    <h3 class="ui header">{{ 'setono_sylius_completeness.ui.score_distribution'|trans }}</h3>
+                    {% set max = statistics.largestBandCount %}
+                    {% for band in statistics.distribution %}
+                        <div style="display: flex; align-items: center; gap: .6em; margin-bottom: .5em;">
+                            <div style="width: 4.5em; text-align: right; color: #767676; font-size: .9em;">{{ band.from }}&ndash;{{ band.to }}%</div>
+                            <div style="flex: 1;">
+                                <div class="ui {{ ssc_threshold_color(band.to) }} progress" style="margin: 0;">
+                                    <div class="bar" style="width: {{ max > 0 ? (band.count / max * 100)|round : 0 }}%; min-width: {{ band.count > 0 ? '1.6em' : '0' }};">
+                                        <div class="progress">{{ band.count }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="column">
+                <div class="ui segment">
+                    <h3 class="ui header">{{ 'setono_sylius_completeness.ui.products_needing_work'|trans }}</h3>
+                    {% if lowestProducts is empty %}
+                        <p class="ui grey text">&mdash;</p>
+                    {% else %}
+                        <table class="ui very basic compact table">
+                            <tbody>
+                                {% for product in lowestProducts %}
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('sylius_admin_product_update', {id: product.id}) }}">{{ product.name ?? product.code }}</a>
+                                        </td>
+                                        <td style="width: 130px;">
+                                            {{ completeness.bar(product.completenessRatio, ssc_threshold_color(product.completenessRatio)) }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="ui three stackable link cards">
+        <a class="card" href="{{ path('setono_sylius_completeness_admin_completeness_rule_index') }}">
+            <div class="content">
+                <div class="header"><i class="tasks icon"></i> {{ 'setono_sylius_completeness.ui.completeness_rules'|trans }}</div>
+            </div>
+        </a>
+        <a class="card" href="{{ path('setono_sylius_completeness_admin_context_setting_index') }}">
+            <div class="content">
+                <div class="header"><i class="sliders horizontal icon"></i> {{ 'setono_sylius_completeness.ui.context_settings'|trans }}</div>
+            </div>
+        </a>
+        <a class="card" href="{{ path('setono_sylius_completeness_admin_preview') }}">
+            <div class="content">
+                <div class="header"><i class="flask icon"></i> {{ 'setono_sylius_completeness.ui.preview'|trans }}</div>
+            </div>
+        </a>
+    </div>
+{% endblock %}

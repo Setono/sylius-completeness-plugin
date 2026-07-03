@@ -12,6 +12,14 @@ setono_sylius_completeness:
         completeness_rules: Regole di completezza
         context_setting: Contesto di completezza
         context_settings: Contesti di completezza
+        dashboard_intro: La completezza dell'intero catalogo a colpo d'occhio.
+        products_scored: Prodotti valutati
+        average_completeness: Completezza media
+        ready: Pronto
+        score_distribution: Distribuzione dei punteggi
+        products_needing_work: Prodotti che necessitano più lavoro
+        recalculate_catalog: Ricalcola l'intero catalogo
+        no_products_scored: Nessun prodotto è stato ancora valutato. Ricalcola il catalogo per iniziare.
         edit_completeness_rule: Modifica regola di completezza
         edit_context_setting: Modifica contesto di completezza
         new_completeness_rule: Nuova regola di completezza

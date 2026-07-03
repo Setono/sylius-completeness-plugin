@@ -6,9 +6,11 @@
 [![Code Coverage][ico-code-coverage]][link-code-coverage]
 
 Compute a **weighted, per-channel/per-locale enrichment completeness percentage** for your Sylius products,
-persist it, roll it up to a single global score on the product and surface it across the admin: a grid column
-(threshold color-coded, stale-aware) with a numeric range filter, a channel × locale breakdown panel on the
-product show and edit pages, a rule CRUD and a "test against a product" preview with a live expression scratchpad.
+persist it, roll it up to a single global score on the product and surface it across the admin: a **Completeness
+dashboard** (catalog-wide figures, score distribution and the products most in need of work) reached from a
+single admin menu item, a grid column (threshold color-coded, stale-aware) with a numeric range filter, a
+channel × locale breakdown panel on the product show and edit pages, a rule CRUD and a "test against a product"
+preview with a live expression scratchpad.
 
 Scoring rules are **database-backed and admin-managed**, with three tiers of flexibility:
 

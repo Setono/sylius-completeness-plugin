@@ -12,6 +12,14 @@ setono_sylius_completeness:
         completeness_rules: Completeness rules
         context_setting: Completeness context
         context_settings: Completeness contexts
+        dashboard_intro: Catalog-wide completeness at a glance.
+        products_scored: Products scored
+        average_completeness: Average completeness
+        ready: Ready
+        score_distribution: Score distribution
+        products_needing_work: Products that need the most work
+        recalculate_catalog: Recalculate the whole catalog
+        no_products_scored: No products have been scored yet. Recalculate the catalog to get started.
         edit_completeness_rule: Edit completeness rule
         edit_context_setting: Edit completeness context
         new_completeness_rule: New completeness rule

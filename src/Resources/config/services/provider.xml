@@ -41,5 +41,15 @@
         </service>
         <service id="Setono\SyliusCompletenessPlugin\Resolver\ThresholdResolverInterface"
                  alias="setono_sylius_completeness.resolver.threshold"/>
+
+        <service id="setono_sylius_completeness.provider.completeness_dashboard"
+                 class="Setono\SyliusCompletenessPlugin\Provider\CompletenessDashboardProvider">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="setono_sylius_completeness.rubric_version_manager"/>
+            <argument>%sylius.model.product.class%</argument>
+            <argument>%setono_sylius_completeness.default_ready_threshold%</argument>
+        </service>
+        <service id="Setono\SyliusCompletenessPlugin\Provider\CompletenessDashboardProviderInterface"
+                 alias="setono_sylius_completeness.provider.completeness_dashboard"/>
     </services>
 </container>

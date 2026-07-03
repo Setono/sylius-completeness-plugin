@@ -12,6 +12,14 @@ setono_sylius_completeness:
         completeness_rules: Vollständigkeitsregeln
         context_setting: Vollständigkeitskontext
         context_settings: Vollständigkeitskontexte
+        dashboard_intro: Katalogweite Vollständigkeit auf einen Blick.
+        products_scored: Bewertete Produkte
+        average_completeness: Durchschnittliche Vollständigkeit
+        ready: Bereit
+        score_distribution: Punkteverteilung
+        products_needing_work: Produkte mit dem größten Handlungsbedarf
+        recalculate_catalog: Gesamten Katalog neu berechnen
+        no_products_scored: Es wurden noch keine Produkte bewertet. Berechnen Sie den Katalog neu, um zu beginnen.
         edit_completeness_rule: Vollständigkeitsregel bearbeiten
         edit_context_setting: Vollständigkeitskontext bearbeiten
         new_completeness_rule: Neue Vollständigkeitsregel
