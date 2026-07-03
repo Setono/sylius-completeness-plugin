@@ -10,8 +10,8 @@ setono_sylius_completeness:
         completeness: Completeness
         completeness_rule: Completeness rule
         completeness_rules: Completeness rules
-        context_setting: Completeness context
-        context_settings: Completeness contexts
+        context: Completeness context
+        contexts: Completeness contexts
         context_intro: 'A completeness context is a single channel-and-locale combination that products are scored in separately. For example, "Fashion Web Store + English (US)" is one context and "Fashion Web Store + German" is another. Use these settings to give a context its own "ready" threshold and to decide how much it counts toward a product''s overall score - contexts you leave unconfigured fall back to the global defaults.'
         dashboard_intro: Catalog-wide completeness at a glance.
         products_scored: Products scored
@@ -27,9 +27,9 @@ setono_sylius_completeness:
         recalculate_catalog: Recalculate the whole catalog
         no_products_scored: No products have been scored yet. Recalculate the catalog to get started.
         edit_completeness_rule: Edit completeness rule
-        edit_context_setting: Edit completeness context
+        edit_context: Edit completeness context
         new_completeness_rule: New completeness rule
-        new_context_setting: New completeness context
+        new_context: New completeness context
         counts_toward_overall: Counts toward overall
         custom_weight: Custom weight
         default: Default
@@ -133,12 +133,12 @@ setono_sylius_completeness:
             weight_tier_help: How much this rule matters for the score.
         preview:
             expression_help: 'Optionally type a one-off condition/expression to evaluate against the chosen product, channel and locale - without saving anything.'
-        context_setting:
+        context:
             channel: Channel
             counts_toward_overall: Counts toward the overall score
             counts_toward_overall_help: When unchecked, this context is still calculated and shown but excluded from the product's overall score.
             locale: Locale
             rollup_weight: Weight in the overall score
-            rollup_weight_help: An advanced weighting of this context in the overall score. 0 excludes the context.
+            rollup_weight_help: How much this context counts relative to other contexts in the overall score (1 = normal). Only has an effect while it counts toward the overall score.
             threshold: Ready threshold
             threshold_help: The score (0-100) from which this context counts as "ready". Leave blank to use the global default.

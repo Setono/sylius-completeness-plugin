@@ -6,16 +6,16 @@ namespace Setono\SyliusCompletenessPlugin\Tests\Form\Type;
 
 use Prophecy\PhpUnit\ProphecyTrait;
 use Setono\SyliusCompletenessPlugin\Form\Type\ChannelCodeChoiceType;
-use Setono\SyliusCompletenessPlugin\Form\Type\CompletenessContextSettingType;
+use Setono\SyliusCompletenessPlugin\Form\Type\CompletenessContextType;
 use Setono\SyliusCompletenessPlugin\Form\Type\LocaleCodeChoiceType;
-use Setono\SyliusCompletenessPlugin\Model\CompletenessContextSetting;
+use Setono\SyliusCompletenessPlugin\Model\CompletenessContext;
 use Sylius\Component\Core\Model\Channel;
 use Sylius\Component\Locale\Model\Locale;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 
-final class CompletenessContextSettingTypeTest extends TypeTestCase
+final class CompletenessContextTypeTest extends TypeTestCase
 {
     use ProphecyTrait;
 
@@ -39,7 +39,7 @@ final class CompletenessContextSettingTypeTest extends TypeTestCase
 
         return [
             new PreloadedExtension([
-                new CompletenessContextSettingType(CompletenessContextSetting::class, [], 80),
+                new CompletenessContextType(CompletenessContext::class, [], 80),
                 new ChannelCodeChoiceType($channelRepository->reveal()),
                 new LocaleCodeChoiceType($localeRepository->reveal()),
             ], []),
@@ -66,14 +66,14 @@ final class CompletenessContextSettingTypeTest extends TypeTestCase
      */
     public function it_sets_the_rollup_weight_to_zero_when_unchecked(): void
     {
-        $form = $this->factory->create(CompletenessContextSettingType::class);
+        $form = $this->factory->create(CompletenessContextType::class);
 
         $form->submit($this->submitData([
             'rollupWeight' => '2',
             // countsTowardOverall not submitted => unchecked
         ]));
 
-        /** @var CompletenessContextSetting $setting */
+        /** @var CompletenessContext $setting */
         $setting = $form->getData();
         self::assertSame(0.0, $setting->getRollupWeight());
     }
@@ -83,13 +83,13 @@ final class CompletenessContextSettingTypeTest extends TypeTestCase
      */
     public function it_defaults_the_rollup_weight_to_one_when_checked_without_a_weight(): void
     {
-        $form = $this->factory->create(CompletenessContextSettingType::class);
+        $form = $this->factory->create(CompletenessContextType::class);
 
         $form->submit($this->submitData([
             'countsTowardOverall' => '1',
         ]));
 
-        /** @var CompletenessContextSetting $setting */
+        /** @var CompletenessContext $setting */
         $setting = $form->getData();
         self::assertSame(1.0, $setting->getRollupWeight());
     }
@@ -99,14 +99,14 @@ final class CompletenessContextSettingTypeTest extends TypeTestCase
      */
     public function it_keeps_an_explicit_weight_when_checked(): void
     {
-        $form = $this->factory->create(CompletenessContextSettingType::class);
+        $form = $this->factory->create(CompletenessContextType::class);
 
         $form->submit($this->submitData([
             'countsTowardOverall' => '1',
             'rollupWeight' => '2.5',
         ]));
 
-        /** @var CompletenessContextSetting $setting */
+        /** @var CompletenessContext $setting */
         $setting = $form->getData();
         self::assertSame(2.5, $setting->getRollupWeight());
     }
@@ -116,16 +116,16 @@ final class CompletenessContextSettingTypeTest extends TypeTestCase
      */
     public function it_initializes_the_checkbox_from_the_weight(): void
     {
-        $excluded = new CompletenessContextSetting();
+        $excluded = new CompletenessContext();
         $excluded->setRollupWeight(0.0);
 
-        $form = $this->factory->create(CompletenessContextSettingType::class, $excluded);
+        $form = $this->factory->create(CompletenessContextType::class, $excluded);
         self::assertFalse($form->get('countsTowardOverall')->getData());
 
-        $counted = new CompletenessContextSetting();
+        $counted = new CompletenessContext();
         $counted->setRollupWeight(2.0);
 
-        $form = $this->factory->create(CompletenessContextSettingType::class, $counted);
+        $form = $this->factory->create(CompletenessContextType::class, $counted);
         self::assertTrue($form->get('countsTowardOverall')->getData());
     }
 
@@ -134,14 +134,14 @@ final class CompletenessContextSettingTypeTest extends TypeTestCase
      */
     public function it_maps_the_context_and_threshold(): void
     {
-        $form = $this->factory->create(CompletenessContextSettingType::class);
+        $form = $this->factory->create(CompletenessContextType::class);
 
         $form->submit($this->submitData([
             'threshold' => '90',
             'countsTowardOverall' => '1',
         ]));
 
-        /** @var CompletenessContextSetting $setting */
+        /** @var CompletenessContext $setting */
         $setting = $form->getData();
         self::assertSame('WEB', $setting->getChannelCode());
         self::assertSame('en', $setting->getLocaleCode());

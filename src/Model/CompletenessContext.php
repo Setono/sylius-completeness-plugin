@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Setono\SyliusCompletenessPlugin\Model;
 
-class CompletenessContextSetting implements CompletenessContextSettingInterface
+class CompletenessContext implements CompletenessContextInterface
 {
     protected ?int $id = null;
 

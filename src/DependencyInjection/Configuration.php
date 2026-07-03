@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Setono\SyliusCompletenessPlugin\DependencyInjection;
 
-use Setono\SyliusCompletenessPlugin\Form\Type\CompletenessContextSettingType;
+use Setono\SyliusCompletenessPlugin\Form\Type\CompletenessContextType;
 use Setono\SyliusCompletenessPlugin\Form\Type\CompletenessRuleType;
-use Setono\SyliusCompletenessPlugin\Model\CompletenessContextSetting;
-use Setono\SyliusCompletenessPlugin\Model\CompletenessContextSettingInterface;
+use Setono\SyliusCompletenessPlugin\Model\CompletenessContext;
+use Setono\SyliusCompletenessPlugin\Model\CompletenessContextInterface;
 use Setono\SyliusCompletenessPlugin\Model\CompletenessRule;
 use Setono\SyliusCompletenessPlugin\Model\CompletenessRuleInterface;
 use Setono\SyliusCompletenessPlugin\Model\ProductCompleteness;
 use Setono\SyliusCompletenessPlugin\Model\ProductCompletenessInterface;
-use Setono\SyliusCompletenessPlugin\Repository\CompletenessContextSettingRepository;
+use Setono\SyliusCompletenessPlugin\Repository\CompletenessContextRepository;
 use Setono\SyliusCompletenessPlugin\Repository\CompletenessRuleRepository;
 use Setono\SyliusCompletenessPlugin\Repository\ProductCompletenessRepository;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
@@ -131,19 +131,19 @@ final class Configuration implements ConfigurationInterface
                                 ->end()
                             ->end()
                         ->end()
-                        ->arrayNode('context_setting')
+                        ->arrayNode('context')
                             ->addDefaultsIfNotSet()
                             ->children()
                                 ->variableNode('options')->end()
                                 ->arrayNode('classes')
                                     ->addDefaultsIfNotSet()
                                     ->children()
-                                        ->scalarNode('model')->defaultValue(CompletenessContextSetting::class)->cannotBeEmpty()->end()
-                                        ->scalarNode('interface')->defaultValue(CompletenessContextSettingInterface::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('model')->defaultValue(CompletenessContext::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('interface')->defaultValue(CompletenessContextInterface::class)->cannotBeEmpty()->end()
                                         ->scalarNode('controller')->defaultValue(ResourceController::class)->cannotBeEmpty()->end()
-                                        ->scalarNode('repository')->defaultValue(CompletenessContextSettingRepository::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('repository')->defaultValue(CompletenessContextRepository::class)->cannotBeEmpty()->end()
                                         ->scalarNode('factory')->defaultValue(Factory::class)->end()
-                                        ->scalarNode('form')->defaultValue(CompletenessContextSettingType::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('form')->defaultValue(CompletenessContextType::class)->cannotBeEmpty()->end()
                                     ->end()
                                 ->end()
                             ->end()

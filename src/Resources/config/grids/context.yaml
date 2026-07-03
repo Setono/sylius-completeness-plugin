@@ -1,10 +1,10 @@
 sylius_grid:
     grids:
-        setono_sylius_completeness_admin_context_setting:
+        setono_sylius_completeness_admin_context:
             driver:
                 name: doctrine/orm
                 options:
-                    class: "%setono_sylius_completeness.model.context_setting.class%"
+                    class: "%setono_sylius_completeness.model.context.class%"
             sorting:
                 channelCode: asc
             fields:
@@ -20,12 +20,12 @@ sylius_grid:
                     type: twig
                     label: setono_sylius_completeness.ui.threshold
                     options:
-                        template: "@SetonoSyliusCompletenessPlugin/Admin/ContextSetting/Grid/Field/threshold.html.twig"
+                        template: "@SetonoSyliusCompletenessPlugin/Admin/Context/Grid/Field/threshold.html.twig"
                 rollupWeight:
                     type: twig
                     label: setono_sylius_completeness.ui.counts_toward_overall
                     options:
-                        template: "@SetonoSyliusCompletenessPlugin/Admin/ContextSetting/Grid/Field/rollupWeight.html.twig"
+                        template: "@SetonoSyliusCompletenessPlugin/Admin/Context/Grid/Field/rollupWeight.html.twig"
             actions:
                 main:
                     create:

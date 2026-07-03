@@ -16,7 +16,7 @@ use Prophecy\Prophecy\ObjectProphecy;
 use Setono\SyliusCompletenessPlugin\EventListener\Doctrine\RubricChangeListener;
 use Setono\SyliusCompletenessPlugin\Message\Command\RecalculateAllProductsCompleteness;
 use Setono\SyliusCompletenessPlugin\Message\Command\RefreshCompletenessRollups;
-use Setono\SyliusCompletenessPlugin\Model\CompletenessContextSetting;
+use Setono\SyliusCompletenessPlugin\Model\CompletenessContext;
 use Setono\SyliusCompletenessPlugin\Model\CompletenessRule;
 use Setono\SyliusCompletenessPlugin\Rubric\RubricVersionManagerInterface;
 use Symfony\Component\Messenger\Envelope;
@@ -98,9 +98,9 @@ final class RubricChangeListenerTest extends TestCase
     /**
      * @test
      */
-    public function a_context_setting_change_bumps_the_version_and_refreshes_rollups_only(): void
+    public function a_context_change_bumps_the_version_and_refreshes_rollups_only(): void
     {
-        $this->unitOfWork->getScheduledEntityUpdates()->willReturn([new CompletenessContextSetting()]);
+        $this->unitOfWork->getScheduledEntityUpdates()->willReturn([new CompletenessContext()]);
 
         $this->rubricVersionManager->bump()->willReturn(2)->shouldBeCalledTimes(1);
         $this->expectDispatch(RefreshCompletenessRollups::class);
@@ -113,7 +113,7 @@ final class RubricChangeListenerTest extends TestCase
      */
     public function a_combined_change_triggers_the_full_recalculation(): void
     {
-        $this->unitOfWork->getScheduledEntityDeletions()->willReturn([new CompletenessRule(), new CompletenessContextSetting()]);
+        $this->unitOfWork->getScheduledEntityDeletions()->willReturn([new CompletenessRule(), new CompletenessContext()]);
 
         $this->rubricVersionManager->bump()->willReturn(2)->shouldBeCalledTimes(1);
         $this->expectDispatch(RecalculateAllProductsCompleteness::class);

@@ -14,5 +14,5 @@ setono_sylius_completeness:
         type:
             not_blank: Alegeți o verificare.
             not_registered: Tipul de verificare „{{ type }}" nu este înregistrat.
-    context_setting:
+    context:
         unique: O setare pentru această combinație de canal și limbă există deja.

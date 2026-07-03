@@ -10,8 +10,8 @@ setono_sylius_completeness:
         completeness: Fuldstændighed
         completeness_rule: Fuldstændighedsregel
         completeness_rules: Fuldstændighedsregler
-        context_setting: Fuldstændighedskontekst
-        context_settings: Fuldstændighedskontekster
+        context: Fuldstændighedskontekst
+        contexts: Fuldstændighedskontekster
         context_intro: 'En komplethedskontekst er en enkelt kanal-og-lokalitet-kombination, som produkter scores i hver for sig. For eksempel er "Fashion Web Store + engelsk (USA)" én kontekst, og "Fashion Web Store + tysk" er en anden. Brug disse indstillinger til at give en kontekst sin egen "klar"-tærskel og til at bestemme, hvor meget den tæller med i produktets samlede score - kontekster, du ikke konfigurerer, falder tilbage til de globale standardindstillinger.'
         dashboard_intro: Katalogdækkende komplethed i overblik.
         products_scored: Produkter scoret
@@ -27,9 +27,9 @@ setono_sylius_completeness:
         recalculate_catalog: Genberegn hele kataloget
         no_products_scored: Ingen produkter er scoret endnu. Genberegn kataloget for at komme i gang.
         edit_completeness_rule: Rediger fuldstændighedsregel
-        edit_context_setting: Rediger fuldstændighedskontekst
+        edit_context: Rediger fuldstændighedskontekst
         new_completeness_rule: Ny fuldstændighedsregel
-        new_context_setting: Ny fuldstændighedskontekst
+        new_context: Ny fuldstændighedskontekst
         counts_toward_overall: Tæller med i totalen
         custom_weight: Brugerdefineret vægt
         default: Standard
@@ -133,12 +133,12 @@ setono_sylius_completeness:
             weight_tier_help: Hvor meget denne regel betyder for scoren.
         preview:
             expression_help: 'Skriv eventuelt en engangsbetingelse/-udtryk, der evalueres mod det valgte produkt, kanal og sprog - uden at gemme noget.'
-        context_setting:
+        context:
             channel: Kanal
             counts_toward_overall: Tæller med i den samlede score
             counts_toward_overall_help: Når dette ikke er markeret, beregnes og vises konteksten stadig, men den udelades fra produktets samlede score.
             locale: Sprog
             rollup_weight: Vægt i den samlede score
-            rollup_weight_help: En avanceret vægtning af denne kontekst i den samlede score. 0 udelader konteksten.
+            rollup_weight_help: Hvor meget denne kontekst tæller i forhold til andre kontekster i den samlede score (1 = normal). Har kun effekt, når den tæller med i den samlede score.
             threshold: Klar-tærskel
             threshold_help: Scoren (0-100), hvorfra denne kontekst tæller som "klar". Lad stå tom for at bruge den globale standard.

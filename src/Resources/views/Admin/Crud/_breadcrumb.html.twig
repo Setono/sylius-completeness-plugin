@@ -1,6 +1,6 @@
 {% import '@SyliusAdmin/Macro/breadcrumb.html.twig' as breadcrumb %}
 
-{# shared by the rule + context-setting CRUD; inserts a Completeness (dashboard) crumb after
+{# shared by the rule + context CRUD; inserts a Completeness (dashboard) crumb after
    Administration, then adapts the trailing crumbs to the index / new / edit action #}
 {% set breadcrumbLabel = configuration.vars.breadcrumb|default(metadata.applicationName ~ '.ui.' ~ metadata.pluralName) %}
 

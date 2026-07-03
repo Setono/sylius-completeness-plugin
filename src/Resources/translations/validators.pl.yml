@@ -14,5 +14,5 @@ setono_sylius_completeness:
         type:
             not_blank: Wybierz weryfikację.
             not_registered: Typ weryfikacji "{{ type }}" nie jest zarejestrowany.
-    context_setting:
+    context:
         unique: Ustawienie dla tej kombinacji kanału i języka już istnieje.

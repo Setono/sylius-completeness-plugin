@@ -8,7 +8,7 @@ use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;
 use Setono\SyliusCompletenessPlugin\Message\Command\RecalculateAllProductsCompleteness;
 use Setono\SyliusCompletenessPlugin\Message\Command\RefreshCompletenessRollups;
-use Setono\SyliusCompletenessPlugin\Model\CompletenessContextSettingInterface;
+use Setono\SyliusCompletenessPlugin\Model\CompletenessContextInterface;
 use Setono\SyliusCompletenessPlugin\Model\CompletenessRuleInterface;
 use Setono\SyliusCompletenessPlugin\Rubric\RubricVersionManagerInterface;
 use Symfony\Component\Messenger\Envelope;
@@ -49,7 +49,7 @@ final class RubricChangeListener
 
             if (is_a($class, CompletenessRuleInterface::class, true)) {
                 $this->ruleChanged = true;
-            } elseif (is_a($class, CompletenessContextSettingInterface::class, true)) {
+            } elseif (is_a($class, CompletenessContextInterface::class, true)) {
                 $this->settingChanged = true;
             }
         }

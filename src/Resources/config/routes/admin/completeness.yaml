@@ -20,20 +20,20 @@ setono_sylius_completeness_admin_completeness_rule:
                 icon: tasks
     type: sylius.resource
 
-setono_sylius_completeness_admin_context_setting:
+setono_sylius_completeness_admin_context:
     resource: |
-        alias: setono_sylius_completeness.context_setting
-        path: context-settings
+        alias: setono_sylius_completeness.context
+        path: contexts
         section: admin
         permission: true
         except: ['show']
         redirect: update
-        grid: setono_sylius_completeness_admin_context_setting
+        grid: setono_sylius_completeness_admin_context
         templates: "@SyliusAdmin\\Crud"
         vars:
             all:
                 templates:
-                    form: "@SetonoSyliusCompletenessPlugin/Admin/ContextSetting/_form.html.twig"
+                    form: "@SetonoSyliusCompletenessPlugin/Admin/Context/_form.html.twig"
                     breadcrumb: "@SetonoSyliusCompletenessPlugin/Admin/Crud/_breadcrumb.html.twig"
             index:
                 icon: sliders horizontal

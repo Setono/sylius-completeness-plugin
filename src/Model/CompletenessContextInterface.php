@@ -6,7 +6,7 @@ namespace Setono\SyliusCompletenessPlugin\Model;
 
 use Sylius\Component\Resource\Model\ResourceInterface;
 
-interface CompletenessContextSettingInterface extends ResourceInterface
+interface CompletenessContextInterface extends ResourceInterface
 {
     public function getId(): ?int;
 

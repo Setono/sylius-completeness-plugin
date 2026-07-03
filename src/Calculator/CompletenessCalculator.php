@@ -12,7 +12,7 @@ use Setono\SyliusCompletenessPlugin\Calculator\Result\RuleResult;
 use Setono\SyliusCompletenessPlugin\Checker\CompletenessCheckContext;
 use Setono\SyliusCompletenessPlugin\Checker\CompletenessCheckerInterface;
 use Setono\SyliusCompletenessPlugin\Model\CompletenessRuleInterface;
-use Setono\SyliusCompletenessPlugin\Provider\ContextSettingsProviderInterface;
+use Setono\SyliusCompletenessPlugin\Provider\CompletenessContextProviderInterface;
 use Setono\SyliusCompletenessPlugin\Repository\CompletenessRuleRepositoryInterface;
 use Setono\SyliusCompletenessPlugin\Rollup\RollupInterface;
 use Setono\SyliusCompletenessPlugin\Rubric\RubricVersionManagerInterface;
@@ -29,7 +29,7 @@ final class CompletenessCalculator implements CompletenessCalculatorInterface
         private readonly RuleWeightResolverInterface $weightResolver,
         private readonly ContextInitializerInterface $contextInitializer,
         private readonly RollupInterface $rollup,
-        private readonly ContextSettingsProviderInterface $contextSettings,
+        private readonly CompletenessContextProviderInterface $contexts,
         private readonly RubricVersionManagerInterface $rubricVersionManager,
         private readonly ClockInterface $clock,
     ) {
@@ -136,7 +136,7 @@ final class CompletenessCalculator implements CompletenessCalculatorInterface
             );
         }
 
-        $rollupWeight = $this->contextSettings->getRollupWeight($context->getChannelCode(), $context->getLocaleCode());
+        $rollupWeight = $this->contexts->getRollupWeight($context->getChannelCode(), $context->getLocaleCode());
 
         return new ContextResult(
             channelCode: $context->getChannelCode(),

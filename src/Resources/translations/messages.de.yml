@@ -10,8 +10,8 @@ setono_sylius_completeness:
         completeness: Vollständigkeit
         completeness_rule: Vollständigkeitsregel
         completeness_rules: Vollständigkeitsregeln
-        context_setting: Vollständigkeitskontext
-        context_settings: Vollständigkeitskontexte
+        context: Vollständigkeitskontext
+        contexts: Vollständigkeitskontexte
         context_intro: 'Ein Vollständigkeitskontext ist eine einzelne Kanal-und-Gebietsschema-Kombination, in der Produkte separat bewertet werden. Zum Beispiel ist "Fashion Web Store + Englisch (USA)" ein Kontext und "Fashion Web Store + Deutsch" ein anderer. Mit diesen Einstellungen geben Sie einem Kontext seine eigene "Bereit"-Schwelle und legen fest, wie stark er in die Gesamtbewertung eines Produkts einfließt - nicht konfigurierte Kontexte greifen auf die globalen Standardwerte zurück.'
         dashboard_intro: Katalogweite Vollständigkeit auf einen Blick.
         products_scored: Bewertete Produkte
@@ -27,9 +27,9 @@ setono_sylius_completeness:
         recalculate_catalog: Gesamten Katalog neu berechnen
         no_products_scored: Es wurden noch keine Produkte bewertet. Berechnen Sie den Katalog neu, um zu beginnen.
         edit_completeness_rule: Vollständigkeitsregel bearbeiten
-        edit_context_setting: Vollständigkeitskontext bearbeiten
+        edit_context: Vollständigkeitskontext bearbeiten
         new_completeness_rule: Neue Vollständigkeitsregel
-        new_context_setting: Neuer Vollständigkeitskontext
+        new_context: Neuer Vollständigkeitskontext
         counts_toward_overall: Zählt zur Gesamtwertung
         custom_weight: Individuelle Gewichtung
         default: Standard
@@ -133,12 +133,12 @@ setono_sylius_completeness:
             weight_tier_help: Wie wichtig diese Regel für die Wertung ist.
         preview:
             expression_help: 'Optional eine einmalige Bedingung/Ausdruck eingeben, die gegen das gewählte Produkt, den Kanal und die Sprache ausgewertet wird - ohne etwas zu speichern.'
-        context_setting:
+        context:
             channel: Kanal
             counts_toward_overall: Zählt zur Gesamtwertung
             counts_toward_overall_help: Wenn nicht aktiviert, wird dieser Kontext weiterhin berechnet und angezeigt, aber von der Gesamtwertung des Produkts ausgeschlossen.
             locale: Sprache
             rollup_weight: Gewichtung in der Gesamtwertung
-            rollup_weight_help: Eine erweiterte Gewichtung dieses Kontexts in der Gesamtwertung. 0 schließt den Kontext aus.
+            rollup_weight_help: Wie stark dieser Kontext im Vergleich zu anderen Kontexten in die Gesamtbewertung einfließt (1 = normal). Wirkt nur, solange er in die Gesamtbewertung einfließt.
             threshold: Bereit-Schwellenwert
             threshold_help: Die Wertung (0-100), ab der dieser Kontext als "bereit" gilt. Leer lassen, um den globalen Standard zu verwenden.

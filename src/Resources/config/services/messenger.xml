@@ -25,7 +25,7 @@
             <argument type="service" id="setono_sylius_completeness.provider.product_ids"/>
             <argument type="service" id="setono_sylius_completeness.provider.product"/>
             <argument type="service" id="setono_sylius_completeness.repository.product_completeness"/>
-            <argument type="service" id="setono_sylius_completeness.provider.context_settings"/>
+            <argument type="service" id="setono_sylius_completeness.provider.completeness_context"/>
             <argument type="service" id="setono_sylius_completeness.rollup"/>
             <argument type="service" id="setono_sylius_completeness.rubric_version_manager"/>
             <argument type="service" id="doctrine"/>

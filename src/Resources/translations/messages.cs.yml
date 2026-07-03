@@ -10,8 +10,8 @@ setono_sylius_completeness:
         completeness: Úplnost
         completeness_rule: Pravidlo úplnosti
         completeness_rules: Pravidla úplnosti
-        context_setting: Kontext úplnosti
-        context_settings: Kontexty úplnosti
+        context: Kontext úplnosti
+        contexts: Kontexty úplnosti
         context_intro: 'Kontext úplnosti je jedna kombinace kanálu a jazyka, ve které se produkty hodnotí samostatně. Například "Fashion Web Store + angličtina (USA)" je jeden kontext a "Fashion Web Store + němčina" je jiný. Pomocí těchto nastavení dáte kontextu vlastní práh "připravenosti" a určíte, jak moc se počítá do celkového skóre produktu - nenakonfigurované kontexty používají globální výchozí hodnoty.'
         dashboard_intro: Úplnost celého katalogu na první pohled.
         products_scored: Ohodnocené produkty
@@ -27,9 +27,9 @@ setono_sylius_completeness:
         recalculate_catalog: Přepočítat celý katalog
         no_products_scored: Zatím nebyly ohodnoceny žádné produkty. Přepočítejte katalog a začněte.
         edit_completeness_rule: Upravit pravidlo úplnosti
-        edit_context_setting: Upravit kontext úplnosti
+        edit_context: Upravit kontext úplnosti
         new_completeness_rule: Nové pravidlo úplnosti
-        new_context_setting: Nový kontext úplnosti
+        new_context: Nový kontext úplnosti
         counts_toward_overall: Započítává se do celku
         custom_weight: Vlastní váha
         default: Výchozí
@@ -133,12 +133,12 @@ setono_sylius_completeness:
             weight_tier_help: Jak moc toto pravidlo ovlivňuje skóre.
         preview:
             expression_help: 'Volitelně zadejte jednorázovou podmínku/výraz k vyhodnocení oproti vybranému produktu, kanálu a jazyku - bez uložení čehokoli.'
-        context_setting:
+        context:
             channel: Kanál
             counts_toward_overall: Započítává se do celkového skóre
             counts_toward_overall_help: Pokud není zaškrtnuto, tento kontext se stále počítá a zobrazuje, ale je vyloučen z celkového skóre produktu.
             locale: Jazyk
             rollup_weight: Váha v celkovém skóre
-            rollup_weight_help: Pokročilé vážení tohoto kontextu v celkovém skóre. 0 vylučuje kontext.
+            rollup_weight_help: Jak moc se tento kontext počítá vůči ostatním v celkovém skóre (1 = normální). Má vliv jen tehdy, když se počítá do celkového skóre.
             threshold: Práh připravenosti
             threshold_help: Skóre (0-100), od kterého se tento kontext počítá jako "připravený". Ponechte prázdné pro použití globální výchozí hodnoty.

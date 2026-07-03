@@ -1,4 +1,4 @@
 imports:
     - { resource: "grids/completeness_rule.yaml" }
-    - { resource: "grids/context_setting.yaml" }
+    - { resource: "grids/context.yaml" }
     - { resource: "grids/sylius_admin_product.yaml" }

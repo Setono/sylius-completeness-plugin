@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Setono\SyliusCompletenessPlugin\Tests\Functional;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Setono\SyliusCompletenessPlugin\Model\CompletenessContextSetting;
+use Setono\SyliusCompletenessPlugin\Model\CompletenessContext;
 use Setono\SyliusCompletenessPlugin\Model\CompletenessRule;
 use Sylius\Component\Core\Model\AdminUser;
 use Sylius\Component\Core\Model\Channel;
@@ -245,23 +245,23 @@ final class RuleCrudTest extends WebTestCase
     /**
      * @test
      */
-    public function the_context_setting_grid_and_create_form_render(): void
+    public function the_context_grid_and_create_form_render(): void
     {
-        $crawler = $this->client->request('GET', '/admin/completeness/context-settings/');
+        $crawler = $this->client->request('GET', '/admin/completeness/contexts/');
         self::assertResponseIsSuccessful();
 
         // the intro box that explains what a completeness context is
         self::assertGreaterThan(0, $crawler->filter('.ui.info.message')->count());
         self::assertStringContainsString('completeness context', $crawler->filter('.ui.info.message')->text());
 
-        $this->client->request('GET', '/admin/completeness/context-settings/new');
+        $this->client->request('GET', '/admin/completeness/contexts/new');
         self::assertResponseIsSuccessful();
     }
 
     /**
      * @test
      */
-    public function creating_a_context_setting_maps_the_checkbox_to_the_rollup_weight(): void
+    public function creating_a_context_maps_the_checkbox_to_the_rollup_weight(): void
     {
         $channelCode = uniqid('COMPLETENESS_', true);
 
@@ -293,25 +293,25 @@ final class RuleCrudTest extends WebTestCase
         $this->entityManager->flush();
         $this->entitiesToRemove[] = $channel;
 
-        $this->client->request('GET', '/admin/completeness/context-settings/new');
+        $this->client->request('GET', '/admin/completeness/contexts/new');
         self::assertResponseIsSuccessful();
 
         $this->client->submitForm('Create', [
-            'setono_sylius_completeness_context_setting[channelCode]' => $channelCode,
-            'setono_sylius_completeness_context_setting[localeCode]' => 'en_US',
-            'setono_sylius_completeness_context_setting[threshold]' => '90',
+            'setono_sylius_completeness_context[channelCode]' => $channelCode,
+            'setono_sylius_completeness_context[localeCode]' => 'en_US',
+            'setono_sylius_completeness_context[threshold]' => '90',
             // untick "counts toward overall" => excluded from the rollup
-            'setono_sylius_completeness_context_setting[countsTowardOverall]' => false,
+            'setono_sylius_completeness_context[countsTowardOverall]' => false,
         ]);
 
         self::assertResponseRedirects();
 
-        $setting = $this->entityManager->getRepository(CompletenessContextSetting::class)->findOneBy([
+        $setting = $this->entityManager->getRepository(CompletenessContext::class)->findOneBy([
             'channelCode' => $channelCode,
             'localeCode' => 'en_US',
         ]);
 
-        self::assertInstanceOf(CompletenessContextSetting::class, $setting);
+        self::assertInstanceOf(CompletenessContext::class, $setting);
         self::assertSame(0.0, $setting->getRollupWeight());
         self::assertSame(90, $setting->getThreshold());
         $this->entitiesToRemove[] = $setting;

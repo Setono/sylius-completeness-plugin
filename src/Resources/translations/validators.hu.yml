@@ -14,5 +14,5 @@ setono_sylius_completeness:
         type:
             not_blank: Válasszon egy ellenőrzést.
             not_registered: A(z) "{{ type }}" ellenőrzéstípus nincs regisztrálva.
-    context_setting:
+    context:
         unique: Már létezik beállítás ehhez a csatorna és nyelv kombinációhoz.

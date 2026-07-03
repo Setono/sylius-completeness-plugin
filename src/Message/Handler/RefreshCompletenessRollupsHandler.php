@@ -8,7 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Setono\SyliusCompletenessPlugin\Calculator\Result\ContextResult;
 use Setono\SyliusCompletenessPlugin\Message\Command\RefreshCompletenessRollups;
 use Setono\SyliusCompletenessPlugin\Model\ProductCompletenessAwareInterface;
-use Setono\SyliusCompletenessPlugin\Provider\ContextSettingsProviderInterface;
+use Setono\SyliusCompletenessPlugin\Provider\CompletenessContextProviderInterface;
 use Setono\SyliusCompletenessPlugin\Provider\ProductIdsProviderInterface;
 use Setono\SyliusCompletenessPlugin\Provider\ProductProviderInterface;
 use Setono\SyliusCompletenessPlugin\Repository\ProductCompletenessRepositoryInterface;
@@ -30,7 +30,7 @@ final class RefreshCompletenessRollupsHandler
         private readonly ProductIdsProviderInterface $productIdsProvider,
         private readonly ProductProviderInterface $productProvider,
         private readonly ProductCompletenessRepositoryInterface $completenessRepository,
-        private readonly ContextSettingsProviderInterface $contextSettings,
+        private readonly CompletenessContextProviderInterface $contexts,
         private readonly RollupInterface $rollup,
         private readonly RubricVersionManagerInterface $rubricVersionManager,
         private readonly ManagerRegistry $managerRegistry,
@@ -59,7 +59,7 @@ final class RefreshCompletenessRollupsHandler
 
                 $contextResults = [];
                 foreach ($ratiosByProduct[$productId] ?? [] as ['channelCode' => $channelCode, 'localeCode' => $localeCode, 'ratio' => $ratio]) {
-                    $rollupWeight = $this->contextSettings->getRollupWeight($channelCode, $localeCode);
+                    $rollupWeight = $this->contexts->getRollupWeight($channelCode, $localeCode);
 
                     $contextResults[] = new ContextResult(
                         channelCode: $channelCode,

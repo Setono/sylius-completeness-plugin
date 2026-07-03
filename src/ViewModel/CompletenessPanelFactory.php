@@ -7,7 +7,7 @@ namespace Setono\SyliusCompletenessPlugin\ViewModel;
 use Setono\SyliusCompletenessPlugin\Display\ThresholdColor;
 use Setono\SyliusCompletenessPlugin\Model\ProductCompletenessAwareInterface;
 use Setono\SyliusCompletenessPlugin\Model\ProductCompletenessInterface;
-use Setono\SyliusCompletenessPlugin\Provider\ContextSettingsProviderInterface;
+use Setono\SyliusCompletenessPlugin\Provider\CompletenessContextProviderInterface;
 use Setono\SyliusCompletenessPlugin\Resolver\ThresholdResolverInterface;
 use Setono\SyliusCompletenessPlugin\Rubric\RubricVersionManagerInterface;
 use Sylius\Component\Core\Model\ProductInterface;
@@ -21,7 +21,7 @@ final class CompletenessPanelFactory implements CompletenessPanelFactoryInterfac
 {
     public function __construct(
         private readonly ThresholdResolverInterface $thresholdResolver,
-        private readonly ContextSettingsProviderInterface $contextSettings,
+        private readonly CompletenessContextProviderInterface $contexts,
         private readonly RubricVersionManagerInterface $rubricVersionManager,
         private readonly int $amberBand,
     ) {
@@ -50,7 +50,7 @@ final class CompletenessPanelFactory implements CompletenessPanelFactoryInterfac
             $localeCodes[$localeCode] = true;
 
             $threshold = $this->thresholdResolver->resolve($channelCode, $localeCode);
-            $rollupWeight = $this->contextSettings->getRollupWeight($channelCode, $localeCode);
+            $rollupWeight = $this->contexts->getRollupWeight($channelCode, $localeCode);
 
             $calculatedAt = $row->getCalculatedAt();
             if (null !== $calculatedAt && ($lastCalculatedAt === null || $calculatedAt > $lastCalculatedAt)) {

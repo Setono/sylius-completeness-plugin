@@ -47,9 +47,9 @@
             <tag name="form.type"/>
         </service>
 
-        <service id="setono_sylius_completeness.form.type.context_setting"
-                 class="Setono\SyliusCompletenessPlugin\Form\Type\CompletenessContextSettingType">
-            <argument>%setono_sylius_completeness.model.context_setting.class%</argument>
+        <service id="setono_sylius_completeness.form.type.context"
+                 class="Setono\SyliusCompletenessPlugin\Form\Type\CompletenessContextType">
+            <argument>%setono_sylius_completeness.model.context.class%</argument>
             <argument type="collection"/>
             <argument>%setono_sylius_completeness.default_ready_threshold%</argument>
             <tag name="form.type"/>

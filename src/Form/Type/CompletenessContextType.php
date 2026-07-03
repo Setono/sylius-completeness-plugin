@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Setono\SyliusCompletenessPlugin\Form\Type;
 
-use Setono\SyliusCompletenessPlugin\Model\CompletenessContextSettingInterface;
+use Setono\SyliusCompletenessPlugin\Model\CompletenessContextInterface;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
-final class CompletenessContextSettingType extends AbstractResourceType
+final class CompletenessContextType extends AbstractResourceType
 {
     /**
      * @param string[] $validationGroups
@@ -30,29 +30,29 @@ final class CompletenessContextSettingType extends AbstractResourceType
     {
         $builder
             ->add('channelCode', ChannelCodeChoiceType::class, [
-                'label' => 'setono_sylius_completeness.form.context_setting.channel',
+                'label' => 'setono_sylius_completeness.form.context.channel',
             ])
             ->add('localeCode', LocaleCodeChoiceType::class, [
-                'label' => 'setono_sylius_completeness.form.context_setting.locale',
+                'label' => 'setono_sylius_completeness.form.context.locale',
             ])
             ->add('threshold', IntegerType::class, [
-                'label' => 'setono_sylius_completeness.form.context_setting.threshold',
+                'label' => 'setono_sylius_completeness.form.context.threshold',
                 'required' => false,
-                'help' => 'setono_sylius_completeness.form.context_setting.threshold_help',
+                'help' => 'setono_sylius_completeness.form.context.threshold_help',
                 'attr' => [
                     'placeholder' => $this->defaultThreshold,
                 ],
             ])
             ->add('countsTowardOverall', CheckboxType::class, [
-                'label' => 'setono_sylius_completeness.form.context_setting.counts_toward_overall',
+                'label' => 'setono_sylius_completeness.form.context.counts_toward_overall',
                 'mapped' => false,
                 'required' => false,
-                'help' => 'setono_sylius_completeness.form.context_setting.counts_toward_overall_help',
+                'help' => 'setono_sylius_completeness.form.context.counts_toward_overall_help',
             ])
             ->add('rollupWeight', NumberType::class, [
-                'label' => 'setono_sylius_completeness.form.context_setting.rollup_weight',
+                'label' => 'setono_sylius_completeness.form.context.rollup_weight',
                 'required' => false,
-                'help' => 'setono_sylius_completeness.form.context_setting.rollup_weight_help',
+                'help' => 'setono_sylius_completeness.form.context.rollup_weight_help',
                 // the model property is a non nullable float, so an empty submission must not map null
                 'empty_data' => '1',
             ]);
@@ -60,14 +60,14 @@ final class CompletenessContextSettingType extends AbstractResourceType
         // "counts toward overall score" is sugar for rollupWeight 0 vs > 0
         $builder->addEventListener(FormEvents::POST_SET_DATA, static function (FormEvent $event): void {
             $setting = $event->getData();
-            $rollupWeight = $setting instanceof CompletenessContextSettingInterface ? $setting->getRollupWeight() : 1.0;
+            $rollupWeight = $setting instanceof CompletenessContextInterface ? $setting->getRollupWeight() : 1.0;
 
             $event->getForm()->get('countsTowardOverall')->setData($rollupWeight > 0);
         });
 
         $builder->addEventListener(FormEvents::SUBMIT, static function (FormEvent $event): void {
             $setting = $event->getData();
-            if (!$setting instanceof CompletenessContextSettingInterface) {
+            if (!$setting instanceof CompletenessContextInterface) {
                 return;
             }
 
@@ -83,6 +83,6 @@ final class CompletenessContextSettingType extends AbstractResourceType
 
     public function getBlockPrefix(): string
     {
-        return 'setono_sylius_completeness_context_setting';
+        return 'setono_sylius_completeness_context';
     }
 }

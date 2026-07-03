@@ -10,8 +10,8 @@ setono_sylius_completeness:
         completeness: Completezza
         completeness_rule: Regola di completezza
         completeness_rules: Regole di completezza
-        context_setting: Contesto di completezza
-        context_settings: Contesti di completezza
+        context: Contesto di completezza
+        contexts: Contesti di completezza
         context_intro: 'Un contesto di completezza è una singola combinazione di canale e lingua in cui i prodotti vengono valutati separatamente. Ad esempio, "Fashion Web Store + inglese (USA)" è un contesto e "Fashion Web Store + tedesco" è un altro. Usa queste impostazioni per dare a un contesto la propria soglia di "pronto" e decidere quanto incide sul punteggio complessivo di un prodotto - i contesti lasciati non configurati usano i valori predefiniti globali.'
         dashboard_intro: La completezza dell'intero catalogo a colpo d'occhio.
         products_scored: Prodotti valutati
@@ -27,9 +27,9 @@ setono_sylius_completeness:
         recalculate_catalog: Ricalcola l'intero catalogo
         no_products_scored: Nessun prodotto è stato ancora valutato. Ricalcola il catalogo per iniziare.
         edit_completeness_rule: Modifica regola di completezza
-        edit_context_setting: Modifica contesto di completezza
+        edit_context: Modifica contesto di completezza
         new_completeness_rule: Nuova regola di completezza
-        new_context_setting: Nuovo contesto di completezza
+        new_context: Nuovo contesto di completezza
         counts_toward_overall: Conta nel totale
         custom_weight: Peso personalizzato
         default: Predefinito
@@ -133,12 +133,12 @@ setono_sylius_completeness:
             weight_tier_help: Quanto conta questa regola per il punteggio.
         preview:
             expression_help: 'Facoltativamente, digita una condizione/espressione estemporanea da valutare sul prodotto, canale e lingua scelti, senza salvare nulla.'
-        context_setting:
+        context:
             channel: Canale
             counts_toward_overall: Conta nel punteggio complessivo
             counts_toward_overall_help: Se non selezionato, questo contesto viene comunque calcolato e mostrato, ma escluso dal punteggio complessivo del prodotto.
             locale: Lingua
             rollup_weight: Peso nel punteggio complessivo
-            rollup_weight_help: Una ponderazione avanzata di questo contesto nel punteggio complessivo. 0 esclude il contesto.
+            rollup_weight_help: Quanto pesa questo contesto rispetto agli altri nel punteggio complessivo (1 = normale). Ha effetto solo quando conta nel punteggio complessivo.
             threshold: Soglia di validità
             threshold_help: Il punteggio (0-100) a partire dal quale questo contesto conta come "pronto". Lascia vuoto per usare il valore predefinito globale.

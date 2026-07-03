@@ -33,10 +33,10 @@ use Setono\SyliusCompletenessPlugin\Expression\FunctionProvider\TaxonFunctionsPr
 use Setono\SyliusCompletenessPlugin\Expression\FunctionProvider\TextFunctionsProvider;
 use Setono\SyliusCompletenessPlugin\Expression\FunctionProvider\TranslationFunctionsProvider;
 use Setono\SyliusCompletenessPlugin\Expression\FunctionProvider\VariantFunctionsProvider;
-use Setono\SyliusCompletenessPlugin\Model\CompletenessContextSetting;
+use Setono\SyliusCompletenessPlugin\Model\CompletenessContext;
 use Setono\SyliusCompletenessPlugin\Model\CompletenessRule;
-use Setono\SyliusCompletenessPlugin\Provider\ContextSettingsProvider;
-use Setono\SyliusCompletenessPlugin\Repository\CompletenessContextSettingRepositoryInterface;
+use Setono\SyliusCompletenessPlugin\Provider\CompletenessContextProvider;
+use Setono\SyliusCompletenessPlugin\Repository\CompletenessContextRepositoryInterface;
 use Setono\SyliusCompletenessPlugin\Repository\CompletenessRuleRepositoryInterface;
 use Setono\SyliusCompletenessPlugin\Rollup\Rollup;
 use Setono\SyliusCompletenessPlugin\Rollup\WeightedAverageRollupStrategy;
@@ -64,8 +64,8 @@ final class CompletenessCalculatorTest extends TestCase
     /** @var ObjectProphecy<CompletenessRuleRepositoryInterface> */
     private ObjectProphecy $ruleRepository;
 
-    /** @var ObjectProphecy<CompletenessContextSettingRepositoryInterface> */
-    private ObjectProphecy $contextSettingRepository;
+    /** @var ObjectProphecy<CompletenessContextRepositoryInterface> */
+    private ObjectProphecy $contextRepository;
 
     private MockClock $clock;
 
@@ -100,8 +100,8 @@ final class CompletenessCalculatorTest extends TestCase
 
         $this->ruleRepository = $this->prophesize(CompletenessRuleRepositoryInterface::class);
 
-        $this->contextSettingRepository = $this->prophesize(CompletenessContextSettingRepositoryInterface::class);
-        $this->contextSettingRepository->findAll()->willReturn([]);
+        $this->contextRepository = $this->prophesize(CompletenessContextRepositoryInterface::class);
+        $this->contextRepository->findAll()->willReturn([]);
 
         $this->clock = new MockClock('2026-07-02 12:00:00');
     }
@@ -121,7 +121,7 @@ final class CompletenessCalculatorTest extends TestCase
                 new ServiceLocator(['weighted_average' => static fn (): WeightedAverageRollupStrategy => new WeightedAverageRollupStrategy()]),
                 'weighted_average',
             ),
-            new ContextSettingsProvider($this->contextSettingRepository->reveal()),
+            new CompletenessContextProvider($this->contextRepository->reveal()),
             $rubricVersionManager->reveal(),
             $this->clock,
         );
@@ -479,24 +479,24 @@ final class CompletenessCalculatorTest extends TestCase
     /**
      * @test
      */
-    public function it_applies_rollup_weights_and_exclusions_from_context_settings(): void
+    public function it_applies_rollup_weights_and_exclusions_from_contexts(): void
     {
         $product = $this->createProduct(['WEB' => ['en', 'da']]);
         $product->setCurrentLocale('da');
         $product->setFallbackLocale('da');
         $product->setName('Trøje'); // da: 100, en: 0
 
-        $excludedSetting = new CompletenessContextSetting();
+        $excludedSetting = new CompletenessContext();
         $excludedSetting->setChannelCode('WEB');
         $excludedSetting->setLocaleCode('en');
         $excludedSetting->setRollupWeight(0.0);
 
-        $weightedSetting = new CompletenessContextSetting();
+        $weightedSetting = new CompletenessContext();
         $weightedSetting->setChannelCode('WEB');
         $weightedSetting->setLocaleCode('da');
         $weightedSetting->setRollupWeight(2.0);
 
-        $this->contextSettingRepository->findAll()->willReturn([$excludedSetting, $weightedSetting]);
+        $this->contextRepository->findAll()->willReturn([$excludedSetting, $weightedSetting]);
 
         $this->ruleRepository->findEnabled()->willReturn([
             $this->createRule('has_name', 'has_name', 'medium'),

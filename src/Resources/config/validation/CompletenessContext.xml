@@ -2,14 +2,14 @@
 <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping https://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
-    <class name="Setono\SyliusCompletenessPlugin\Model\CompletenessContextSetting">
+    <class name="Setono\SyliusCompletenessPlugin\Model\CompletenessContext">
         <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
             <option name="fields">
                 <value>channelCode</value>
                 <value>localeCode</value>
             </option>
             <option name="errorPath">localeCode</option>
-            <option name="message">setono_sylius_completeness.context_setting.unique</option>
+            <option name="message">setono_sylius_completeness.context.unique</option>
         </constraint>
 
         <property name="channelCode">

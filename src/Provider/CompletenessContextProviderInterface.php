@@ -8,7 +8,7 @@ namespace Setono\SyliusCompletenessPlugin\Provider;
  * Resolves the per (channel, locale) settings. A missing row means defaults: rollup weight 1.0
  * and no per context threshold, so an empty settings table reproduces flat average behavior
  */
-interface ContextSettingsProviderInterface
+interface CompletenessContextProviderInterface
 {
     public function getRollupWeight(string $channelCode, string $localeCode): float;
 

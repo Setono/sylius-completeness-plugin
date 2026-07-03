@@ -10,8 +10,8 @@ setono_sylius_completeness:
         completeness: Completitudine
         completeness_rule: Regulă de completitudine
         completeness_rules: Reguli de completitudine
-        context_setting: Context de completitudine
-        context_settings: Contexte de completitudine
+        context: Context de completitudine
+        contexts: Contexte de completitudine
         context_intro: 'Un context de completitudine este o singură combinație de canal și limbă în care produsele sunt punctate separat. De exemplu, "Fashion Web Store + engleză (SUA)" este un context, iar "Fashion Web Store + germană" este altul. Folosește aceste setări pentru a-i da unui context propriul prag de "pregătit" și pentru a decide cât contează în scorul general al unui produs - contextele lăsate neconfigurate folosesc valorile implicite globale.'
         dashboard_intro: Completitudinea întregului catalog dintr-o privire.
         products_scored: Produse punctate
@@ -27,9 +27,9 @@ setono_sylius_completeness:
         recalculate_catalog: Recalculează întregul catalog
         no_products_scored: Niciun produs nu a fost punctat încă. Recalculează catalogul pentru a începe.
         edit_completeness_rule: Editează regula de completitudine
-        edit_context_setting: Editează contextul de completitudine
+        edit_context: Editează contextul de completitudine
         new_completeness_rule: Regulă de completitudine nouă
-        new_context_setting: Context de completitudine nou
+        new_context: Context de completitudine nou
         counts_toward_overall: Contează la total
         custom_weight: Pondere personalizată
         default: Implicit
@@ -133,12 +133,12 @@ setono_sylius_completeness:
             weight_tier_help: Cât de mult contează această regulă pentru scor.
         preview:
             expression_help: 'Opțional, scrie o condiție/expresie de unică folosință pentru a fi evaluată față de produsul, canalul și limba alese - fără a salva nimic.'
-        context_setting:
+        context:
             channel: Canal
             counts_toward_overall: Contează la scorul general
             counts_toward_overall_help: Când nu este bifat, acest context este în continuare calculat și afișat, dar exclus din scorul general al produsului.
             locale: Limbă
             rollup_weight: Pondere în scorul general
-            rollup_weight_help: O ponderare avansată a acestui context în scorul general. 0 exclude contextul.
+            rollup_weight_help: Cât cântărește acest context față de altele în scorul general (1 = normal). Are efect doar cât timp contează în scorul general.
             threshold: Prag de pregătire
             threshold_help: Scorul (0-100) de la care acest context contează ca „pregătit". Lasă gol pentru a folosi valoarea implicită globală.

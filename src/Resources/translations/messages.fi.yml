@@ -10,8 +10,8 @@ setono_sylius_completeness:
         completeness: Täydellisyys
         completeness_rule: Täydellisyyssääntö
         completeness_rules: Täydellisyyssäännöt
-        context_setting: Täydellisyyskonteksti
-        context_settings: Täydellisyyskontekstit
+        context: Täydellisyyskonteksti
+        contexts: Täydellisyyskontekstit
         context_intro: 'Täydellisyyskonteksti on yksittäinen kanava-ja-kieli-yhdistelmä, jossa tuotteet pisteytetään erikseen. Esimerkiksi "Fashion Web Store + englanti (USA)" on yksi konteksti ja "Fashion Web Store + saksa" toinen. Näillä asetuksilla voit antaa kontekstille oman valmiuskynnyksensä ja päättää, kuinka paljon se lasketaan mukaan tuotteen kokonaispisteisiin - määrittämättömät kontekstit käyttävät yleisiä oletusasetuksia.'
         dashboard_intro: Koko luettelon täydellisyys yhdellä silmäyksellä.
         products_scored: Pisteytetyt tuotteet
@@ -27,9 +27,9 @@ setono_sylius_completeness:
         recalculate_catalog: Laske koko luettelo uudelleen
         no_products_scored: Yhtään tuotetta ei ole vielä pisteytetty. Laske luettelo uudelleen aloittaaksesi.
         edit_completeness_rule: Muokkaa täydellisyyssääntöä
-        edit_context_setting: Muokkaa täydellisyyskontekstia
+        edit_context: Muokkaa täydellisyyskontekstia
         new_completeness_rule: Uusi täydellisyyssääntö
-        new_context_setting: Uusi täydellisyyskonteksti
+        new_context: Uusi täydellisyyskonteksti
         counts_toward_overall: Lasketaan kokonaisuuteen
         custom_weight: Mukautettu paino
         default: Oletus
@@ -133,12 +133,12 @@ setono_sylius_completeness:
             weight_tier_help: Kuinka paljon tämä sääntö vaikuttaa pistemäärään.
         preview:
             expression_help: 'Kirjoita halutessasi kertaluonteinen ehto/lauseke arvioitavaksi valittua tuotetta, kanavaa ja kieltä vasten - tallentamatta mitään.'
-        context_setting:
+        context:
             channel: Kanava
             counts_toward_overall: Lasketaan kokonaispistemäärään
             counts_toward_overall_help: Kun tätä ei ole valittu, tämä konteksti lasketaan ja näytetään edelleen, mutta se jätetään pois tuotteen kokonaispistemäärästä.
             locale: Kieli
             rollup_weight: Paino kokonaispistemäärässä
-            rollup_weight_help: Tämän kontekstin edistynyt painotus kokonaispistemäärässä. 0 jättää kontekstin pois.
+            rollup_weight_help: Kuinka paljon tämä konteksti painaa suhteessa muihin konteksteihin kokonaispisteissä (1 = normaali). Vaikuttaa vain, kun se lasketaan mukaan kokonaispisteisiin.
             threshold: Valmiuskynnys
             threshold_help: Pistemäärä (0-100), josta alkaen tämä konteksti lasketaan "valmiiksi". Jätä tyhjäksi käyttääksesi yleistä oletusarvoa.

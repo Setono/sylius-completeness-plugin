@@ -54,8 +54,8 @@ final class SetonoSyliusCompletenessExtensionTest extends AbstractExtensionTestC
             \Setono\SyliusCompletenessPlugin\Model\ProductCompleteness::class,
         );
         $this->assertContainerBuilderHasParameter(
-            'setono_sylius_completeness.model.context_setting.class',
-            \Setono\SyliusCompletenessPlugin\Model\CompletenessContextSetting::class,
+            'setono_sylius_completeness.model.context.class',
+            \Setono\SyliusCompletenessPlugin\Model\CompletenessContext::class,
         );
     }
 }

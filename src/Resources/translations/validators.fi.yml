@@ -14,5 +14,5 @@ setono_sylius_completeness:
         type:
             not_blank: Valitse tarkistus.
             not_registered: Tarkistustyyppiä "{{ type }}" ei ole rekisteröity.
-    context_setting:
+    context:
         unique: Tälle kanavan ja kielen yhdistelmälle on jo asetus.

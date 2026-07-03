@@ -1,0 +1,27 @@
+<div class="ui segment">
+    {{ form_row(form.channelCode) }}
+    {{ form_row(form.localeCode) }}
+    {{ form_row(form.threshold) }}
+    {{ form_row(form.countsTowardOverall) }}
+    {{ form_row(form.rollupWeight) }}
+</div>
+
+<script>
+    (function () {
+        // the weight only has an effect when the context counts toward the overall score, so grey it
+        // out and disable it while "counts toward the overall score" is off
+        var counts = document.querySelector('#{{ form.countsTowardOverall.vars.id }}');
+        var weight = document.querySelector('#{{ form.rollupWeight.vars.id }}');
+        if (!counts || !weight) {
+            return;
+        }
+
+        var row = weight.closest('.field') || weight.parentNode;
+        function sync() {
+            weight.disabled = !counts.checked;
+            row.style.opacity = counts.checked ? '' : '0.5';
+        }
+        counts.addEventListener('change', sync);
+        sync();
+    })();
+</script>

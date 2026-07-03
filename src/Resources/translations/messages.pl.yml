@@ -10,8 +10,8 @@ setono_sylius_completeness:
         completeness: Kompletność
         completeness_rule: Reguła kompletności
         completeness_rules: Reguły kompletności
-        context_setting: Kontekst kompletności
-        context_settings: Konteksty kompletności
+        context: Kontekst kompletności
+        contexts: Konteksty kompletności
         context_intro: 'Kontekst kompletności to pojedyncza kombinacja kanału i języka, w której produkty są oceniane osobno. Na przykład "Fashion Web Store + angielski (USA)" to jeden kontekst, a "Fashion Web Store + niemiecki" to inny. Użyj tych ustawień, aby nadać kontekstowi własny próg "gotowości" i zdecydować, ile liczy się on w ogólnym wyniku produktu - konteksty pozostawione bez konfiguracji korzystają z globalnych wartości domyślnych.'
         dashboard_intro: Kompletność całego katalogu w skrócie.
         products_scored: Ocenione produkty
@@ -27,9 +27,9 @@ setono_sylius_completeness:
         recalculate_catalog: Przelicz cały katalog
         no_products_scored: Nie oceniono jeszcze żadnego produktu. Przelicz katalog, aby rozpocząć.
         edit_completeness_rule: Edytuj regułę kompletności
-        edit_context_setting: Edytuj kontekst kompletności
+        edit_context: Edytuj kontekst kompletności
         new_completeness_rule: Nowa reguła kompletności
-        new_context_setting: Nowy kontekst kompletności
+        new_context: Nowy kontekst kompletności
         counts_toward_overall: Liczy się do sumy
         custom_weight: Niestandardowa waga
         default: Domyślne
@@ -133,12 +133,12 @@ setono_sylius_completeness:
             weight_tier_help: Jak bardzo ta reguła wpływa na wynik.
         preview:
             expression_help: 'Opcjonalnie wpisz jednorazowy warunek/wyrażenie do oceny względem wybranego produktu, kanału i języka - bez zapisywania czegokolwiek.'
-        context_setting:
+        context:
             channel: Kanał
             counts_toward_overall: Liczy się do wyniku ogólnego
             counts_toward_overall_help: Gdy nie jest zaznaczone, ten kontekst jest nadal obliczany i wyświetlany, ale wykluczony z ogólnego wyniku produktu.
             locale: Język
             rollup_weight: Waga w wyniku ogólnym
-            rollup_weight_help: Zaawansowane ważenie tego kontekstu w wyniku ogólnym. 0 wyklucza kontekst.
+            rollup_weight_help: Jak bardzo ten kontekst liczy się w stosunku do innych w ogólnym wyniku (1 = normalnie). Działa tylko wtedy, gdy liczy się do ogólnego wyniku.
             threshold: Próg gotowości
             threshold_help: Wynik (0-100), od którego ten kontekst liczy się jako "gotowy". Pozostaw puste, aby użyć globalnej wartości domyślnej.

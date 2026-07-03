@@ -10,8 +10,8 @@ setono_sylius_completeness:
         completeness: Volledigheid
         completeness_rule: Volledigheidsregel
         completeness_rules: Volledigheidsregels
-        context_setting: Volledigheidscontext
-        context_settings: Volledigheidscontexten
+        context: Volledigheidscontext
+        contexts: Volledigheidscontexten
         context_intro: 'Een volledigheidscontext is één kanaal-en-taal-combinatie waarin producten afzonderlijk worden beoordeeld. Bijvoorbeeld "Fashion Web Store + Engels (VS)" is één context en "Fashion Web Store + Duits" is een andere. Gebruik deze instellingen om een context zijn eigen "gereed"-drempel te geven en te bepalen hoeveel die meetelt voor de totale score van een product - niet-geconfigureerde contexten vallen terug op de globale standaardwaarden.'
         dashboard_intro: Catalogusbrede volledigheid in één oogopslag.
         products_scored: Beoordeelde producten
@@ -27,9 +27,9 @@ setono_sylius_completeness:
         recalculate_catalog: Hele catalogus herberekenen
         no_products_scored: Er zijn nog geen producten beoordeeld. Herbereken de catalogus om te beginnen.
         edit_completeness_rule: Volledigheidsregel bewerken
-        edit_context_setting: Volledigheidscontext bewerken
+        edit_context: Volledigheidscontext bewerken
         new_completeness_rule: Nieuwe volledigheidsregel
-        new_context_setting: Nieuwe volledigheidscontext
+        new_context: Nieuwe volledigheidscontext
         counts_toward_overall: Telt mee in het totaal
         custom_weight: Aangepast gewicht
         default: Standaard
@@ -133,12 +133,12 @@ setono_sylius_completeness:
             weight_tier_help: Hoeveel deze regel meeweegt voor de score.
         preview:
             expression_help: 'Typ eventueel een eenmalige voorwaarde/expressie om te evalueren tegen het gekozen product, kanaal en taal - zonder iets op te slaan.'
-        context_setting:
+        context:
             channel: Kanaal
             counts_toward_overall: Telt mee in de totale score
             counts_toward_overall_help: Wanneer niet aangevinkt, wordt deze context nog steeds berekend en getoond, maar uitgesloten van de totale score van het product.
             locale: Taal
             rollup_weight: Gewicht in de totale score
-            rollup_weight_help: Een geavanceerde weging van deze context in de totale score. 0 sluit de context uit.
+            rollup_weight_help: Hoeveel deze context meetelt ten opzichte van andere in de totale score (1 = normaal). Heeft alleen effect zolang die meetelt voor de totale score.
             threshold: Gereed-drempel
             threshold_help: De score (0-100) vanaf welke deze context als "gereed" telt. Laat leeg om de globale standaard te gebruiken.

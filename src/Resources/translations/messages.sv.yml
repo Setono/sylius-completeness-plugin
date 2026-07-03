@@ -10,8 +10,8 @@ setono_sylius_completeness:
         completeness: Fullständighet
         completeness_rule: Fullständighetsregel
         completeness_rules: Fullständighetsregler
-        context_setting: Fullständighetskontext
-        context_settings: Fullständighetskontexter
+        context: Fullständighetskontext
+        contexts: Fullständighetskontexter
         context_intro: 'En fullständighetskontext är en enda kanal-och-språk-kombination som produkter poängsätts i var för sig. Till exempel är "Fashion Web Store + engelska (USA)" en kontext och "Fashion Web Store + tyska" en annan. Använd dessa inställningar för att ge en kontext sin egen "klar"-tröskel och för att bestämma hur mycket den räknas in i produktens totala poäng - kontexter du lämnar okonfigurerade återgår till de globala standardvärdena.'
         dashboard_intro: Katalogövergripande fullständighet i överblick.
         products_scored: Produkter poängsatta
@@ -27,9 +27,9 @@ setono_sylius_completeness:
         recalculate_catalog: Beräkna om hela katalogen
         no_products_scored: Inga produkter har poängsatts ännu. Beräkna om katalogen för att komma igång.
         edit_completeness_rule: Redigera fullständighetsregel
-        edit_context_setting: Redigera fullständighetskontext
+        edit_context: Redigera fullständighetskontext
         new_completeness_rule: Ny fullständighetsregel
-        new_context_setting: Ny fullständighetskontext
+        new_context: Ny fullständighetskontext
         counts_toward_overall: Räknas med i totalen
         custom_weight: Anpassad vikt
         default: Standard
@@ -133,12 +133,12 @@ setono_sylius_completeness:
             weight_tier_help: Hur mycket denna regel betyder för poängen.
         preview:
             expression_help: 'Skriv eventuellt ett engångsvillkor/-uttryck att utvärdera mot den valda produkten, kanalen och språket - utan att spara något.'
-        context_setting:
+        context:
             channel: Kanal
             counts_toward_overall: Räknas med i den totala poängen
             counts_toward_overall_help: När detta inte är markerat beräknas och visas kontexten fortfarande, men den utesluts från produktens totala poäng.
             locale: Språk
             rollup_weight: Vikt i den totala poängen
-            rollup_weight_help: En avancerad viktning av denna kontext i den totala poängen. 0 utesluter kontexten.
+            rollup_weight_help: Hur mycket denna kontext räknas i förhållande till andra kontexter i den totala poängen (1 = normal). Har bara effekt när den räknas in i den totala poängen.
             threshold: Klar-tröskel
             threshold_help: Poängen (0-100) från vilken denna kontext räknas som "klar". Lämna tom för att använda den globala standarden.

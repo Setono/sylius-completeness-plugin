@@ -161,7 +161,7 @@ bin/console setono:completeness:recalculate --all             # score the whole 
   an empty table reproduces flat-average, single-threshold behavior.
 - **Rollup** — the per-context ratios collapse into the single `completenessRatio` via a configurable strategy
   (`weighted_average` default, `minimum`, `default_channel`), after dropping N/A and excluded contexts.
-- **Staleness** — a monotonic rubric version is bumped on every rule/context-setting change and stamped on
+- **Staleness** — a monotonic rubric version is bumped on every rule/context change and stamped on
   products at calc time. Because a change enqueues a background recalculation, the grid and panel show a
   "recalculating…" marker for products whose stamped version is behind.
 
@@ -220,7 +220,7 @@ Everything is a tagged service. All of these are supported and documented:
 The public API is `Setono\SyliusCompletenessPlugin\Calculator\CompletenessCalculatorInterface` (a pure dry-run
 that returns the full breakdown) and `Setono\SyliusCompletenessPlugin\Updater\ProductCompletenessUpdaterInterface`
 (calculate + persist). After each persisted calculation a `ProductCompletenessCalculated` event is dispatched
-(with a `bulk` flag). Notice that context-setting changes trigger a rollup-only refresh, which recomputes the
+(with a `bulk` flag). Notice that context changes trigger a rollup-only refresh, which recomputes the
 global ratio from existing rows and does **not** dispatch that event.
 
 ## Configuration reference

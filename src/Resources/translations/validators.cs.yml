@@ -14,5 +14,5 @@ setono_sylius_completeness:
         type:
             not_blank: Vyberte kontrolu.
             not_registered: Typ kontroly "{{ type }}" není registrován.
-    context_setting:
+    context:
         unique: Nastavení pro tuto kombinaci kanálu a jazyka již existuje.

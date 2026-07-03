@@ -14,5 +14,5 @@ setono_sylius_completeness:
         type:
             not_blank: Bitte wählen Sie eine Prüfung.
             not_registered: Der Prüfungstyp "{{ type }}" ist nicht registriert.
-    context_setting:
+    context:
         unique: Für diese Kombination aus Kanal und Sprache existiert bereits eine Einstellung.

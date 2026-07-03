@@ -10,8 +10,8 @@ setono_sylius_completeness:
         completeness: Teljesség
         completeness_rule: Teljességi szabály
         completeness_rules: Teljességi szabályok
-        context_setting: Teljességi kontextus
-        context_settings: Teljességi kontextusok
+        context: Teljességi kontextus
+        contexts: Teljességi kontextusok
         context_intro: 'A teljességi kontextus egyetlen csatorna-és-nyelv kombináció, amelyben a termékeket külön pontozzuk. Például a "Fashion Web Store + angol (USA)" egy kontextus, a "Fashion Web Store + német" pedig egy másik. Ezekkel a beállításokkal adhatsz egy kontextusnak saját "kész" küszöböt, és eldöntheted, mennyit számít a termék összesített pontszámába - a nem konfigurált kontextusok a globális alapértelmezéseket használják.'
         dashboard_intro: A teljes katalógus teljessége egy pillantásra.
         products_scored: Pontozott termékek
@@ -27,9 +27,9 @@ setono_sylius_completeness:
         recalculate_catalog: Teljes katalógus újraszámítása
         no_products_scored: Még nincs pontozott termék. Számítsd újra a katalógust a kezdéshez.
         edit_completeness_rule: Teljességi szabály szerkesztése
-        edit_context_setting: Teljességi kontextus szerkesztése
+        edit_context: Teljességi kontextus szerkesztése
         new_completeness_rule: Új teljességi szabály
-        new_context_setting: Új teljességi kontextus
+        new_context: Új teljességi kontextus
         counts_toward_overall: Beleszámít az összesbe
         custom_weight: Egyéni súly
         default: Alapértelmezett
@@ -133,12 +133,12 @@ setono_sylius_completeness:
             weight_tier_help: Mennyire számít ez a szabály a pontszám szempontjából.
         preview:
             expression_help: 'Opcionálisan írjon be egy egyszeri feltételt/kifejezést a kiválasztott termékkel, csatornával és nyelvvel szembeni kiértékeléshez - mentés nélkül.'
-        context_setting:
+        context:
             channel: Csatorna
             counts_toward_overall: Beleszámít az összesített pontszámba
             counts_toward_overall_help: Ha nincs bejelölve, ez a kontextus továbbra is számítva és megjelenítve van, de ki van zárva a termék összesített pontszámából.
             locale: Nyelv
             rollup_weight: Súly az összesített pontszámban
-            rollup_weight_help: E kontextus speciális súlyozása az összesített pontszámban. A 0 kizárja a kontextust.
+            rollup_weight_help: Mennyit számít ez a kontextus a többihez képest az összesített pontszámban (1 = normál). Csak akkor van hatása, amíg beleszámít az összesített pontszámba.
             threshold: Készültségi küszöb
             threshold_help: A pontszám (0-100), amelytől ez a kontextus "készként" számít. Hagyja üresen a globális alapértelmezett érték használatához.

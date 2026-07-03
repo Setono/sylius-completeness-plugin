@@ -6,7 +6,7 @@
         <service id="setono_sylius_completeness.factory.completeness_panel"
                  class="Setono\SyliusCompletenessPlugin\ViewModel\CompletenessPanelFactory">
             <argument type="service" id="setono_sylius_completeness.resolver.threshold"/>
-            <argument type="service" id="setono_sylius_completeness.provider.context_settings"/>
+            <argument type="service" id="setono_sylius_completeness.provider.completeness_context"/>
             <argument type="service" id="setono_sylius_completeness.rubric_version_manager"/>
             <argument>%setono_sylius_completeness.amber_band%</argument>
         </service>

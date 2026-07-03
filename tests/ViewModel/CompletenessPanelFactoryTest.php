@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Setono\SyliusCompletenessPlugin\Display\ThresholdColor;
 use Setono\SyliusCompletenessPlugin\Model\ProductCompleteness;
-use Setono\SyliusCompletenessPlugin\Provider\ContextSettingsProviderInterface;
+use Setono\SyliusCompletenessPlugin\Provider\CompletenessContextProviderInterface;
 use Setono\SyliusCompletenessPlugin\Resolver\ThresholdResolverInterface;
 use Setono\SyliusCompletenessPlugin\Rubric\RubricVersionManagerInterface;
 use Setono\SyliusCompletenessPlugin\Tests\Fixture\CompletenessAwareProduct;
@@ -20,7 +20,7 @@ final class CompletenessPanelFactoryTest extends TestCase
 
     private ThresholdResolverInterface $thresholdResolver;
 
-    private ContextSettingsProviderInterface $contextSettings;
+    private CompletenessContextProviderInterface $contexts;
 
     private RubricVersionManagerInterface $rubricVersionManager;
 
@@ -31,9 +31,9 @@ final class CompletenessPanelFactoryTest extends TestCase
         $thresholdResolver->resolveDefault()->willReturn(80);
         $this->thresholdResolver = $thresholdResolver->reveal();
 
-        $contextSettings = $this->prophesize(ContextSettingsProviderInterface::class);
-        $contextSettings->getRollupWeight(\Prophecy\Argument::cetera())->willReturn(1.0);
-        $this->contextSettings = $contextSettings->reveal();
+        $contexts = $this->prophesize(CompletenessContextProviderInterface::class);
+        $contexts->getRollupWeight(\Prophecy\Argument::cetera())->willReturn(1.0);
+        $this->contexts = $contexts->reveal();
 
         $rubricVersionManager = $this->prophesize(RubricVersionManagerInterface::class);
         $rubricVersionManager->getCurrentVersion()->willReturn(3);
@@ -44,7 +44,7 @@ final class CompletenessPanelFactoryTest extends TestCase
     {
         return new CompletenessPanelFactory(
             $this->thresholdResolver,
-            $this->contextSettings,
+            $this->contexts,
             $this->rubricVersionManager,
             20,
         );
@@ -126,9 +126,9 @@ final class CompletenessPanelFactoryTest extends TestCase
      */
     public function it_marks_excluded_contexts(): void
     {
-        $contextSettings = $this->prophesize(ContextSettingsProviderInterface::class);
-        $contextSettings->getRollupWeight('WEB', 'en')->willReturn(0.0);
-        $this->contextSettings = $contextSettings->reveal();
+        $contexts = $this->prophesize(CompletenessContextProviderInterface::class);
+        $contexts->getRollupWeight('WEB', 'en')->willReturn(0.0);
+        $this->contexts = $contexts->reveal();
 
         $product = new CompletenessAwareProduct();
         $product->addCompleteness($this->createRow('WEB', 'en', 50));

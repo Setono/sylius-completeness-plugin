@@ -10,8 +10,8 @@ setono_sylius_completeness:
         completeness: Completitud
         completeness_rule: Regla de completitud
         completeness_rules: Reglas de completitud
-        context_setting: Contexto de completitud
-        context_settings: Contextos de completitud
+        context: Contexto de completitud
+        contexts: Contextos de completitud
         context_intro: 'Un contexto de completitud es una única combinación de canal e idioma en la que los productos se puntúan por separado. Por ejemplo, "Fashion Web Store + inglés (US)" es un contexto y "Fashion Web Store + alemán" es otro. Usa estos ajustes para darle a un contexto su propio umbral de "listo" y decidir cuánto cuenta en la puntuación general de un producto - los contextos que dejes sin configurar usan los valores predeterminados globales.'
         dashboard_intro: La completitud de todo el catálogo de un vistazo.
         products_scored: Productos puntuados
@@ -27,9 +27,9 @@ setono_sylius_completeness:
         recalculate_catalog: Recalcular todo el catálogo
         no_products_scored: Todavía no se ha puntuado ningún producto. Recalcula el catálogo para empezar.
         edit_completeness_rule: Editar regla de completitud
-        edit_context_setting: Editar contexto de completitud
+        edit_context: Editar contexto de completitud
         new_completeness_rule: Nueva regla de completitud
-        new_context_setting: Nuevo contexto de completitud
+        new_context: Nuevo contexto de completitud
         counts_toward_overall: Cuenta para el total
         custom_weight: Peso personalizado
         default: Predeterminado
@@ -133,12 +133,12 @@ setono_sylius_completeness:
             weight_tier_help: Cuánto importa esta regla para la puntuación.
         preview:
             expression_help: 'Opcionalmente, escriba una condición/expresión puntual para evaluarla con el producto, canal e idioma elegidos, sin guardar nada.'
-        context_setting:
+        context:
             channel: Canal
             counts_toward_overall: Cuenta para la puntuación global
             counts_toward_overall_help: Si no está marcado, este contexto se sigue calculando y mostrando, pero se excluye de la puntuación global del producto.
             locale: Idioma
             rollup_weight: Peso en la puntuación global
-            rollup_weight_help: Una ponderación avanzada de este contexto en la puntuación global. 0 excluye el contexto.
+            rollup_weight_help: Cuánto cuenta este contexto en relación con otros en la puntuación general (1 = normal). Solo tiene efecto mientras cuenta en la puntuación general.
             threshold: Umbral de validez
             threshold_help: La puntuación (0-100) a partir de la cual este contexto cuenta como "listo". Déjelo vacío para usar el valor global predeterminado.

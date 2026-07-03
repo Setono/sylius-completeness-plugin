@@ -14,5 +14,5 @@ setono_sylius_completeness:
         type:
             not_blank: Please choose a checker.
             not_registered: The checker type "{{ type }}" is not registered.
-    context_setting:
+    context:
         unique: A setting for this channel and locale combination already exists.

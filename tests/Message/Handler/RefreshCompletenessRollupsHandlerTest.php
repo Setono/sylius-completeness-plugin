@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Setono\SyliusCompletenessPlugin\Message\Command\RefreshCompletenessRollups;
 use Setono\SyliusCompletenessPlugin\Message\Handler\RefreshCompletenessRollupsHandler;
-use Setono\SyliusCompletenessPlugin\Provider\ContextSettingsProviderInterface;
+use Setono\SyliusCompletenessPlugin\Provider\CompletenessContextProviderInterface;
 use Setono\SyliusCompletenessPlugin\Provider\ProductIdsProviderInterface;
 use Setono\SyliusCompletenessPlugin\Provider\ProductProviderInterface;
 use Setono\SyliusCompletenessPlugin\Repository\ProductCompletenessRepositoryInterface;
@@ -50,10 +50,10 @@ final class RefreshCompletenessRollupsHandlerTest extends TestCase
         ]);
 
         // the da context is excluded via a rollup weight of 0
-        $contextSettings = $this->prophesize(ContextSettingsProviderInterface::class);
-        $contextSettings->getRollupWeight('WEB', 'en')->willReturn(1.0);
-        $contextSettings->getRollupWeight('WEB', 'da')->willReturn(0.0);
-        $contextSettings->getRollupWeight('POS', 'en')->willReturn(1.0);
+        $contexts = $this->prophesize(CompletenessContextProviderInterface::class);
+        $contexts->getRollupWeight('WEB', 'en')->willReturn(1.0);
+        $contexts->getRollupWeight('WEB', 'da')->willReturn(0.0);
+        $contexts->getRollupWeight('POS', 'en')->willReturn(1.0);
 
         $rubricVersionManager = $this->prophesize(RubricVersionManagerInterface::class);
         $rubricVersionManager->getCurrentVersion()->willReturn(9);
@@ -69,7 +69,7 @@ final class RefreshCompletenessRollupsHandlerTest extends TestCase
             $productIdsProvider->reveal(),
             $productProvider->reveal(),
             $completenessRepository->reveal(),
-            $contextSettings->reveal(),
+            $contexts->reveal(),
             new Rollup(
                 new ServiceLocator(['weighted_average' => static fn (): WeightedAverageRollupStrategy => new WeightedAverageRollupStrategy()]),
                 'weighted_average',

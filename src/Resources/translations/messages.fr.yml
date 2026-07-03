@@ -10,8 +10,8 @@ setono_sylius_completeness:
         completeness: Complétude
         completeness_rule: Règle de complétude
         completeness_rules: Règles de complétude
-        context_setting: Contexte de complétude
-        context_settings: Contextes de complétude
+        context: Contexte de complétude
+        contexts: Contextes de complétude
         context_intro: 'Un contexte de complétude est une combinaison unique de canal et de langue dans laquelle les produits sont évalués séparément. Par exemple, "Fashion Web Store + anglais (US)" est un contexte et "Fashion Web Store + allemand" en est un autre. Utilisez ces réglages pour donner à un contexte son propre seuil "prêt" et décider de son poids dans le score global d''un produit - les contextes non configurés utilisent les valeurs par défaut globales.'
         dashboard_intro: La complétude de tout le catalogue en un coup d'œil.
         products_scored: Produits évalués
@@ -27,9 +27,9 @@ setono_sylius_completeness:
         recalculate_catalog: Recalculer tout le catalogue
         no_products_scored: Aucun produit n'a encore été évalué. Recalculez le catalogue pour commencer.
         edit_completeness_rule: Modifier la règle de complétude
-        edit_context_setting: Modifier le contexte de complétude
+        edit_context: Modifier le contexte de complétude
         new_completeness_rule: Nouvelle règle de complétude
-        new_context_setting: Nouveau contexte de complétude
+        new_context: Nouveau contexte de complétude
         counts_toward_overall: Compte dans le total
         custom_weight: Poids personnalisé
         default: Par défaut
@@ -133,12 +133,12 @@ setono_sylius_completeness:
             weight_tier_help: L'importance de cette règle pour le score.
         preview:
             expression_help: 'Saisissez éventuellement une condition/expression ponctuelle à évaluer sur le produit, le canal et la langue choisis - sans rien enregistrer.'
-        context_setting:
+        context:
             channel: Canal
             counts_toward_overall: Compte dans le score global
             counts_toward_overall_help: Si décoché, ce contexte est toujours calculé et affiché mais exclu du score global du produit.
             locale: Langue
             rollup_weight: Poids dans le score global
-            rollup_weight_help: Une pondération avancée de ce contexte dans le score global. 0 exclut le contexte.
+            rollup_weight_help: Le poids de ce contexte par rapport aux autres dans le score global (1 = normal). N'a d'effet que lorsqu'il compte dans le score global.
             threshold: Seuil de validité
             threshold_help: Le score (0-100) à partir duquel ce contexte est considéré comme "prêt". Laissez vide pour utiliser la valeur globale par défaut.
