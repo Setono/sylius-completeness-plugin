@@ -10,13 +10,13 @@ use Doctrine\Persistence\ManagerRegistry;
 use Setono\SyliusCompletenessPlugin\Model\ProductCompletenessAwareInterface;
 use Setono\SyliusCompletenessPlugin\Provider\ProductIdsProviderInterface;
 use Setono\SyliusCompletenessPlugin\Provider\ProductProviderInterface;
-use Setono\SyliusCompletenessPlugin\Recalculation\RecalculationLockManagerInterface;
 use Setono\SyliusCompletenessPlugin\Rubric\RubricVersionManagerInterface;
 use Setono\SyliusCompletenessPlugin\Updater\ProductCompletenessUpdaterInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Lock\LockFactory;
 
 /**
  * The background drain, intended to run on a cron (e.g. every few minutes). It recalculates the
@@ -33,7 +33,7 @@ final class ProcessCommand extends Command
      * @param class-string $productClass
      */
     public function __construct(
-        private readonly RecalculationLockManagerInterface $lockManager,
+        private readonly LockFactory $lockFactory,
         private readonly ProductIdsProviderInterface $productIdsProvider,
         private readonly ProductProviderInterface $productProvider,
         private readonly ProductCompletenessUpdaterInterface $updater,
@@ -54,7 +54,9 @@ final class ProcessCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        if (!$this->lockManager->acquire($this->lockTtl)) {
+        // a single expiring, non-blocking lock so two runs never overlap and a crashed run self-heals
+        $lock = $this->lockFactory->createLock('setono_sylius_completeness_process', (float) $this->lockTtl);
+        if (!$lock->acquire()) {
             $io->note('Another completeness recalculation run is already in progress.');
 
             return Command::SUCCESS;
@@ -85,10 +87,11 @@ final class ProcessCommand extends Command
                 }
 
                 $manager->clear();
-                $this->lockManager->refresh($this->lockTtl);
+                // extend the lease so a long run keeps the lock (refresh only succeeds while we own it)
+                $lock->refresh();
             }
         } finally {
-            $this->lockManager->release();
+            $lock->release();
         }
 
         $io->success(sprintf('Recalculated %d product(s).', $processed));

@@ -15,7 +15,7 @@
 
         <service id="setono_sylius_completeness.command.process"
                  class="Setono\SyliusCompletenessPlugin\Command\ProcessCommand">
-            <argument type="service" id="setono_sylius_completeness.recalculation_lock_manager"/>
+            <argument type="service" id="setono_sylius_completeness.lock.factory"/>
             <argument type="service" id="setono_sylius_completeness.provider.product_ids"/>
             <argument type="service" id="setono_sylius_completeness.provider.product"/>
             <argument type="service" id="setono_sylius_completeness.updater"/>

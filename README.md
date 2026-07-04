@@ -179,10 +179,14 @@ never block a request:
 | **Manual** — the dashboard/grid "Recalculate" buttons, or `setono:completeness:recalculate` | Messenger / direct | on demand |
 
 The **drain** (`setono:completeness:process`, step 6) is the workhorse: every few minutes it recalculates
-the products that are dirty or stale, in id-keyset chunks, under a leased lock so runs never overlap. It
-debounces bursts (a 10k-product import is *one* drain, not 10k recalculations) and needs no message
-worker. The `completeness_dirty_at` flag is cleared only if it hasn't changed since the product was picked
-up, so an edit that lands mid-run is retried rather than lost.
+the products that are dirty or stale, in id-keyset chunks, under a Symfony Lock (a `DoctrineDbalStore` on
+your default connection) so runs never overlap and a crashed run self-heals. It debounces bursts (a
+10k-product import is *one* drain, not 10k recalculations) and needs no message worker. The
+`completeness_dirty_at` flag is cleared only if it hasn't changed since the product was picked up, so an
+edit that lands mid-run is retried rather than lost.
+
+> The lock store lazily creates a `lock_keys` table on first use. In a multi-server production setup you
+> may prefer to create it up front — see the [Symfony Lock docs](https://symfony.com/doc/current/lock.html).
 
 The Doctrine `onFlush` marker never calls `flush()` or dispatches — it writes the flag as part of the same
 flush via `recomputeSingleEntityChangeSet`. New products are not flagged: their null rubric version already

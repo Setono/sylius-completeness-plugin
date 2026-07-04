@@ -3,12 +3,16 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="setono_sylius_completeness.recalculation_lock_manager"
-                 class="Setono\SyliusCompletenessPlugin\Recalculation\RecalculationLockManager">
-            <argument type="service" id="doctrine"/>
-            <argument type="service" id="setono_sylius_completeness.clock"/>
+        <!-- the drain's lock, on the default Doctrine connection so it works in any deployment without
+             the host having to configure framework.lock; the store lazy-creates its lock_keys table -->
+        <service id="setono_sylius_completeness.lock.store"
+                 class="Symfony\Component\Lock\Store\DoctrineDbalStore">
+            <argument type="service" id="doctrine.dbal.default_connection"/>
         </service>
-        <service id="Setono\SyliusCompletenessPlugin\Recalculation\RecalculationLockManagerInterface"
-                 alias="setono_sylius_completeness.recalculation_lock_manager"/>
+
+        <service id="setono_sylius_completeness.lock.factory"
+                 class="Symfony\Component\Lock\LockFactory">
+            <argument type="service" id="setono_sylius_completeness.lock.store"/>
+        </service>
     </services>
 </container>
