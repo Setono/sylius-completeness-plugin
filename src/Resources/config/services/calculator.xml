@@ -5,50 +5,50 @@
     <services>
         <service id="setono_sylius_completeness.clock" class="Symfony\Component\Clock\Clock"/>
 
-        <service id="setono_sylius_completeness.rule_applicability_checker"
+        <service id="Setono\SyliusCompletenessPlugin\Calculator\RuleApplicabilityChecker"
                  class="Setono\SyliusCompletenessPlugin\Calculator\RuleApplicabilityChecker">
-            <argument type="service" id="setono_sylius_completeness.expression_evaluator"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Expression\ExpressionEvaluator"/>
         </service>
         <service id="Setono\SyliusCompletenessPlugin\Calculator\RuleApplicabilityCheckerInterface"
-                 alias="setono_sylius_completeness.rule_applicability_checker"/>
+                 alias="Setono\SyliusCompletenessPlugin\Calculator\RuleApplicabilityChecker"/>
 
-        <service id="setono_sylius_completeness.rule_weight_resolver"
+        <service id="Setono\SyliusCompletenessPlugin\Calculator\RuleWeightResolver"
                  class="Setono\SyliusCompletenessPlugin\Calculator\RuleWeightResolver">
             <argument>%setono_sylius_completeness.weight_tiers%</argument>
         </service>
         <service id="Setono\SyliusCompletenessPlugin\Calculator\RuleWeightResolverInterface"
-                 alias="setono_sylius_completeness.rule_weight_resolver"/>
+                 alias="Setono\SyliusCompletenessPlugin\Calculator\RuleWeightResolver"/>
 
-        <service id="setono_sylius_completeness.context_initializer"
+        <service id="Setono\SyliusCompletenessPlugin\Calculator\ContextInitializer"
                  class="Setono\SyliusCompletenessPlugin\Calculator\ContextInitializer">
-            <argument type="service" id="setono_sylius_completeness.calculation_context"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Context\CalculationContext"/>
         </service>
         <service id="Setono\SyliusCompletenessPlugin\Calculator\ContextInitializerInterface"
-                 alias="setono_sylius_completeness.context_initializer"/>
+                 alias="Setono\SyliusCompletenessPlugin\Calculator\ContextInitializer"/>
 
-        <service id="setono_sylius_completeness.calculator"
+        <service id="Setono\SyliusCompletenessPlugin\Calculator\CompletenessCalculator"
                  class="Setono\SyliusCompletenessPlugin\Calculator\CompletenessCalculator">
             <argument type="service" id="setono_sylius_completeness.repository.completeness_rule"/>
             <argument type="service" id="setono_sylius_completeness.registry.checker"/>
-            <argument type="service" id="setono_sylius_completeness.rule_applicability_checker"/>
-            <argument type="service" id="setono_sylius_completeness.rule_weight_resolver"/>
-            <argument type="service" id="setono_sylius_completeness.context_initializer"/>
-            <argument type="service" id="setono_sylius_completeness.rollup"/>
-            <argument type="service" id="setono_sylius_completeness.provider.completeness_context"/>
-            <argument type="service" id="setono_sylius_completeness.rubric_version_manager"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Calculator\RuleApplicabilityChecker"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Calculator\RuleWeightResolver"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Calculator\ContextInitializer"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Rollup\Rollup"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Provider\CompletenessContextProvider"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Rubric\RubricVersionManager"/>
             <argument type="service" id="setono_sylius_completeness.clock"/>
         </service>
         <service id="Setono\SyliusCompletenessPlugin\Calculator\CompletenessCalculatorInterface"
-                 alias="setono_sylius_completeness.calculator"/>
+                 alias="Setono\SyliusCompletenessPlugin\Calculator\CompletenessCalculator"/>
 
-        <service id="setono_sylius_completeness.updater"
+        <service id="Setono\SyliusCompletenessPlugin\Updater\ProductCompletenessUpdater"
                  class="Setono\SyliusCompletenessPlugin\Updater\ProductCompletenessUpdater">
-            <argument type="service" id="setono_sylius_completeness.calculator"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Calculator\CompletenessCalculator"/>
             <argument type="service" id="setono_sylius_completeness.factory.product_completeness"/>
             <argument type="service" id="doctrine"/>
             <argument type="service" id="event_dispatcher"/>
         </service>
         <service id="Setono\SyliusCompletenessPlugin\Updater\ProductCompletenessUpdaterInterface"
-                 alias="setono_sylius_completeness.updater"/>
+                 alias="Setono\SyliusCompletenessPlugin\Updater\ProductCompletenessUpdater"/>
     </services>
 </container>

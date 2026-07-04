@@ -3,23 +3,23 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="setono_sylius_completeness.command.recalculate"
+        <service id="Setono\SyliusCompletenessPlugin\Command\RecalculateCommand"
                  class="Setono\SyliusCompletenessPlugin\Command\RecalculateCommand">
-            <argument type="service" id="setono_sylius_completeness.provider.product_ids"/>
-            <argument type="service" id="setono_sylius_completeness.provider.product"/>
-            <argument type="service" id="setono_sylius_completeness.updater"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Provider\ProductIdsProvider"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Provider\ProductProvider"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Updater\ProductCompletenessUpdater"/>
             <argument type="service" id="doctrine"/>
             <argument>%sylius.model.product.class%</argument>
             <tag name="console.command"/>
         </service>
 
-        <service id="setono_sylius_completeness.command.process"
+        <service id="Setono\SyliusCompletenessPlugin\Command\ProcessCommand"
                  class="Setono\SyliusCompletenessPlugin\Command\ProcessCommand">
             <argument type="service" id="setono_sylius_completeness.lock.factory"/>
-            <argument type="service" id="setono_sylius_completeness.provider.product_ids"/>
-            <argument type="service" id="setono_sylius_completeness.provider.product"/>
-            <argument type="service" id="setono_sylius_completeness.updater"/>
-            <argument type="service" id="setono_sylius_completeness.rubric_version_manager"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Provider\ProductIdsProvider"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Provider\ProductProvider"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Updater\ProductCompletenessUpdater"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Rubric\RubricVersionManager"/>
             <argument type="service" id="doctrine"/>
             <argument>%sylius.model.product.class%</argument>
             <argument>%setono_sylius_completeness.recalculation_lock_ttl%</argument>

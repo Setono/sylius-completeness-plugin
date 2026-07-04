@@ -3,7 +3,7 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="setono_sylius_completeness.controller.admin.bulk_recalculate"
+        <service id="Setono\SyliusCompletenessPlugin\Controller\Admin\BulkRecalculateAction"
                  class="Setono\SyliusCompletenessPlugin\Controller\Admin\BulkRecalculateAction"
                  public="true">
             <argument type="service" id="setono_sylius_completeness.command_bus"/>
@@ -11,23 +11,23 @@
             <argument type="service" id="router"/>
         </service>
 
-        <service id="setono_sylius_completeness.controller.admin.recalculate_product"
+        <service id="Setono\SyliusCompletenessPlugin\Controller\Admin\RecalculateProductAction"
                  class="Setono\SyliusCompletenessPlugin\Controller\Admin\RecalculateProductAction"
                  public="true">
-            <argument type="service" id="setono_sylius_completeness.provider.product"/>
-            <argument type="service" id="setono_sylius_completeness.updater"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Provider\ProductProvider"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Updater\ProductCompletenessUpdater"/>
             <argument type="service" id="security.csrf.token_manager"/>
             <argument type="service" id="router"/>
         </service>
 
-        <service id="setono_sylius_completeness.controller.admin.dashboard"
+        <service id="Setono\SyliusCompletenessPlugin\Controller\Admin\DashboardAction"
                  class="Setono\SyliusCompletenessPlugin\Controller\Admin\DashboardAction"
                  public="true">
-            <argument type="service" id="setono_sylius_completeness.provider.completeness_dashboard"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Provider\CompletenessDashboardProvider"/>
             <argument type="service" id="twig"/>
         </service>
 
-        <service id="setono_sylius_completeness.controller.admin.recalculate_all"
+        <service id="Setono\SyliusCompletenessPlugin\Controller\Admin\RecalculateAllAction"
                  class="Setono\SyliusCompletenessPlugin\Controller\Admin\RecalculateAllAction"
                  public="true">
             <argument type="service" id="setono_sylius_completeness.command_bus"/>
@@ -35,12 +35,12 @@
             <argument type="service" id="router"/>
         </service>
 
-        <service id="setono_sylius_completeness.controller.admin.preview"
+        <service id="Setono\SyliusCompletenessPlugin\Controller\Admin\PreviewAction"
                  class="Setono\SyliusCompletenessPlugin\Controller\Admin\PreviewAction"
                  public="true">
             <argument type="service" id="form.factory"/>
-            <argument type="service" id="setono_sylius_completeness.calculator"/>
-            <argument type="service" id="setono_sylius_completeness.preview.scratchpad_evaluator"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Calculator\CompletenessCalculator"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Preview\ScratchpadEvaluator"/>
             <argument type="service" id="sylius.repository.channel"/>
             <argument type="service" id="sylius.repository.locale"/>
             <argument type="service" id="twig"/>

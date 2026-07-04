@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Setono\SyliusCompletenessPlugin;
 
+use Setono\SyliusCompletenessPlugin\DependencyInjection\Compiler\RegisterAffectedProductsResolversPass;
 use Setono\SyliusCompletenessPlugin\DependencyInjection\Compiler\RegisterCheckersPass;
+use Setono\SyliusCompletenessPlugin\DependencyInjection\Compiler\RegisterExpressionFunctionProvidersPass;
+use Setono\SyliusCompletenessPlugin\DependencyInjection\Compiler\RegisterRollupStrategiesPass;
 use Sylius\Bundle\CoreBundle\Application\SyliusPluginTrait;
 use Sylius\Bundle\ResourceBundle\AbstractResourceBundle;
 use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
@@ -27,5 +30,8 @@ final class SetonoSyliusCompletenessPlugin extends AbstractResourceBundle
         parent::build($container);
 
         $container->addCompilerPass(new RegisterCheckersPass());
+        $container->addCompilerPass(new RegisterExpressionFunctionProvidersPass());
+        $container->addCompilerPass(new RegisterAffectedProductsResolversPass());
+        $container->addCompilerPass(new RegisterRollupStrategiesPass());
     }
 }

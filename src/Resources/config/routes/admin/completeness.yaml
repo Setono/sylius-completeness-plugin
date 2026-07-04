@@ -43,16 +43,16 @@ setono_sylius_completeness_admin_dashboard:
     path: /dashboard
     methods: [GET]
     defaults:
-        _controller: setono_sylius_completeness.controller.admin.dashboard
+        _controller: Setono\SyliusCompletenessPlugin\Controller\Admin\DashboardAction
 
 setono_sylius_completeness_admin_recalculate_all:
     path: /recalculate-all
     methods: [POST]
     defaults:
-        _controller: setono_sylius_completeness.controller.admin.recalculate_all
+        _controller: Setono\SyliusCompletenessPlugin\Controller\Admin\RecalculateAllAction
 
 setono_sylius_completeness_admin_preview:
     path: /preview
     methods: [GET]
     defaults:
-        _controller: setono_sylius_completeness.controller.admin.preview
+        _controller: Setono\SyliusCompletenessPlugin\Controller\Admin\PreviewAction

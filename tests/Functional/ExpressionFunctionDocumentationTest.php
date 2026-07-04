@@ -24,9 +24,9 @@ final class ExpressionFunctionDocumentationTest extends KernelTestCase
         self::bootKernel();
 
         /** @var ExpressionFunctionNameProviderInterface $nameProvider */
-        $nameProvider = self::getContainer()->get('setono_sylius_completeness.expression_function_name_provider');
+        $nameProvider = self::getContainer()->get(\Setono\SyliusCompletenessPlugin\Expression\ExpressionFunctionNameProvider::class);
         /** @var ExpressionFunctionDocumentationProviderInterface $documentationProvider */
-        $documentationProvider = self::getContainer()->get('setono_sylius_completeness.expression_function_documentation_provider');
+        $documentationProvider = self::getContainer()->get(\Setono\SyliusCompletenessPlugin\Expression\ExpressionFunctionDocumentationProvider::class);
 
         $names = $nameProvider->getNames();
         $documented = array_keys($documentationProvider->getDocumentation());

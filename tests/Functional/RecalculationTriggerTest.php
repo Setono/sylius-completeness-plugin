@@ -122,7 +122,7 @@ final class RecalculationTriggerTest extends KernelTestCase
     public function a_rule_change_bumps_the_rubric_version_without_dispatching(): void
     {
         /** @var RubricVersionManagerInterface $rubricVersionManager */
-        $rubricVersionManager = self::getContainer()->get('setono_sylius_completeness.rubric_version_manager');
+        $rubricVersionManager = self::getContainer()->get(\Setono\SyliusCompletenessPlugin\Rubric\RubricVersionManager::class);
         $versionBefore = $rubricVersionManager->getCurrentVersion();
 
         $rule = new CompletenessRule();

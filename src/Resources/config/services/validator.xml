@@ -3,15 +3,15 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="setono_sylius_completeness.validator.registered_checker_type"
+        <service id="Setono\SyliusCompletenessPlugin\Validator\Constraints\RegisteredCheckerTypeValidator"
                  class="Setono\SyliusCompletenessPlugin\Validator\Constraints\RegisteredCheckerTypeValidator">
             <argument type="service" id="setono_sylius_completeness.registry.checker"/>
             <tag name="validator.constraint_validator"/>
         </service>
 
-        <service id="setono_sylius_completeness.validator.valid_expression"
+        <service id="Setono\SyliusCompletenessPlugin\Validator\Constraints\ValidExpressionValidator"
                  class="Setono\SyliusCompletenessPlugin\Validator\Constraints\ValidExpressionValidator">
-            <argument type="service" id="setono_sylius_completeness.expression_validator"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Expression\ExpressionValidator"/>
             <tag name="validator.constraint_validator"/>
         </service>
     </services>

@@ -55,7 +55,7 @@ final class RegisterCheckersPassTest extends AbstractCompilerPassTestCase
 
         $builtIn = new Definition(HasImageChecker::class);
         $builtIn->addTag('setono_sylius_completeness.checker', ['type' => 'has_image', 'label' => 'Built in']);
-        $this->setDefinition('setono_sylius_completeness.checker.has_image', $builtIn);
+        $this->setDefinition(HasImageChecker::class, $builtIn);
 
         $override = new Definition(HasImageChecker::class);
         $override->addTag('setono_sylius_completeness.checker', ['type' => 'has_image', 'label' => 'Host override']);

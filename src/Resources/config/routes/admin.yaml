@@ -9,7 +9,7 @@ setono_sylius_completeness_admin_product_bulk_recalculate:
     path: /products/completeness/bulk-recalculate
     methods: [POST]
     defaults:
-        _controller: setono_sylius_completeness.controller.admin.bulk_recalculate
+        _controller: Setono\SyliusCompletenessPlugin\Controller\Admin\BulkRecalculateAction
 
 setono_sylius_completeness_admin_product_recalculate:
     path: /products/{id}/completeness/recalculate
@@ -17,4 +17,4 @@ setono_sylius_completeness_admin_product_recalculate:
     requirements:
         id: \d+
     defaults:
-        _controller: setono_sylius_completeness.controller.admin.recalculate_product
+        _controller: Setono\SyliusCompletenessPlugin\Controller\Admin\RecalculateProductAction

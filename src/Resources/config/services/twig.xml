@@ -3,19 +3,19 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="setono_sylius_completeness.twig.display_extension"
+        <service id="Setono\SyliusCompletenessPlugin\Twig\CompletenessDisplayExtension"
                  class="Setono\SyliusCompletenessPlugin\Twig\CompletenessDisplayExtension">
             <tag name="twig.extension"/>
         </service>
 
-        <service id="setono_sylius_completeness.twig.display_runtime"
+        <service id="Setono\SyliusCompletenessPlugin\Twig\CompletenessDisplayRuntime"
                  class="Setono\SyliusCompletenessPlugin\Twig\CompletenessDisplayRuntime">
             <argument type="service" id="setono_sylius_completeness.repository.completeness_rule"/>
-            <argument type="service" id="setono_sylius_completeness.rule_weight_resolver"/>
-            <argument type="service" id="setono_sylius_completeness.rubric_version_manager"/>
-            <argument type="service" id="setono_sylius_completeness.factory.completeness_panel"/>
-            <argument type="service" id="setono_sylius_completeness.expression_function_name_provider"/>
-            <argument type="service" id="setono_sylius_completeness.expression_function_documentation_provider"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Calculator\RuleWeightResolver"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Rubric\RubricVersionManager"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\ViewModel\CompletenessPanelFactory"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Expression\ExpressionFunctionNameProvider"/>
+            <argument type="service" id="Setono\SyliusCompletenessPlugin\Expression\ExpressionFunctionDocumentationProvider"/>
             <argument>%setono_sylius_completeness.checkers%</argument>
             <argument>%setono_sylius_completeness.default_ready_threshold%</argument>
             <argument>%setono_sylius_completeness.amber_band%</argument>
