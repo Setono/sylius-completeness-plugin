@@ -79,5 +79,11 @@ final class PreviewControllerTest extends WebTestCase
 
         self::assertResponseIsSuccessful();
         self::assertGreaterThan(0, $crawler->filter('form[name="setono_sylius_completeness_preview"]')->count());
+
+        // the product field must render its autocomplete widget (not just a bare hidden input): the
+        // form theme has to be applied and the search endpoint passed, or there is no product picker
+        $autocomplete = $crawler->filter('.sylius-autocomplete');
+        self::assertGreaterThan(0, $autocomplete->count(), 'the product autocomplete widget is missing');
+        self::assertNotEmpty($autocomplete->attr('data-url'), 'the product autocomplete has no search endpoint');
     }
 }
