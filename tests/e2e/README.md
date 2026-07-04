@@ -2,7 +2,7 @@
 
 Browser specs for the plugin's admin UI (dashboard, rule form, context form, preview autocomplete,
 grid filters). They run against a fully set-up test application and are executed in CI by the
-[`e2e` workflow](../../.github/workflows/e2e.yaml).
+[`e2e` job](../../.github/workflows/build.yaml) of the `build` workflow.
 
 ## Run locally
 
