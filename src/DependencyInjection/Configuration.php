@@ -12,9 +12,12 @@ use Setono\SyliusCompletenessPlugin\Model\CompletenessRule;
 use Setono\SyliusCompletenessPlugin\Model\CompletenessRuleInterface;
 use Setono\SyliusCompletenessPlugin\Model\ProductCompleteness;
 use Setono\SyliusCompletenessPlugin\Model\ProductCompletenessInterface;
+use Setono\SyliusCompletenessPlugin\Model\RubricVersion;
+use Setono\SyliusCompletenessPlugin\Model\RubricVersionInterface;
 use Setono\SyliusCompletenessPlugin\Repository\CompletenessContextRepository;
 use Setono\SyliusCompletenessPlugin\Repository\CompletenessRuleRepository;
 use Setono\SyliusCompletenessPlugin\Repository\ProductCompletenessRepository;
+use Setono\SyliusCompletenessPlugin\Repository\RubricVersionRepository;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
 use Sylius\Bundle\ResourceBundle\Form\Type\DefaultResourceType;
 use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
@@ -144,6 +147,23 @@ final class Configuration implements ConfigurationInterface
                                         ->scalarNode('repository')->defaultValue(CompletenessContextRepository::class)->cannotBeEmpty()->end()
                                         ->scalarNode('factory')->defaultValue(Factory::class)->end()
                                         ->scalarNode('form')->defaultValue(CompletenessContextType::class)->cannotBeEmpty()->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('rubric_version')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->variableNode('options')->end()
+                                ->arrayNode('classes')
+                                    ->addDefaultsIfNotSet()
+                                    ->children()
+                                        ->scalarNode('model')->defaultValue(RubricVersion::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('interface')->defaultValue(RubricVersionInterface::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('controller')->defaultValue(ResourceController::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('repository')->defaultValue(RubricVersionRepository::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('factory')->defaultValue(Factory::class)->end()
+                                        ->scalarNode('form')->defaultValue(DefaultResourceType::class)->cannotBeEmpty()->end()
                                     ->end()
                                 ->end()
                             ->end()

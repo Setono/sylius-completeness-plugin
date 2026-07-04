@@ -12,7 +12,7 @@ namespace Setono\SyliusCompletenessPlugin\Model;
  * This entity only exists so that schema tooling creates the table. It is read and
  * written through \Setono\SyliusCompletenessPlugin\Rubric\RubricVersionManagerInterface.
  */
-class RubricVersion
+class RubricVersion implements RubricVersionInterface
 {
     public function __construct(protected int $id = 1, protected int $version = 0)
     {
