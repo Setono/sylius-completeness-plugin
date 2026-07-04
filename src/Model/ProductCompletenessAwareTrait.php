@@ -9,7 +9,6 @@ use Doctrine\Common\Collections\Collection;
 
 /**
  * @phpstan-require-implements ProductCompletenessAwareInterface
- * @phpstan-require-implements \Sylius\Component\Core\Model\ProductInterface
  */
 trait ProductCompletenessAwareTrait
 {

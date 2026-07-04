@@ -5,8 +5,13 @@ declare(strict_types=1);
 namespace Setono\SyliusCompletenessPlugin\Model;
 
 use Doctrine\Common\Collections\Collection;
+use Sylius\Component\Core\Model\ProductInterface;
 
-interface ProductCompletenessAwareInterface
+/**
+ * Applied to the Sylius product resource, so it extends ProductInterface: any completeness aware
+ * product is a product, which lets us typehint this single interface wherever we need both
+ */
+interface ProductCompletenessAwareInterface extends ProductInterface
 {
     /**
      * Returns the global completeness ratio (0-100) or null if the product has not been
