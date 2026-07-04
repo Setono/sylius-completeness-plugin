@@ -6,39 +6,33 @@
         <service id="setono_sylius_completeness.form_registry.checker_configuration"
                  class="Sylius\Bundle\ResourceBundle\Form\Registry\FormTypeRegistry"/>
 
-        <service id="Setono\SyliusCompletenessPlugin\Form\Type\CheckerChoiceType"
-                 class="Setono\SyliusCompletenessPlugin\Form\Type\CheckerChoiceType">
+        <service id="Setono\SyliusCompletenessPlugin\Form\Type\CheckerChoiceType">
             <argument>%setono_sylius_completeness.checkers%</argument>
             <argument>%setono_sylius_completeness.checker_groups%</argument>
             <tag name="form.type"/>
         </service>
 
-        <service id="Setono\SyliusCompletenessPlugin\Form\Type\WeightTierChoiceType"
-                 class="Setono\SyliusCompletenessPlugin\Form\Type\WeightTierChoiceType">
+        <service id="Setono\SyliusCompletenessPlugin\Form\Type\WeightTierChoiceType">
             <argument>%setono_sylius_completeness.weight_tiers%</argument>
             <tag name="form.type"/>
         </service>
 
-        <service id="Setono\SyliusCompletenessPlugin\Form\Type\ChannelCodeChoiceType"
-                 class="Setono\SyliusCompletenessPlugin\Form\Type\ChannelCodeChoiceType">
+        <service id="Setono\SyliusCompletenessPlugin\Form\Type\ChannelCodeChoiceType">
             <argument type="service" id="sylius.repository.channel"/>
             <tag name="form.type"/>
         </service>
 
-        <service id="Setono\SyliusCompletenessPlugin\Form\Type\LocaleCodeChoiceType"
-                 class="Setono\SyliusCompletenessPlugin\Form\Type\LocaleCodeChoiceType">
+        <service id="Setono\SyliusCompletenessPlugin\Form\Type\LocaleCodeChoiceType">
             <argument type="service" id="sylius.repository.locale"/>
             <tag name="form.type"/>
         </service>
 
-        <service id="Setono\SyliusCompletenessPlugin\Form\Type\TaxonCodesAutocompleteChoiceType"
-                 class="Setono\SyliusCompletenessPlugin\Form\Type\TaxonCodesAutocompleteChoiceType">
+        <service id="Setono\SyliusCompletenessPlugin\Form\Type\TaxonCodesAutocompleteChoiceType">
             <argument type="service" id="sylius.form.type.data_transformer.taxons_to_codes"/>
             <tag name="form.type"/>
         </service>
 
-        <service id="Setono\SyliusCompletenessPlugin\Form\Type\CompletenessRuleType"
-                 class="Setono\SyliusCompletenessPlugin\Form\Type\CompletenessRuleType">
+        <service id="Setono\SyliusCompletenessPlugin\Form\Type\CompletenessRuleType">
             <argument>%setono_sylius_completeness.model.completeness_rule.class%</argument>
             <argument type="collection"/>
             <argument type="service" id="setono_sylius_completeness.form_registry.checker_configuration"/>
@@ -47,40 +41,34 @@
             <tag name="form.type"/>
         </service>
 
-        <service id="Setono\SyliusCompletenessPlugin\Form\Type\CompletenessContextType"
-                 class="Setono\SyliusCompletenessPlugin\Form\Type\CompletenessContextType">
+        <service id="Setono\SyliusCompletenessPlugin\Form\Type\CompletenessContextType">
             <argument>%setono_sylius_completeness.model.context.class%</argument>
             <argument type="collection"/>
             <argument>%setono_sylius_completeness.default_ready_threshold%</argument>
             <tag name="form.type"/>
         </service>
 
-        <service id="Setono\SyliusCompletenessPlugin\Form\Type\CheckerConfiguration\HasMinimumImagesConfigurationType"
-                 class="Setono\SyliusCompletenessPlugin\Form\Type\CheckerConfiguration\HasMinimumImagesConfigurationType">
+        <service id="Setono\SyliusCompletenessPlugin\Form\Type\CheckerConfiguration\HasMinimumImagesConfigurationType">
             <tag name="form.type"/>
             <tag name="setono_sylius_completeness.checker_configuration_form_type" type="has_minimum_images"/>
         </service>
 
-        <service id="Setono\SyliusCompletenessPlugin\Form\Type\CheckerConfiguration\HasAttributeConfigurationType"
-                 class="Setono\SyliusCompletenessPlugin\Form\Type\CheckerConfiguration\HasAttributeConfigurationType">
+        <service id="Setono\SyliusCompletenessPlugin\Form\Type\CheckerConfiguration\HasAttributeConfigurationType">
             <argument type="service" id="sylius.repository.product_attribute"/>
             <tag name="form.type"/>
             <tag name="setono_sylius_completeness.checker_configuration_form_type" type="has_attribute"/>
         </service>
 
-        <service id="Setono\SyliusCompletenessPlugin\Form\Type\CheckerConfiguration\ExpressionConfigurationType"
-                 class="Setono\SyliusCompletenessPlugin\Form\Type\CheckerConfiguration\ExpressionConfigurationType">
+        <service id="Setono\SyliusCompletenessPlugin\Form\Type\CheckerConfiguration\ExpressionConfigurationType">
             <tag name="form.type"/>
             <tag name="setono_sylius_completeness.checker_configuration_form_type" type="expression"/>
         </service>
 
-        <service id="Setono\SyliusCompletenessPlugin\Form\Type\CheckerConfiguration\DefaultConfigurationType"
-                 class="Setono\SyliusCompletenessPlugin\Form\Type\CheckerConfiguration\DefaultConfigurationType">
+        <service id="Setono\SyliusCompletenessPlugin\Form\Type\CheckerConfiguration\DefaultConfigurationType">
             <tag name="form.type"/>
         </service>
 
-        <service id="Setono\SyliusCompletenessPlugin\Form\Type\PreviewType"
-                 class="Setono\SyliusCompletenessPlugin\Form\Type\PreviewType">
+        <service id="Setono\SyliusCompletenessPlugin\Form\Type\PreviewType">
             <tag name="form.type"/>
         </service>
     </services>

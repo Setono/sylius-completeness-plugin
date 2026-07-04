@@ -5,29 +5,25 @@
     <services>
         <service id="setono_sylius_completeness.clock" class="Symfony\Component\Clock\Clock"/>
 
-        <service id="Setono\SyliusCompletenessPlugin\Calculator\RuleApplicabilityChecker"
-                 class="Setono\SyliusCompletenessPlugin\Calculator\RuleApplicabilityChecker">
+        <service id="Setono\SyliusCompletenessPlugin\Calculator\RuleApplicabilityChecker">
             <argument type="service" id="Setono\SyliusCompletenessPlugin\Expression\ExpressionEvaluator"/>
         </service>
         <service id="Setono\SyliusCompletenessPlugin\Calculator\RuleApplicabilityCheckerInterface"
                  alias="Setono\SyliusCompletenessPlugin\Calculator\RuleApplicabilityChecker"/>
 
-        <service id="Setono\SyliusCompletenessPlugin\Calculator\RuleWeightResolver"
-                 class="Setono\SyliusCompletenessPlugin\Calculator\RuleWeightResolver">
+        <service id="Setono\SyliusCompletenessPlugin\Calculator\RuleWeightResolver">
             <argument>%setono_sylius_completeness.weight_tiers%</argument>
         </service>
         <service id="Setono\SyliusCompletenessPlugin\Calculator\RuleWeightResolverInterface"
                  alias="Setono\SyliusCompletenessPlugin\Calculator\RuleWeightResolver"/>
 
-        <service id="Setono\SyliusCompletenessPlugin\Calculator\ContextInitializer"
-                 class="Setono\SyliusCompletenessPlugin\Calculator\ContextInitializer">
+        <service id="Setono\SyliusCompletenessPlugin\Calculator\ContextInitializer">
             <argument type="service" id="Setono\SyliusCompletenessPlugin\Context\CalculationContext"/>
         </service>
         <service id="Setono\SyliusCompletenessPlugin\Calculator\ContextInitializerInterface"
                  alias="Setono\SyliusCompletenessPlugin\Calculator\ContextInitializer"/>
 
-        <service id="Setono\SyliusCompletenessPlugin\Calculator\CompletenessCalculator"
-                 class="Setono\SyliusCompletenessPlugin\Calculator\CompletenessCalculator">
+        <service id="Setono\SyliusCompletenessPlugin\Calculator\CompletenessCalculator">
             <argument type="service" id="setono_sylius_completeness.repository.completeness_rule"/>
             <argument type="service" id="setono_sylius_completeness.registry.checker"/>
             <argument type="service" id="Setono\SyliusCompletenessPlugin\Calculator\RuleApplicabilityChecker"/>
@@ -41,8 +37,7 @@
         <service id="Setono\SyliusCompletenessPlugin\Calculator\CompletenessCalculatorInterface"
                  alias="Setono\SyliusCompletenessPlugin\Calculator\CompletenessCalculator"/>
 
-        <service id="Setono\SyliusCompletenessPlugin\Updater\ProductCompletenessUpdater"
-                 class="Setono\SyliusCompletenessPlugin\Updater\ProductCompletenessUpdater">
+        <service id="Setono\SyliusCompletenessPlugin\Updater\ProductCompletenessUpdater">
             <argument type="service" id="Setono\SyliusCompletenessPlugin\Calculator\CompletenessCalculator"/>
             <argument type="service" id="setono_sylius_completeness.factory.product_completeness"/>
             <argument type="service" id="doctrine"/>

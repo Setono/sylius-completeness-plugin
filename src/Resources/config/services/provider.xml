@@ -3,47 +3,41 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="Setono\SyliusCompletenessPlugin\Provider\ProductIdsProvider"
-                 class="Setono\SyliusCompletenessPlugin\Provider\ProductIdsProvider">
+        <service id="Setono\SyliusCompletenessPlugin\Provider\ProductIdsProvider">
             <argument type="service" id="doctrine"/>
             <argument>%sylius.model.product.class%</argument>
         </service>
         <service id="Setono\SyliusCompletenessPlugin\Provider\ProductIdsProviderInterface"
                  alias="Setono\SyliusCompletenessPlugin\Provider\ProductIdsProvider"/>
 
-        <service id="Setono\SyliusCompletenessPlugin\Provider\ProductProvider"
-                 class="Setono\SyliusCompletenessPlugin\Provider\ProductProvider">
+        <service id="Setono\SyliusCompletenessPlugin\Provider\ProductProvider">
             <argument type="service" id="doctrine"/>
             <argument>%sylius.model.product.class%</argument>
         </service>
         <service id="Setono\SyliusCompletenessPlugin\Provider\ProductProviderInterface"
                  alias="Setono\SyliusCompletenessPlugin\Provider\ProductProvider"/>
 
-        <service id="Setono\SyliusCompletenessPlugin\Rubric\RubricVersionManager"
-                 class="Setono\SyliusCompletenessPlugin\Rubric\RubricVersionManager">
+        <service id="Setono\SyliusCompletenessPlugin\Rubric\RubricVersionManager">
             <argument type="service" id="doctrine"/>
         </service>
         <service id="Setono\SyliusCompletenessPlugin\Rubric\RubricVersionManagerInterface"
                  alias="Setono\SyliusCompletenessPlugin\Rubric\RubricVersionManager"/>
 
-        <service id="Setono\SyliusCompletenessPlugin\Provider\CompletenessContextProvider"
-                 class="Setono\SyliusCompletenessPlugin\Provider\CompletenessContextProvider">
+        <service id="Setono\SyliusCompletenessPlugin\Provider\CompletenessContextProvider">
             <argument type="service" id="setono_sylius_completeness.repository.context"/>
             <tag name="kernel.reset" method="reset"/>
         </service>
         <service id="Setono\SyliusCompletenessPlugin\Provider\CompletenessContextProviderInterface"
                  alias="Setono\SyliusCompletenessPlugin\Provider\CompletenessContextProvider"/>
 
-        <service id="Setono\SyliusCompletenessPlugin\Resolver\ThresholdResolver"
-                 class="Setono\SyliusCompletenessPlugin\Resolver\ThresholdResolver">
+        <service id="Setono\SyliusCompletenessPlugin\Resolver\ThresholdResolver">
             <argument type="service" id="Setono\SyliusCompletenessPlugin\Provider\CompletenessContextProvider"/>
             <argument>%setono_sylius_completeness.default_ready_threshold%</argument>
         </service>
         <service id="Setono\SyliusCompletenessPlugin\Resolver\ThresholdResolverInterface"
                  alias="Setono\SyliusCompletenessPlugin\Resolver\ThresholdResolver"/>
 
-        <service id="Setono\SyliusCompletenessPlugin\Provider\CompletenessDashboardProvider"
-                 class="Setono\SyliusCompletenessPlugin\Provider\CompletenessDashboardProvider">
+        <service id="Setono\SyliusCompletenessPlugin\Provider\CompletenessDashboardProvider">
             <argument type="service" id="doctrine.orm.entity_manager"/>
             <argument type="service" id="Setono\SyliusCompletenessPlugin\Rubric\RubricVersionManager"/>
             <argument>%sylius.model.product.class%</argument>

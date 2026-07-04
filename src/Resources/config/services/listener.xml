@@ -4,8 +4,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <!-- shared by both listeners: given a changed entity, which product(s) does it affect -->
-        <service id="Setono\SyliusCompletenessPlugin\Doctrine\Resolver\AffectedProductsProvider"
-                 class="Setono\SyliusCompletenessPlugin\Doctrine\Resolver\AffectedProductsProvider">
+        <service id="Setono\SyliusCompletenessPlugin\Doctrine\Resolver\AffectedProductsProvider">
             <!-- the tagged setono_sylius_completeness.affected_products_resolver services are injected
                  as argument 0 by RegisterAffectedProductsResolversPass -->
             <argument type="collection"/>
@@ -15,8 +14,7 @@
                  alias="Setono\SyliusCompletenessPlugin\Doctrine\Resolver\AffectedProductsProvider"/>
 
         <!-- the batch lane: mark affected products dirty during flush (no dispatch, no second flush) -->
-        <service id="Setono\SyliusCompletenessPlugin\EventListener\Doctrine\RecalculateAffectedProductsListener"
-                 class="Setono\SyliusCompletenessPlugin\EventListener\Doctrine\RecalculateAffectedProductsListener">
+        <service id="Setono\SyliusCompletenessPlugin\EventListener\Doctrine\RecalculateAffectedProductsListener">
             <argument type="service" id="Setono\SyliusCompletenessPlugin\Doctrine\Resolver\AffectedProductsProvider"/>
             <argument type="service" id="setono_sylius_completeness.clock"/>
             <argument>%setono_sylius_completeness.recalculate_on_doctrine_flush%</argument>
@@ -24,8 +22,7 @@
         </service>
 
         <!-- the immediate lane: recalculate synchronously when a product/variant is saved in the admin -->
-        <service id="Setono\SyliusCompletenessPlugin\EventListener\ProductResourceListener"
-                 class="Setono\SyliusCompletenessPlugin\EventListener\ProductResourceListener">
+        <service id="Setono\SyliusCompletenessPlugin\EventListener\ProductResourceListener">
             <argument type="service" id="Setono\SyliusCompletenessPlugin\Doctrine\Resolver\AffectedProductsProvider"/>
             <argument type="service" id="Setono\SyliusCompletenessPlugin\Updater\ProductCompletenessUpdater"/>
             <tag name="kernel.event_listener" event="sylius.product.post_create" method="recalculate"/>
@@ -34,8 +31,7 @@
             <tag name="kernel.event_listener" event="sylius.product_variant.post_update" method="recalculate"/>
         </service>
 
-        <service id="Setono\SyliusCompletenessPlugin\EventListener\Doctrine\RubricChangeListener"
-                 class="Setono\SyliusCompletenessPlugin\EventListener\Doctrine\RubricChangeListener">
+        <service id="Setono\SyliusCompletenessPlugin\EventListener\Doctrine\RubricChangeListener">
             <argument type="service" id="setono_sylius_completeness.command_bus"/>
             <argument type="service" id="Setono\SyliusCompletenessPlugin\Rubric\RubricVersionManager"/>
             <tag name="doctrine.event_listener" event="onFlush" lazy="true"/>

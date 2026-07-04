@@ -3,15 +3,13 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="Setono\SyliusCompletenessPlugin\Message\Handler\RecalculateProductCompletenessHandler"
-                 class="Setono\SyliusCompletenessPlugin\Message\Handler\RecalculateProductCompletenessHandler">
+        <service id="Setono\SyliusCompletenessPlugin\Message\Handler\RecalculateProductCompletenessHandler">
             <argument type="service" id="Setono\SyliusCompletenessPlugin\Provider\ProductProvider"/>
             <argument type="service" id="Setono\SyliusCompletenessPlugin\Updater\ProductCompletenessUpdater"/>
             <tag name="messenger.message_handler" bus="setono_sylius_completeness.command_bus"/>
         </service>
 
-        <service id="Setono\SyliusCompletenessPlugin\Message\Handler\RecalculateAllProductsCompletenessHandler"
-                 class="Setono\SyliusCompletenessPlugin\Message\Handler\RecalculateAllProductsCompletenessHandler">
+        <service id="Setono\SyliusCompletenessPlugin\Message\Handler\RecalculateAllProductsCompletenessHandler">
             <argument type="service" id="Setono\SyliusCompletenessPlugin\Provider\ProductIdsProvider"/>
             <argument type="service" id="Setono\SyliusCompletenessPlugin\Provider\ProductProvider"/>
             <argument type="service" id="Setono\SyliusCompletenessPlugin\Updater\ProductCompletenessUpdater"/>
@@ -20,8 +18,7 @@
             <tag name="messenger.message_handler" bus="setono_sylius_completeness.command_bus"/>
         </service>
 
-        <service id="Setono\SyliusCompletenessPlugin\Message\Handler\RefreshCompletenessRollupsHandler"
-                 class="Setono\SyliusCompletenessPlugin\Message\Handler\RefreshCompletenessRollupsHandler">
+        <service id="Setono\SyliusCompletenessPlugin\Message\Handler\RefreshCompletenessRollupsHandler">
             <argument type="service" id="Setono\SyliusCompletenessPlugin\Provider\ProductIdsProvider"/>
             <argument type="service" id="Setono\SyliusCompletenessPlugin\Provider\ProductProvider"/>
             <argument type="service" id="setono_sylius_completeness.repository.product_completeness"/>

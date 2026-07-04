@@ -3,24 +3,21 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="Setono\SyliusCompletenessPlugin\Rollup\WeightedAverageRollupStrategy"
-                 class="Setono\SyliusCompletenessPlugin\Rollup\WeightedAverageRollupStrategy">
+        <service id="Setono\SyliusCompletenessPlugin\Rollup\WeightedAverageRollupStrategy">
             <tag name="setono_sylius_completeness.rollup_strategy"/>
         </service>
 
-        <service id="Setono\SyliusCompletenessPlugin\Rollup\MinimumRollupStrategy"
-                 class="Setono\SyliusCompletenessPlugin\Rollup\MinimumRollupStrategy">
+        <service id="Setono\SyliusCompletenessPlugin\Rollup\MinimumRollupStrategy">
             <tag name="setono_sylius_completeness.rollup_strategy"/>
         </service>
 
-        <service id="Setono\SyliusCompletenessPlugin\Rollup\DefaultChannelRollupStrategy"
-                 class="Setono\SyliusCompletenessPlugin\Rollup\DefaultChannelRollupStrategy">
+        <service id="Setono\SyliusCompletenessPlugin\Rollup\DefaultChannelRollupStrategy">
             <argument type="service" id="Setono\SyliusCompletenessPlugin\Rollup\WeightedAverageRollupStrategy"/>
             <argument>%setono_sylius_completeness.default_channel_code%</argument>
             <tag name="setono_sylius_completeness.rollup_strategy"/>
         </service>
 
-        <service id="Setono\SyliusCompletenessPlugin\Rollup\Rollup" class="Setono\SyliusCompletenessPlugin\Rollup\Rollup">
+        <service id="Setono\SyliusCompletenessPlugin\Rollup\Rollup">
             <!-- the name => strategy locator is injected as argument 0 by RegisterRollupStrategiesPass -->
             <argument type="collection"/>
             <argument>%setono_sylius_completeness.rollup_strategy%</argument>

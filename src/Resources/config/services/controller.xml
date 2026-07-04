@@ -4,7 +4,6 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="Setono\SyliusCompletenessPlugin\Controller\Admin\BulkRecalculateAction"
-                 class="Setono\SyliusCompletenessPlugin\Controller\Admin\BulkRecalculateAction"
                  public="true">
             <argument type="service" id="setono_sylius_completeness.command_bus"/>
             <argument type="service" id="security.csrf.token_manager"/>
@@ -12,7 +11,6 @@
         </service>
 
         <service id="Setono\SyliusCompletenessPlugin\Controller\Admin\RecalculateProductAction"
-                 class="Setono\SyliusCompletenessPlugin\Controller\Admin\RecalculateProductAction"
                  public="true">
             <argument type="service" id="Setono\SyliusCompletenessPlugin\Provider\ProductProvider"/>
             <argument type="service" id="Setono\SyliusCompletenessPlugin\Updater\ProductCompletenessUpdater"/>
@@ -21,14 +19,12 @@
         </service>
 
         <service id="Setono\SyliusCompletenessPlugin\Controller\Admin\DashboardAction"
-                 class="Setono\SyliusCompletenessPlugin\Controller\Admin\DashboardAction"
                  public="true">
             <argument type="service" id="Setono\SyliusCompletenessPlugin\Provider\CompletenessDashboardProvider"/>
             <argument type="service" id="twig"/>
         </service>
 
         <service id="Setono\SyliusCompletenessPlugin\Controller\Admin\RecalculateAllAction"
-                 class="Setono\SyliusCompletenessPlugin\Controller\Admin\RecalculateAllAction"
                  public="true">
             <argument type="service" id="setono_sylius_completeness.command_bus"/>
             <argument type="service" id="security.csrf.token_manager"/>
@@ -36,7 +32,6 @@
         </service>
 
         <service id="Setono\SyliusCompletenessPlugin\Controller\Admin\PreviewAction"
-                 class="Setono\SyliusCompletenessPlugin\Controller\Admin\PreviewAction"
                  public="true">
             <argument type="service" id="form.factory"/>
             <argument type="service" id="Setono\SyliusCompletenessPlugin\Calculator\CompletenessCalculator"/>
