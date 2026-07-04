@@ -2,3 +2,14 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en_US
+
+services:
+    Setono\SyliusCompletenessPlugin\Tests\Application\Command\GenerateProductsCommand:
+        arguments:
+            - '@sylius.factory.product'
+            - '@sylius.factory.channel_pricing'
+            - '@sylius.factory.product_image'
+            - '@sylius.repository.channel'
+            - '@sylius.repository.taxon'
+            - '@doctrine.orm.entity_manager'
+        tags: [ 'console.command' ]
