@@ -19,10 +19,14 @@ final class ChannelFunctionsProvider extends FunctionProvider
         return [
             $this->createFunction(
                 'is_enabled',
+                'is_enabled(product): bool',
+                'True when the product is enabled.',
                 fn (array $variables, mixed $product): bool => $this->assertProduct($product, 'is_enabled')->isEnabled(),
             ),
             $this->createFunction(
                 'is_in_channel',
+                'is_in_channel(product[, channelCode]): bool',
+                'True when the product is assigned to the channel.',
                 function (array $variables, mixed $product, mixed $channelCode = null): bool {
                     $product = $this->assertProduct($product, 'is_in_channel');
 
@@ -31,10 +35,14 @@ final class ChannelFunctionsProvider extends FunctionProvider
             ),
             $this->createFunction(
                 'channel_count',
+                'channel_count(product): int',
+                'The number of channels the product is assigned to.',
                 fn (array $variables, mixed $product): int => $this->assertProduct($product, 'channel_count')->getChannels()->count(),
             ),
             $this->createFunction(
                 'has_price',
+                'has_price(product[, channelCode]): bool',
+                'True when at least one enabled variant is priced in the channel.',
                 function (array $variables, mixed $product, mixed $channelCode = null): bool {
                     $product = $this->assertProduct($product, 'has_price');
 
@@ -43,6 +51,8 @@ final class ChannelFunctionsProvider extends FunctionProvider
             ),
             $this->createFunction(
                 'price',
+                'price(product[, channelCode]): int',
+                'The lowest enabled-variant price in the channel, in minor units (0 when the product is not priced).',
                 function (array $variables, mixed $product, mixed $channelCode = null): int {
                     $product = $this->assertProduct($product, 'price');
 

@@ -17,6 +17,8 @@ final class TranslationFunctionsProvider extends FunctionProvider
         return [
             $this->createFunction(
                 'has_translation',
+                'has_translation(product[, locale]): bool',
+                'True when a real translation row exists for the locale (never falls back to the default locale).',
                 function (array $variables, mixed $product, mixed $locale = null): bool {
                     $product = $this->assertProduct($product, 'has_translation');
                     $localeCode = $this->toNullableString($locale) ?? $this->calculationContext->get()->getLocaleCode();

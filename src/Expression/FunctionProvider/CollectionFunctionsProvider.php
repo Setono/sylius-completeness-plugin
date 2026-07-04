@@ -13,10 +13,14 @@ final class CollectionFunctionsProvider extends FunctionProvider
         return [
             $this->createFunction(
                 'count',
+                'count(list): int',
+                'The number of items in a list.',
                 static fn (array $variables, mixed $value): int => self::count($value),
             ),
             $this->createFunction(
                 'is_empty',
+                'is_empty(list): bool',
+                'True when the list has no items.',
                 static function (array $variables, mixed $value): bool {
                     if (is_string($value)) {
                         return Text::isBlank($value);
@@ -27,14 +31,20 @@ final class CollectionFunctionsProvider extends FunctionProvider
             ),
             $this->createFunction(
                 'min',
+                'min(a, b): number',
+                'The smaller of the two numbers.',
                 static fn (array $variables, mixed $a, mixed $b): float|int => min(self::number($a, 'min'), self::number($b, 'min')),
             ),
             $this->createFunction(
                 'max',
+                'max(a, b): number',
+                'The larger of the two numbers.',
                 static fn (array $variables, mixed $a, mixed $b): float|int => max(self::number($a, 'max'), self::number($b, 'max')),
             ),
             $this->createFunction(
                 'between',
+                'between(value, low, high): bool',
+                'True when the value is between low and high (inclusive).',
                 static function (array $variables, mixed $value, mixed $low, mixed $high): bool {
                     $value = self::number($value, 'between');
 
