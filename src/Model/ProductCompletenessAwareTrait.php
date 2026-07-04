@@ -17,6 +17,8 @@ trait ProductCompletenessAwareTrait
 
     protected ?int $completenessRubricVersion = null;
 
+    protected ?\DateTimeImmutable $completenessDirtyAt = null;
+
     /** @var Collection<array-key, ProductCompletenessInterface>|null */
     protected ?Collection $completenesses = null;
 
@@ -38,6 +40,16 @@ trait ProductCompletenessAwareTrait
     public function setCompletenessRubricVersion(?int $completenessRubricVersion): void
     {
         $this->completenessRubricVersion = $completenessRubricVersion;
+    }
+
+    public function getCompletenessDirtyAt(): ?\DateTimeImmutable
+    {
+        return $this->completenessDirtyAt;
+    }
+
+    public function setCompletenessDirtyAt(?\DateTimeImmutable $completenessDirtyAt): void
+    {
+        $this->completenessDirtyAt = $completenessDirtyAt;
     }
 
     /**

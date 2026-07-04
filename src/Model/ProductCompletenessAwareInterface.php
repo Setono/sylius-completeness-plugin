@@ -24,6 +24,14 @@ interface ProductCompletenessAwareInterface
     public function setCompletenessRubricVersion(?int $completenessRubricVersion): void;
 
     /**
+     * When set, this product's completeness is out of date (something that affects it changed) and
+     * it is queued for the next background recalculation run. Cleared once it has been recalculated
+     */
+    public function getCompletenessDirtyAt(): ?\DateTimeImmutable;
+
+    public function setCompletenessDirtyAt(?\DateTimeImmutable $completenessDirtyAt): void;
+
+    /**
      * @return Collection<array-key, ProductCompletenessInterface>
      */
     public function getCompletenesses(): Collection;

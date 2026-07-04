@@ -27,7 +27,7 @@ final class SetonoSyliusCompletenessExtension extends AbstractResourceExtension 
          *     weight_tiers: array<string, float>,
          *     enable_custom_weight: bool,
          *     recalculate_on_doctrine_flush: bool,
-         *     bulk_threshold: int,
+         *     recalculation_lock_ttl: int,
          *     resources: array<string, mixed>,
          * } $config
          */
@@ -41,7 +41,7 @@ final class SetonoSyliusCompletenessExtension extends AbstractResourceExtension 
         $container->setParameter('setono_sylius_completeness.weight_tiers', $config['weight_tiers']);
         $container->setParameter('setono_sylius_completeness.enable_custom_weight', $config['enable_custom_weight']);
         $container->setParameter('setono_sylius_completeness.recalculate_on_doctrine_flush', $config['recalculate_on_doctrine_flush']);
-        $container->setParameter('setono_sylius_completeness.bulk_threshold', $config['bulk_threshold']);
+        $container->setParameter('setono_sylius_completeness.recalculation_lock_ttl', $config['recalculation_lock_ttl']);
 
         $loader->load('services.xml');
 

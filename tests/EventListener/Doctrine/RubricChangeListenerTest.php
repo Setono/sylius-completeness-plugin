@@ -14,7 +14,6 @@ use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Setono\SyliusCompletenessPlugin\EventListener\Doctrine\RubricChangeListener;
-use Setono\SyliusCompletenessPlugin\Message\Command\RecalculateAllProductsCompleteness;
 use Setono\SyliusCompletenessPlugin\Message\Command\RefreshCompletenessRollups;
 use Setono\SyliusCompletenessPlugin\Model\CompletenessContext;
 use Setono\SyliusCompletenessPlugin\Model\CompletenessRule;
@@ -85,12 +84,13 @@ final class RubricChangeListenerTest extends TestCase
     /**
      * @test
      */
-    public function a_rule_change_bumps_the_rubric_version_and_recalculates_the_catalog(): void
+    public function a_rule_change_bumps_the_rubric_version_without_dispatching(): void
     {
         $this->unitOfWork->getScheduledEntityInsertions()->willReturn([new CompletenessRule()]);
 
+        // bumping the version makes every product stale; the drain (not a dispatch) re-evaluates them
         $this->rubricVersionManager->bump()->willReturn(2)->shouldBeCalledTimes(1);
-        $this->expectDispatch(RecalculateAllProductsCompleteness::class);
+        $this->commandBus->dispatch(Argument::cetera())->shouldNotBeCalled();
 
         $this->flush();
     }
@@ -98,11 +98,11 @@ final class RubricChangeListenerTest extends TestCase
     /**
      * @test
      */
-    public function a_context_change_bumps_the_version_and_refreshes_rollups_only(): void
+    public function a_context_change_refreshes_rollups_only_without_bumping_the_version(): void
     {
         $this->unitOfWork->getScheduledEntityUpdates()->willReturn([new CompletenessContext()]);
 
-        $this->rubricVersionManager->bump()->willReturn(2)->shouldBeCalledTimes(1);
+        $this->rubricVersionManager->bump()->shouldNotBeCalled();
         $this->expectDispatch(RefreshCompletenessRollups::class);
 
         $this->flush();
@@ -111,12 +111,12 @@ final class RubricChangeListenerTest extends TestCase
     /**
      * @test
      */
-    public function a_combined_change_triggers_the_full_recalculation(): void
+    public function a_combined_change_bumps_the_version(): void
     {
         $this->unitOfWork->getScheduledEntityDeletions()->willReturn([new CompletenessRule(), new CompletenessContext()]);
 
         $this->rubricVersionManager->bump()->willReturn(2)->shouldBeCalledTimes(1);
-        $this->expectDispatch(RecalculateAllProductsCompleteness::class);
+        $this->commandBus->dispatch(Argument::cetera())->shouldNotBeCalled();
 
         $this->flush();
     }

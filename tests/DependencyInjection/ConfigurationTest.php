@@ -36,7 +36,7 @@ final class ConfigurationTest extends TestCase
         ], 'weight_tiers');
         $this->assertProcessedConfigurationEquals([[]], ['enable_custom_weight' => false], 'enable_custom_weight');
         $this->assertProcessedConfigurationEquals([[]], ['recalculate_on_doctrine_flush' => true], 'recalculate_on_doctrine_flush');
-        $this->assertProcessedConfigurationEquals([[]], ['bulk_threshold' => 300], 'bulk_threshold');
+        $this->assertProcessedConfigurationEquals([[]], ['recalculation_lock_ttl' => 900], 'recalculation_lock_ttl');
     }
 
     /**
@@ -74,10 +74,10 @@ final class ConfigurationTest extends TestCase
     /**
      * @test
      */
-    public function it_does_not_allow_bulk_threshold_below_1(): void
+    public function it_does_not_allow_recalculation_lock_ttl_below_1(): void
     {
         $this->assertConfigurationIsInvalid([
-            ['bulk_threshold' => 0],
+            ['recalculation_lock_ttl' => 0],
         ]);
     }
 }

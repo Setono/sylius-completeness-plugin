@@ -12,5 +12,18 @@
             <argument>%sylius.model.product.class%</argument>
             <tag name="console.command"/>
         </service>
+
+        <service id="setono_sylius_completeness.command.process"
+                 class="Setono\SyliusCompletenessPlugin\Command\ProcessCommand">
+            <argument type="service" id="setono_sylius_completeness.recalculation_lock_manager"/>
+            <argument type="service" id="setono_sylius_completeness.provider.product_ids"/>
+            <argument type="service" id="setono_sylius_completeness.provider.product"/>
+            <argument type="service" id="setono_sylius_completeness.updater"/>
+            <argument type="service" id="setono_sylius_completeness.rubric_version_manager"/>
+            <argument type="service" id="doctrine"/>
+            <argument>%sylius.model.product.class%</argument>
+            <argument>%setono_sylius_completeness.recalculation_lock_ttl%</argument>
+            <tag name="console.command"/>
+        </service>
     </services>
 </container>

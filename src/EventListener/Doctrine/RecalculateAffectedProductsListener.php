@@ -4,42 +4,34 @@ declare(strict_types=1);
 
 namespace Setono\SyliusCompletenessPlugin\EventListener\Doctrine;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\OnFlushEventArgs;
-use Doctrine\ORM\Event\PostFlushEventArgs;
-use Psr\Log\LoggerInterface;
-use Setono\SyliusCompletenessPlugin\Doctrine\Resolver\AffectedProductsResolverInterface;
-use Setono\SyliusCompletenessPlugin\Message\Command\RecalculateAllProductsCompleteness;
-use Setono\SyliusCompletenessPlugin\Message\Command\RecalculateProductCompleteness;
+use Psr\Clock\ClockInterface;
+use Setono\SyliusCompletenessPlugin\Doctrine\Resolver\AffectedProductsProviderInterface;
 use Setono\SyliusCompletenessPlugin\Model\ProductCompletenessAwareInterface;
 use Setono\SyliusCompletenessPlugin\Model\ProductCompletenessInterface;
 use Sylius\Component\Core\Model\ProductInterface;
-use Symfony\Component\Messenger\Envelope;
-use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Messenger\Stamp\DispatchAfterCurrentBusStamp;
 
 /**
- * The single capture point of the recalculation pipeline: watches every Doctrine flush for
- * inserts, updates, deletes AND scheduled collection changes of entities that affect a product's
- * completeness. The set of watched classes is derived from the registered
- * AffectedProductsResolverInterface services - there is no config list to keep in sync
+ * The single capture point of the recalculation pipeline: on every flush it finds the products
+ * whose completeness is affected by the inserts, updates, deletes AND scheduled collection changes,
+ * and marks them dirty (completenessDirtyAt) so the background drain recalculates them.
+ *
+ * Marking is done inside onFlush via computeChangeSet/recomputeSingleEntityChangeSet, so the flag is
+ * written as part of the same flush - no second EntityManager::flush() and, importantly, nothing in
+ * postFlush (Doctrine forbids flushing there). The set of watched classes is derived from the
+ * registered AffectedProductsResolverInterface services, so there is no config list to keep in sync
  */
 final class RecalculateAffectedProductsListener
 {
-    /** @var array<class-string, AffectedProductsResolverInterface|null>|null lazily built class => resolver map (null = known non-match) */
-    private ?array $resolverMap = null;
-
-    /** @var array<int, ProductInterface> affected products, deduplicated by object id */
-    private array $buffer = [];
-
     /**
-     * @param iterable<AffectedProductsResolverInterface> $resolvers
+     * A product update touching only these fields comes from a recalculation, not a content change,
+     * so it must not re-dirty the product (that would be an endless loop)
      */
+    private const COMPLETENESS_FIELDS = ['completenessRatio', 'completenessRubricVersion', 'completenessDirtyAt'];
+
     public function __construct(
-        private readonly iterable $resolvers,
-        private readonly MessageBusInterface $commandBus,
-        private readonly LoggerInterface $logger,
-        private readonly int $bulkThreshold,
+        private readonly AffectedProductsProviderInterface $affectedProductsProvider,
+        private readonly ClockInterface $clock,
         private readonly bool $enabled,
     ) {
     }
@@ -53,25 +45,32 @@ final class RecalculateAffectedProductsListener
         $manager = $eventArgs->getObjectManager();
         $unitOfWork = $manager->getUnitOfWork();
 
+        /** @var array<int, ProductInterface> $affected deduplicated by object id */
+        $affected = [];
+
+        $collect = function (object $entity) use (&$affected): void {
+            foreach ($this->affectedProductsProvider->getProducts($entity) as $product) {
+                $affected[spl_object_id($product)] = $product;
+            }
+        };
+
         foreach ($unitOfWork->getScheduledEntityInsertions() as $entity) {
-            $this->collect($manager, $entity);
+            $collect($entity);
         }
 
         foreach ($unitOfWork->getScheduledEntityUpdates() as $entity) {
-            // break the recalculation feedback loop: the updater's own flush only touches these
-            // two product fields, and that update must not schedule yet another recalculation
             if ($entity instanceof ProductCompletenessAwareInterface) {
                 $changedFields = array_keys($unitOfWork->getEntityChangeSet($entity));
-                if ([] === array_diff($changedFields, ['completenessRatio', 'completenessRubricVersion'])) {
+                if ([] === array_diff($changedFields, self::COMPLETENESS_FIELDS)) {
                     continue;
                 }
             }
 
-            $this->collect($manager, $entity);
+            $collect($entity);
         }
 
         foreach ($unitOfWork->getScheduledEntityDeletions() as $entity) {
-            $this->collect($manager, $entity);
+            $collect($entity);
         }
 
         /** @var iterable<\Doctrine\ORM\PersistentCollection<array-key, object>> $collections */
@@ -84,90 +83,30 @@ final class RecalculateAffectedProductsListener
 
             $owner = $collection->getOwner();
             if (null !== $owner) {
-                $this->collect($manager, $owner);
+                $collect($owner);
             }
         }
-    }
 
-    public function postFlush(PostFlushEventArgs $eventArgs): void
-    {
-        try {
-            if ([] === $this->buffer) {
-                return;
-            }
-
-            $productIds = [];
-            foreach ($this->buffer as $product) {
-                $id = $product->getId();
-                if (is_int($id)) {
-                    $productIds[$id] = true;
-                }
-            }
-
-            if (count($productIds) > $this->bulkThreshold) {
-                $this->logger->warning(sprintf(
-                    'A single flush affected %d products which exceeds the configured bulk threshold (%d). A single catalog-wide recalculation is dispatched instead of per-product recalculations. If this happens during routine operation, consider raising the setono_sylius_completeness.bulk_threshold configuration value',
-                    count($productIds),
-                    $this->bulkThreshold,
-                ));
-
-                $this->dispatch(new RecalculateAllProductsCompleteness());
-
-                return;
-            }
-
-            foreach (array_keys($productIds) as $productId) {
-                $this->dispatch(new RecalculateProductCompleteness($productId));
-            }
-        } finally {
-            $this->buffer = [];
-        }
-    }
-
-    private function collect(EntityManagerInterface $manager, object $entity): void
-    {
-        // entities may be Doctrine proxies, so resolve the real class through the metadata
-        /** @var class-string $class */
-        $class = $manager->getClassMetadata($entity::class)->getName();
-
-        $resolver = $this->resolveResolver($class);
-        if (null === $resolver) {
+        if ([] === $affected) {
             return;
         }
 
-        foreach ($resolver->getProducts($entity) as $product) {
-            $this->buffer[spl_object_id($product)] = $product;
-        }
-    }
-
-    /**
-     * @param class-string $class
-     */
-    private function resolveResolver(string $class): ?AffectedProductsResolverInterface
-    {
-        if (null === $this->resolverMap) {
-            $this->resolverMap = [];
-        }
-
-        if (array_key_exists($class, $this->resolverMap)) {
-            return $this->resolverMap[$class];
-        }
-
-        $match = null;
-        foreach ($this->resolvers as $resolver) {
-            foreach ($resolver->getSupportedClasses() as $supportedClass) {
-                if (is_a($class, $supportedClass, true)) {
-                    // keep iterating: the LAST registered resolver wins, mirroring checker semantics
-                    $match = $resolver;
-                }
+        $now = $this->clock->now();
+        foreach ($affected as $product) {
+            if (!$product instanceof ProductCompletenessAwareInterface) {
+                continue;
             }
+
+            // a brand-new product is never scored yet, so its null rubric version already makes it a
+            // drain candidate - no need to flag it (and computeChangeSet on a queued insert is unsafe)
+            if ($unitOfWork->isScheduledForInsert($product)) {
+                continue;
+            }
+
+            // flag it as part of THIS flush by recomputing the (managed) product's changeset, so no
+            // second EntityManager::flush() is needed
+            $product->setCompletenessDirtyAt($now);
+            $unitOfWork->recomputeSingleEntityChangeSet($manager->getClassMetadata($product::class), $product);
         }
-
-        return $this->resolverMap[$class] = $match;
-    }
-
-    private function dispatch(object $message): void
-    {
-        $this->commandBus->dispatch(new Envelope($message, [new DispatchAfterCurrentBusStamp()]));
     }
 }

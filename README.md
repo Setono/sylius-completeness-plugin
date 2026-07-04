@@ -83,10 +83,12 @@ introduces (or use PHP attributes as above and only map the association + scalar
 <entity name="App\Entity\Product\Product" table="sylius_product">
     <indexes>
         <index columns="completeness_ratio"/>
+        <index columns="completeness_dirty_at"/>
     </indexes>
 
     <field name="completenessRatio" column="completeness_ratio" type="smallint" nullable="true"/>
     <field name="completenessRubricVersion" column="completeness_rubric_version" type="integer" nullable="true"/>
+    <field name="completenessDirtyAt" column="completeness_dirty_at" type="datetime_immutable" nullable="true"/>
 
     <one-to-many field="completenesses" target-entity="Setono\SyliusCompletenessPlugin\Model\ProductCompleteness" mapped-by="product" orphan-removal="true">
         <cascade>
@@ -118,23 +120,20 @@ bin/console doctrine:migrations:diff
 bin/console doctrine:migrations:migrate
 ```
 
-This creates the `setono_sylius_completeness__*` tables and adds `completeness_ratio` (indexed) +
-`completeness_rubric_version` to `sylius_product`.
+This creates the `setono_sylius_completeness__*` tables and adds `completeness_ratio` (indexed),
+`completeness_rubric_version` and `completeness_dirty_at` (indexed) to `sylius_product`.
 
-### 6. Route the messages asynchronously (recommended)
+### 6. Schedule the drain (required)
 
-Completeness is recalculated through a Messenger command bus. Route the messages to an async transport so
-admin edits and imports don't recalculate in-request:
+Most recalculation happens in the background: changes mark the affected products *dirty* and a drain
+command recalculates them. Run it on a cron every few minutes:
 
-```yaml
-# config/packages/messenger.yaml
-framework:
-    messenger:
-        routing:
-            'Setono\SyliusCompletenessPlugin\Message\CommandInterface': async
+```cron
+*/5 * * * * cd /path/to/app && bin/console setono:completeness:process
 ```
 
-If the messages are **not** routed, recalculation happens synchronously (documented caveat).
+It is safe to overlap (a leased lock guarantees a single run) and to run as often as you like. See
+[How recalculation is triggered](#how-recalculation-is-triggered) for the full picture.
 
 ### 7. Optional: starter ruleset + initial calculation
 
@@ -161,9 +160,37 @@ bin/console setono:completeness:recalculate --all             # score the whole 
   an empty table reproduces flat-average, single-threshold behavior.
 - **Rollup** — the per-context ratios collapse into the single `completenessRatio` via a configurable strategy
   (`weighted_average` default, `minimum`, `default_channel`), after dropping N/A and excluded contexts.
-- **Staleness** — a monotonic rubric version is bumped on every rule/context change and stamped on
-  products at calc time. Because a change enqueues a background recalculation, the grid and panel show a
-  "recalculating…" marker for products whose stamped version is behind.
+- **Staleness** — a monotonic rubric version is bumped on every rule change and stamped on products at
+  calc time. The grid and panel show a "recalculating…" marker for products whose stamped version is
+  behind (a rule changed) or that are flagged `completeness_dirty_at` (their own data changed), until
+  the [drain](#how-recalculation-is-triggered) catches up.
+
+## How recalculation is triggered
+
+Scores are kept up to date through three lanes, so an interactive edit is instant while bulk changes
+never block a request:
+
+| Change | Mechanism | When it recalculates |
+|---|---|---|
+| A product/variant is **saved in the admin** | Sylius resource events (`sylius.product.post_*`, `sylius.product_variant.post_*`) | **Immediately & synchronously** — the fresh score is on the page you land on |
+| Any other product change — **API, imports, programmatic writes**, changes to related entities | a Doctrine `onFlush` listener sets `completeness_dirty_at` on the affected product(s) | on the next **drain** |
+| A **rule** changes | the rubric version is bumped (every product becomes stale) | on the next **drain** |
+| A **context** changes | a rollup-only refresh is dispatched over Messenger | when that message is handled |
+| **Manual** — the dashboard/grid "Recalculate" buttons, or `setono:completeness:recalculate` | Messenger / direct | on demand |
+
+The **drain** (`setono:completeness:process`, step 6) is the workhorse: every few minutes it recalculates
+the products that are dirty or stale, in id-keyset chunks, under a leased lock so runs never overlap. It
+debounces bursts (a 10k-product import is *one* drain, not 10k recalculations) and needs no message
+worker. The `completeness_dirty_at` flag is cleared only if it hasn't changed since the product was picked
+up, so an edit that lands mid-run is retried rather than lost.
+
+The Doctrine `onFlush` marker never calls `flush()` or dispatches — it writes the flag as part of the same
+flush via `recomputeSingleEntityChangeSet`. New products are not flagged: their null rubric version already
+makes them drain candidates. To watch an additional entity, register an
+[`AffectedProductsResolverInterface`](#extension-points) — both the marker and the immediate lane use it.
+
+Set `recalculate_on_doctrine_flush: false` to disable the dirty-marking entirely (then only the manual
+lane and a periodic `recalculate --all` keep scores fresh).
 
 ## Expression authoring
 
@@ -237,8 +264,8 @@ setono_sylius_completeness:
         high: 6
         critical: 10
     enable_custom_weight: false         # exposes the advanced per-rule float override
-    recalculate_on_doctrine_flush: true
-    bulk_threshold: 300                 # buffer size above which a flush defers to a single bulk recalc
+    recalculate_on_doctrine_flush: true # a flush marks affected products dirty for the drain
+    recalculation_lock_ttl: 900         # lease (s) of the drain's lock; refreshed every chunk
 ```
 
 There is intentionally **no** `watched_entities` key: the set of watched classes is derived from the registered
@@ -247,7 +274,10 @@ There is intentionally **no** `watched_entities` key: the set of watched classes
 ## Console
 
 ```bash
-# Recalculate the whole catalog (recommended as a periodic cron safety net)
+# The background drain: recalculate dirty/stale products (schedule this on a cron, see step 6)
+bin/console setono:completeness:process
+
+# Recalculate the whole catalog synchronously (good after install, or as a periodic safety net)
 bin/console setono:completeness:recalculate --all
 
 # Recalculate specific products

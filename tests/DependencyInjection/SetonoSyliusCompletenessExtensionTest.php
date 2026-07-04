@@ -35,7 +35,7 @@ final class SetonoSyliusCompletenessExtensionTest extends AbstractExtensionTestC
         ]);
         $this->assertContainerBuilderHasParameter('setono_sylius_completeness.enable_custom_weight', false);
         $this->assertContainerBuilderHasParameter('setono_sylius_completeness.recalculate_on_doctrine_flush', true);
-        $this->assertContainerBuilderHasParameter('setono_sylius_completeness.bulk_threshold', 300);
+        $this->assertContainerBuilderHasParameter('setono_sylius_completeness.recalculation_lock_ttl', 900);
     }
 
     /**

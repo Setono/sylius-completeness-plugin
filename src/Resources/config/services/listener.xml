@@ -3,16 +3,33 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
+        <!-- shared by both listeners: given a changed entity, which product(s) does it affect -->
+        <service id="setono_sylius_completeness.doctrine.affected_products_provider"
+                 class="Setono\SyliusCompletenessPlugin\Doctrine\Resolver\AffectedProductsProvider">
+            <argument type="tagged_iterator" tag="setono_sylius_completeness.affected_products_resolver"/>
+            <argument type="service" id="doctrine"/>
+        </service>
+        <service id="Setono\SyliusCompletenessPlugin\Doctrine\Resolver\AffectedProductsProviderInterface"
+                 alias="setono_sylius_completeness.doctrine.affected_products_provider"/>
+
+        <!-- the batch lane: mark affected products dirty during flush (no dispatch, no second flush) -->
         <service id="setono_sylius_completeness.listener.recalculate_affected_products"
                  class="Setono\SyliusCompletenessPlugin\EventListener\Doctrine\RecalculateAffectedProductsListener">
-            <argument type="tagged_iterator" tag="setono_sylius_completeness.affected_products_resolver"/>
-            <argument type="service" id="setono_sylius_completeness.command_bus"/>
-            <argument type="service" id="logger"/>
-            <argument>%setono_sylius_completeness.bulk_threshold%</argument>
+            <argument type="service" id="setono_sylius_completeness.doctrine.affected_products_provider"/>
+            <argument type="service" id="setono_sylius_completeness.clock"/>
             <argument>%setono_sylius_completeness.recalculate_on_doctrine_flush%</argument>
             <tag name="doctrine.event_listener" event="onFlush" lazy="true"/>
-            <tag name="doctrine.event_listener" event="postFlush" lazy="true"/>
-            <tag name="monolog.logger" channel="setono_sylius_completeness"/>
+        </service>
+
+        <!-- the immediate lane: recalculate synchronously when a product/variant is saved in the admin -->
+        <service id="setono_sylius_completeness.listener.product_resource"
+                 class="Setono\SyliusCompletenessPlugin\EventListener\ProductResourceListener">
+            <argument type="service" id="setono_sylius_completeness.doctrine.affected_products_provider"/>
+            <argument type="service" id="setono_sylius_completeness.updater"/>
+            <tag name="kernel.event_listener" event="sylius.product.post_create" method="recalculate"/>
+            <tag name="kernel.event_listener" event="sylius.product.post_update" method="recalculate"/>
+            <tag name="kernel.event_listener" event="sylius.product_variant.post_create" method="recalculate"/>
+            <tag name="kernel.event_listener" event="sylius.product_variant.post_update" method="recalculate"/>
         </service>
 
         <service id="setono_sylius_completeness.listener.rubric_change"

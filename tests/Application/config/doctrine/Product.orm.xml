@@ -5,10 +5,12 @@
     <entity name="Setono\SyliusCompletenessPlugin\Tests\Application\Entity\Product" table="sylius_product">
         <indexes>
             <index columns="completeness_ratio"/>
+            <index columns="completeness_dirty_at"/>
         </indexes>
 
         <field name="completenessRatio" column="completeness_ratio" type="smallint" nullable="true"/>
         <field name="completenessRubricVersion" column="completeness_rubric_version" type="integer" nullable="true"/>
+        <field name="completenessDirtyAt" column="completeness_dirty_at" type="datetime_immutable" nullable="true"/>
 
         <one-to-many field="completenesses" target-entity="Setono\SyliusCompletenessPlugin\Model\ProductCompleteness" mapped-by="product" orphan-removal="true">
             <cascade>

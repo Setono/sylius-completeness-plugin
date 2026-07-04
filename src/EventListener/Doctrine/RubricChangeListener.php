@@ -6,7 +6,6 @@ namespace Setono\SyliusCompletenessPlugin\EventListener\Doctrine;
 
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;
-use Setono\SyliusCompletenessPlugin\Message\Command\RecalculateAllProductsCompleteness;
 use Setono\SyliusCompletenessPlugin\Message\Command\RefreshCompletenessRollups;
 use Setono\SyliusCompletenessPlugin\Model\CompletenessContextInterface;
 use Setono\SyliusCompletenessPlugin\Model\CompletenessRuleInterface;
@@ -16,10 +15,10 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\DispatchAfterCurrentBusStamp;
 
 /**
- * Watches rule and context setting changes: bumps the rubric version (staleness signalling)
- * and dispatches the appropriate recalculation. A rule change requires a full catalog
- * re-evaluation; a context setting change only requires refreshing the global rollups from
- * the existing per context rows
+ * Watches rule and context changes. A rule change invalidates every product's score, so it bumps
+ * the rubric version - which makes every product stale and lets the background drain re-evaluate the
+ * catalog (no message dispatched, so several rule edits debounce into a single drain). A context
+ * change only affects the global rollup, so it dispatches a rollup-only refresh over Messenger
  */
 final class RubricChangeListener
 {
@@ -58,15 +57,13 @@ final class RubricChangeListener
     public function postFlush(PostFlushEventArgs $eventArgs): void
     {
         try {
-            if (!$this->ruleChanged && !$this->settingChanged) {
-                return;
+            if ($this->ruleChanged) {
+                // bumping the version marks every product stale; the drain re-evaluates them
+                $this->rubricVersionManager->bump();
+            } elseif ($this->settingChanged) {
+                // rollup-only: recompute the global ratio from the existing per-context rows
+                $this->commandBus->dispatch(new Envelope(new RefreshCompletenessRollups(), [new DispatchAfterCurrentBusStamp()]));
             }
-
-            $this->rubricVersionManager->bump();
-
-            $message = $this->ruleChanged ? new RecalculateAllProductsCompleteness() : new RefreshCompletenessRollups();
-
-            $this->commandBus->dispatch(new Envelope($message, [new DispatchAfterCurrentBusStamp()]));
         } finally {
             $this->ruleChanged = false;
             $this->settingChanged = false;
